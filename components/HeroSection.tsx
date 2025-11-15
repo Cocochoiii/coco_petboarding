@@ -101,7 +101,7 @@ export default function HeroSection() {
                             animate={{
                                 opacity: 1,
                                 x: 0,
-                                scale: 1,
+                                scale: 2.0,
                                 y: [0, -10, 0]
                             }}
                             transition={{
@@ -271,7 +271,7 @@ export default function HeroSection() {
                             animate={{
                                 opacity: 1,
                                 x: 0,
-                                scale: 1,
+                                scale: 1.8,
                                 y: [0, 10, 0]
                             }}
                             transition={{

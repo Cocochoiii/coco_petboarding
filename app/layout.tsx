@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     description: 'Premium home-style pet boarding in Wellesley Hills. 24/7 care for 13 cats and 8 dogs. Serving Greater Boston within 50 miles.',
     keywords: 'pet boarding, dog boarding, cat boarding, Boston, Wellesley Hills, luxury pet care',
     viewport: 'width=device-width, initial-scale=1, maximum-scale=5',
-    themeColor: '#0F766E',
+    themeColor: '#EEE1DB',
 }
 
 export default function RootLayout({
@@ -35,7 +35,7 @@ export default function RootLayout({
         <html lang="en" className="smooth-scroll">
         <head>
             <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-            <meta name="theme-color" content="#0F766E" />
+            <meta name="theme-color" content="#EEE1DB" />
             <meta name="apple-mobile-web-app-capable" content="yes" />
             <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         </head>
@@ -54,7 +54,7 @@ export default function RootLayout({
             toastOptions={{
                 duration: 4000,
                 style: {
-                    background: 'linear-gradient(135deg, #1F2937 0%, #111827 100%)',
+                    background: 'linear-gradient(135deg, #3A3330 0%, #2A2522 100%)',
                     color: '#fff',
                     borderRadius: '12px',
                     boxShadow: '0 10px 40px rgba(0, 0, 0, 0.2)',
@@ -64,13 +64,13 @@ export default function RootLayout({
                 },
                 success: {
                     iconTheme: {
-                        primary: '#0F766E',
+                        primary: '#D4A5A5',
                         secondary: '#fff',
                     },
                 },
                 error: {
                     iconTheme: {
-                        primary: '#DC2626',
+                        primary: '#C17B7B',
                         secondary: '#fff',
                     },
                 },

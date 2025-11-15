@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Phone, Mail, MapPin, Clock, Send, MessageSquare, Calendar, Info, ArrowRight } from 'lucide-react'
+import { Phone, Mail, MapPin, Clock, Send, MessageSquare, Calendar, Info, ArrowRight, MessageCircle } from 'lucide-react'
 import toast from 'react-hot-toast'
 
 export default function Contact() {
@@ -261,7 +261,7 @@ export default function Contact() {
                             <h3 className="text-xl font-bold mb-6 text-neutral-900">Quick Contact</h3>
                             <div className="space-y-4">
                                 <motion.a
-                                    href="tel:6175550123"
+                                    href="tel:781-492-3134"
                                     className="flex items-center gap-3 group cursor-pointer"
                                     whileHover={{ x: 5 }}
                                 >
@@ -270,12 +270,12 @@ export default function Contact() {
                                     </div>
                                     <div>
                                         <p className="font-medium text-neutral-900">Phone</p>
-                                        <p className="text-neutral-600">(617) 555-0123</p>
+                                        <p className="text-neutral-600">(781) 492-3134</p>
                                     </div>
                                 </motion.a>
 
                                 <motion.a
-                                    href="mailto:hello@cocospetparadise.com"
+                                    href="mailto:choi.coco0328@gmail.com"
                                     className="flex items-center gap-3 group cursor-pointer"
                                     whileHover={{ x: 5 }}
                                 >
@@ -284,9 +284,23 @@ export default function Contact() {
                                     </div>
                                     <div>
                                         <p className="font-medium text-neutral-900">Email</p>
-                                        <p className="text-neutral-600 text-sm">hello@cocospetparadise.com</p>
+                                        <p className="text-neutral-600 text-sm">choi.coco0328@gmail.com</p>
                                     </div>
                                 </motion.a>
+
+                                {/* WeChat Contact - Updated with cream-pink colors */}
+                                <motion.div
+                                    className="flex items-center gap-3 group cursor-pointer"
+                                    whileHover={{ x: 5 }}
+                                >
+                                    <div className="w-12 h-12 bg-neutral-100 rounded-full flex items-center justify-center group-hover:bg-primary-700 group-hover:text-white transition-all">
+                                        <MessageCircle className="w-5 h-5" />
+                                    </div>
+                                    <div>
+                                        <p className="font-medium text-neutral-900">WeChat</p>
+                                        <p className="text-neutral-600 text-sm">Bibi0210-Dudu0830</p>
+                                    </div>
+                                </motion.div>
 
                                 <div className="flex items-center gap-3">
                                     <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">

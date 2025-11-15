@@ -129,11 +129,11 @@ export default function ChatWidget() {
 
     return (
         <>
-            {/* Enhanced Chat Button */}
+            {/* Enhanced Chat Button - POSITIONED ON THE LEFT SIDE */}
             <AnimatePresence>
                 {!isOpen && (
                     <motion.div
-                        className="fixed bottom-6 right-6 z-40"
+                        className="fixed bottom-6 left-6 z-40"
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
                         exit={{ scale: 0 }}
@@ -159,7 +159,7 @@ export default function ChatWidget() {
                                     repeat: Infinity,
                                 }}
                                 style={{
-                                    background: 'radial-gradient(circle, rgba(15, 118, 110, 0.4), transparent)',
+                                    background: 'radial-gradient(circle, rgba(212, 165, 165, 0.4), transparent)',
                                 }}
                             />
 
@@ -173,15 +173,15 @@ export default function ChatWidget() {
                             </motion.div>
                         </motion.button>
 
-                        {/* Tooltip */}
+                        {/* Tooltip - adjusted for left side */}
                         <motion.div
-                            className="absolute bottom-full right-0 mb-2 bg-neutral-900 text-white text-sm px-3 py-2 rounded-lg whitespace-nowrap"
+                            className="absolute bottom-full left-0 mb-2 bg-neutral-900 text-white text-sm px-3 py-2 rounded-lg whitespace-nowrap"
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1 }}
                         >
                             Need help? Chat with us!
-                            <div className="absolute bottom-0 right-4 transform translate-y-full">
+                            <div className="absolute bottom-0 left-4 transform translate-y-full">
                                 <div className="border-8 border-transparent border-t-neutral-900" />
                             </div>
                         </motion.div>
@@ -189,7 +189,7 @@ export default function ChatWidget() {
                 )}
             </AnimatePresence>
 
-            {/* Enhanced Chat Window */}
+            {/* Enhanced Chat Window - POSITIONED ON THE LEFT SIDE */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
@@ -197,7 +197,7 @@ export default function ChatWidget() {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 20, scale: 0.95 }}
                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                        className="fixed bottom-6 right-6 z-50 w-[400px] h-[600px] bg-white rounded-3xl shadow-soft-2xl border-2 border-neutral-100 flex flex-col overflow-hidden"
+                        className="fixed bottom-6 left-6 z-50 w-[400px] h-[600px] bg-white rounded-3xl shadow-soft-2xl border-2 border-neutral-100 flex flex-col overflow-hidden"
                     >
                         {/* Header with Gradient */}
                         <div className="bg-gradient-to-r from-primary-700 to-primary-800 p-4 text-white relative overflow-hidden">

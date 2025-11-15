@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Heart, Facebook, Instagram, Mail, Phone, MapPin, Clock, ArrowRight, Star } from 'lucide-react'
+import { Heart, Facebook, Instagram, Mail, Phone, MapPin, Clock, ArrowRight, Star, MessageCircle } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 
@@ -63,13 +63,22 @@ export default function Footer() {
                                 <Instagram className="h-6 w-6" />
                             </motion.a>
                             <motion.a
-                                href="mailto:hello@cocospetparadise.com"
+                                href="mailto:choi.coco0328@gmail.com"
                                 className="text-neutral-400 hover:text-white transition-colors"
                                 whileHover={{ scale: 1.2, rotate: 360 }}
                                 transition={{ duration: 0.3 }}
                             >
                                 <Mail className="h-6 w-6" />
                             </motion.a>
+                            {/* WeChat Icon with cream-pink hover */}
+                            <motion.div
+                                className="text-neutral-400 hover:text-primary-400 transition-colors cursor-pointer"
+                                whileHover={{ scale: 1.2, rotate: 360 }}
+                                transition={{ duration: 0.3 }}
+                                title="WeChat: Bibi0210-Dudu0830"
+                            >
+                                <MessageCircle className="h-6 w-6" />
+                            </motion.div>
                         </div>
                     </motion.div>
 
@@ -116,14 +125,22 @@ export default function Footer() {
                                 whileHover={{ x: 5 }}
                             >
                                 <Phone className="h-4 w-4 text-primary-500" />
-                                <span>(617) 555-0123</span>
+                                <span>(781) 492-3134</span>
                             </motion.li>
                             <motion.li
                                 className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer"
                                 whileHover={{ x: 5 }}
                             >
                                 <Mail className="h-4 w-4 text-primary-500" />
-                                <span>hello@cocospetparadise.com</span>
+                                <span>choi.coco0328@gmail.com</span>
+                            </motion.li>
+                            {/* WeChat with cream-pink icon */}
+                            <motion.li
+                                className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer"
+                                whileHover={{ x: 5 }}
+                            >
+                                <MessageCircle className="h-4 w-4 text-primary-500" />
+                                <span>WeChat: Bibi0210-Dudu0830</span>
                             </motion.li>
                             <motion.li
                                 className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer"

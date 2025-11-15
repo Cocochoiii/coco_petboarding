@@ -8,52 +8,52 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                // 主色调 - 优雅的深绿色系
+                // 主色调 - 优雅的奶油粉色系
                 primary: {
-                    DEFAULT: "#0F766E",  // 深青绿色
-                    50: "#f0fdfa",
-                    100: "#ccfbf1",
-                    200: "#99f6e4",
-                    300: "#5eead4",
-                    400: "#2dd4bf",
-                    500: "#14b8a6",
-                    600: "#0d9488",
-                    700: "#0F766E",  // 主色
-                    800: "#115e59",
-                    900: "#134e4a",
-                    950: "#042f2e"
+                    DEFAULT: "#D4A5A5",  // 柔和的玫瑰奶茶色
+                    50: "#FDFCFB",
+                    100: "#FAF7F5",
+                    200: "#F5EDE8",
+                    300: "#EEE1DB",  // 主要的浅奶油粉色
+                    400: "#E6D0C7",
+                    500: "#D4A5A5",  // 中度玫瑰奶茶色
+                    600: "#C08B8B",
+                    700: "#A67373",  // 深玫瑰褐色
+                    800: "#8B5E5E",
+                    900: "#704949",
+                    950: "#553636"
                 },
-                // 中性色 - 精致的灰色系
+                // 中性色 - 温暖的灰褐色系
                 neutral: {
-                    DEFAULT: "#6B7280",
-                    50: "#F9FAFB",
-                    100: "#F3F4F6",
-                    150: "#EAECF0",
-                    200: "#E5E7EB",
-                    300: "#D1D5DB",
-                    400: "#9CA3AF",
-                    500: "#6B7280",
-                    600: "#4B5563",
-                    700: "#374151",
-                    800: "#1F2937",
-                    900: "#111827",
-                    950: "#030712"
+                    DEFAULT: "#8B7E78",
+                    50: "#FAFAF9",
+                    100: "#F5F4F3",
+                    150: "#EFEDEB",
+                    200: "#E8E5E2",
+                    300: "#D6D2CE",
+                    400: "#B0A9A4",
+                    500: "#8B7E78",
+                    600: "#6B5D57",
+                    700: "#524641",
+                    800: "#3A3330",
+                    900: "#2A2522",
+                    950: "#1A1614"
                 },
-                // 功能色 - 极简配色
-                success: "#059669",
-                warning: "#D97706",
-                error: "#DC2626",
-                info: "#0891B2",
+                // 功能色 - 柔和配色
+                success: "#7A9A82",
+                warning: "#D4A574",
+                error: "#C17B7B",
+                info: "#8FA5B8",
                 // 背景和边框
                 background: {
                     DEFAULT: "#FFFFFF",
-                    secondary: "#F9FAFB",
-                    tertiary: "#F3F4F6"
+                    secondary: "#FAFAF9",
+                    tertiary: "#F5F4F3"
                 },
                 border: {
-                    DEFAULT: "#E5E7EB",
-                    light: "#F3F4F6",
-                    dark: "#D1D5DB"
+                    DEFAULT: "#E8E5E2",
+                    light: "#F5F4F3",
+                    dark: "#D6D2CE"
                 }
             },
             fontFamily: {
@@ -119,7 +119,7 @@ module.exports = {
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
                 'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-                'subtle-gradient': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                'subtle-gradient': 'linear-gradient(135deg, #EEE1DB 0%, #D4A5A5 100%)',
             },
         },
     },

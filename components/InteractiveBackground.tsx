@@ -28,7 +28,7 @@ export default function InteractiveBackground() {
                 {particles.map((particle) => (
                     <motion.div
                         key={particle.id}
-                        className="absolute w-1 h-1 bg-primary-700/20 rounded-full"
+                        className="absolute w-1 h-1 bg-primary-500/20 rounded-full"
                         initial={{
                             x: particle.x,
                             y: particle.y,
@@ -50,9 +50,9 @@ export default function InteractiveBackground() {
                 ))}
             </AnimatePresence>
 
-            {/* Gradient Orbs */}
+            {/* Gradient Orbs with warm cream-pink tones */}
             <motion.div
-                className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-100 rounded-full blur-3xl opacity-20"
+                className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-200 rounded-full blur-3xl opacity-20"
                 animate={{
                     x: [0, 100, 0],
                     y: [0, -50, 0],
@@ -64,7 +64,7 @@ export default function InteractiveBackground() {
                 }}
             />
             <motion.div
-                className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-neutral-200 rounded-full blur-3xl opacity-10"
+                className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary-300 rounded-full blur-3xl opacity-10"
                 animate={{
                     x: [0, -100, 0],
                     y: [0, 50, 0],
