@@ -11,28 +11,26 @@ import AboutSection from '@/components/AboutSection'
 import Testimonials from '@/components/Testimonials'
 import ServiceArea from '@/components/ServiceArea'
 import Contact from '@/components/Contact'
-import FloatingElements from '@/components/FloatingElements'
 
 export default function HomePage() {
-  useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: true,
-      easing: 'ease-out-cubic',
-    })
-  }, [])
+    useEffect(() => {
+        AOS.init({
+            duration: 1000,
+            once: true,
+            easing: 'ease-out-cubic',
+        })
+    }, [])
 
-  return (
-      <>
-        <FloatingElements />
-        <HeroSection />
-        <CurrentPets />
-        <Services />
-        <BookingCalendar />
-        <AboutSection />
-        <ServiceArea />
-        <Testimonials />
-        <Contact />
-      </>
-  )
+    return (
+        <>
+            <HeroSection />
+            <CurrentPets />
+            <Services />
+            <BookingCalendar />
+            <AboutSection />
+            <ServiceArea />
+            <Testimonials />
+            <Contact />
+        </>
+    )
 }

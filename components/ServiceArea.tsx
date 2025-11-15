@@ -1,11 +1,12 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { MapPin, Navigation, Car, Home } from 'lucide-react'
+import { MapPin, Navigation, Car, Home, Clock, DollarSign, CheckCircle } from 'lucide-react'
 import { useState } from 'react'
 
 export default function ServiceArea() {
     const [hoveredArea, setHoveredArea] = useState<string | null>(null)
+    const [selectedZone, setSelectedZone] = useState<'10' | '25' | '50'>('10')
 
     const serviceAreas = [
         { name: 'Boston', distance: '15 miles', popular: true },
@@ -29,7 +30,7 @@ export default function ServiceArea() {
     ]
 
     return (
-        <section id="service-area" className="py-20 bg-neutral-50">
+        <section id="service-area" className="py-20 bg-gradient-to-b from-neutral-50 to-white">
             <div className="container mx-auto px-4">
                 <motion.div
                     initial={{ opacity: 0 }}
@@ -48,18 +49,39 @@ export default function ServiceArea() {
                 </motion.div>
 
                 <div className="grid lg:grid-cols-2 gap-8">
-                    {/* Map Visual */}
+                    {/* Enhanced Map Visual */}
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         className="relative"
                     >
-                        <div className="bg-gradient-to-br from-neutral-100 to-neutral-200 rounded-3xl p-8 h-[500px] flex items-center justify-center relative overflow-hidden">
+                        <div className="bg-gradient-to-br from-neutral-100 to-white rounded-3xl p-8 h-[500px] flex items-center justify-center relative overflow-hidden border-2 border-neutral-200">
                             {/* Subtle pattern overlay */}
                             <div className="absolute inset-0 bg-dot-pattern opacity-[0.03]" />
 
-                            {/* Center Point */}
+                            {/* Interactive Zone Selector */}
+                            <div className="absolute top-4 left-4 z-20 bg-white rounded-lg shadow-soft-lg p-2 border border-neutral-200">
+                                <div className="flex gap-1">
+                                    {['10', '25', '50'].map((zone) => (
+                                        <motion.button
+                                            key={zone}
+                                            onClick={() => setSelectedZone(zone as any)}
+                                            className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
+                                                selectedZone === zone
+                                                    ? 'bg-primary-700 text-white'
+                                                    : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
+                                            }`}
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.95 }}
+                                        >
+                                            {zone}mi
+                                        </motion.button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Animated Center Point */}
                             <motion.div
                                 animate={{
                                     scale: [1, 1.2, 1],
@@ -71,19 +93,43 @@ export default function ServiceArea() {
                                 }}
                                 className="absolute z-10"
                             >
-                                <div className="w-6 h-6 bg-primary-700 rounded-full" />
+                                <div className="w-6 h-6 bg-primary-700 rounded-full shadow-soft-lg" />
                                 <div className="absolute inset-0 bg-primary-600 rounded-full animate-ping" />
                             </motion.div>
 
-                            {/* Radius Circles */}
+                            {/* Dynamic Radius Circles */}
                             <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="w-64 h-64 border-2 border-primary-700/30 rounded-full absolute" />
-                                <div className="w-96 h-96 border-2 border-primary-700/20 rounded-full absolute" />
-                                <div className="w-[32rem] h-[32rem] border-2 border-primary-700/10 rounded-full absolute" />
+                                <motion.div
+                                    className="border-2 border-primary-700/30 rounded-full absolute"
+                                    animate={{
+                                        width: selectedZone === '10' ? '160px' : selectedZone === '25' ? '240px' : '320px',
+                                        height: selectedZone === '10' ? '160px' : selectedZone === '25' ? '240px' : '320px'
+                                    }}
+                                    transition={{ duration: 0.5 }}
+                                />
+                                <motion.div
+                                    className="border-2 border-primary-700/20 rounded-full absolute"
+                                    animate={{
+                                        width: selectedZone === '10' ? '240px' : selectedZone === '25' ? '320px' : '400px',
+                                        height: selectedZone === '10' ? '240px' : selectedZone === '25' ? '320px' : '400px'
+                                    }}
+                                    transition={{ duration: 0.5 }}
+                                />
+                                <motion.div
+                                    className="border-2 border-primary-700/10 rounded-full absolute"
+                                    animate={{
+                                        width: selectedZone === '10' ? '320px' : selectedZone === '25' ? '400px' : '480px',
+                                        height: selectedZone === '10' ? '320px' : selectedZone === '25' ? '400px' : '480px'
+                                    }}
+                                    transition={{ duration: 0.5 }}
+                                />
                             </div>
 
-                            {/* Location Label */}
-                            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-12 bg-white rounded-lg shadow-soft-lg border border-neutral-200 p-3 z-10">
+                            {/* Enhanced Location Label */}
+                            <motion.div
+                                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-12 bg-white rounded-lg shadow-soft-lg border-2 border-primary-700 p-3 z-10"
+                                whileHover={{ scale: 1.05 }}
+                            >
                                 <div className="flex items-center gap-2">
                                     <Home className="h-5 w-5 text-primary-700" />
                                     <div>
@@ -91,36 +137,42 @@ export default function ServiceArea() {
                                         <p className="text-xs text-neutral-600">Wellesley Hills, MA</p>
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
 
-                            {/* Service Info Cards */}
-                            <div className="absolute top-8 left-8 bg-white rounded-lg shadow-soft-md border border-neutral-200 p-4">
+                            {/* Interactive Service Info Cards */}
+                            <motion.div
+                                className="absolute top-8 left-8 bg-white rounded-lg shadow-soft-md border-2 border-neutral-100 p-4 hover:border-primary-700 transition-all cursor-pointer"
+                                whileHover={{ scale: 1.05, rotate: -2 }}
+                            >
                                 <MapPin className="h-5 w-5 text-primary-700 mb-2" />
-                                <p className="font-bold text-2xl text-neutral-900">50</p>
+                                <p className="font-bold text-2xl text-neutral-900">{selectedZone}</p>
                                 <p className="text-sm text-neutral-600">Mile Radius</p>
-                            </div>
+                            </motion.div>
 
-                            <div className="absolute bottom-8 right-8 bg-white rounded-lg shadow-soft-md border border-neutral-200 p-4">
+                            <motion.div
+                                className="absolute bottom-8 right-8 bg-white rounded-lg shadow-soft-md border-2 border-neutral-100 p-4 hover:border-primary-700 transition-all cursor-pointer"
+                                whileHover={{ scale: 1.05, rotate: 2 }}
+                            >
                                 <Car className="h-5 w-5 text-primary-700 mb-2" />
                                 <p className="font-bold text-2xl text-neutral-900">Free</p>
                                 <p className="text-sm text-neutral-600">Pickup (10mi)</p>
-                            </div>
+                            </motion.div>
                         </div>
                     </motion.div>
 
-                    {/* Service Areas List */}
+                    {/* Enhanced Service Areas List */}
                     <motion.div
                         initial={{ opacity: 0, x: 20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                     >
-                        <div className="bg-white rounded-3xl shadow-soft-xl border border-neutral-100 p-8">
+                        <div className="bg-white rounded-3xl shadow-soft-xl border-2 border-neutral-100 p-8">
                             <h3 className="text-2xl font-bold mb-6 flex items-center gap-2 text-neutral-900">
                                 <Navigation className="text-primary-700" />
                                 Areas We Serve
                             </h3>
 
-                            <div className="grid grid-cols-2 gap-3 mb-6">
+                            <div className="grid grid-cols-2 gap-3 mb-6 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
                                 {serviceAreas.map((area, index) => (
                                     <motion.div
                                         key={area.name}
@@ -130,31 +182,41 @@ export default function ServiceArea() {
                                         transition={{ delay: index * 0.02 }}
                                         onMouseEnter={() => setHoveredArea(area.name)}
                                         onMouseLeave={() => setHoveredArea(null)}
-                                        className={`flex items-center justify-between p-3 rounded-lg transition-all cursor-pointer ${
+                                        whileHover={{ scale: 1.03, y: -2 }}
+                                        className={`flex items-center justify-between p-3 rounded-lg transition-all cursor-pointer border-2 ${
                                             hoveredArea === area.name
-                                                ? 'bg-primary-700 text-white shadow-soft-lg'
+                                                ? 'bg-primary-700 text-white shadow-soft-lg border-primary-800'
                                                 : area.popular
-                                                    ? 'bg-primary-50 hover:bg-primary-100 border border-primary-100'
-                                                    : 'bg-neutral-50 hover:bg-neutral-100 border border-neutral-100'
+                                                    ? 'bg-primary-50 hover:bg-primary-100 border-primary-100'
+                                                    : 'bg-neutral-50 hover:bg-neutral-100 border-transparent'
                                         }`}
                                     >
                                         <div className="flex items-center gap-2">
-                                            <div className={`w-2 h-2 rounded-full ${
-                                                hoveredArea === area.name
-                                                    ? 'bg-white'
-                                                    : area.popular
-                                                        ? 'bg-primary-700'
-                                                        : 'bg-neutral-400'
-                                            }`} />
+                                            <motion.div
+                                                className={`w-2 h-2 rounded-full ${
+                                                    hoveredArea === area.name
+                                                        ? 'bg-white'
+                                                        : area.popular
+                                                            ? 'bg-primary-700'
+                                                            : 'bg-neutral-400'
+                                                }`}
+                                                animate={hoveredArea === area.name ? { scale: [1, 1.5, 1] } : {}}
+                                                transition={{ duration: 0.5, repeat: Infinity }}
+                                            />
                                             <span className={`font-medium text-sm ${
                                                 hoveredArea === area.name
                                                     ? 'text-white'
                                                     : 'text-neutral-700'
                                             }`}>{area.name}</span>
                                             {area.popular && hoveredArea !== area.name && (
-                                                <span className="text-xs bg-primary-700/10 text-primary-700 px-2 py-0.5 rounded-full font-medium">
+                                                <motion.span
+                                                    className="text-xs bg-primary-700/10 text-primary-700 px-2 py-0.5 rounded-full font-medium"
+                                                    initial={{ scale: 0 }}
+                                                    animate={{ scale: 1 }}
+                                                    transition={{ type: "spring" }}
+                                                >
                                                     Popular
-                                                </span>
+                                                </motion.span>
                                             )}
                                         </div>
                                         <span className={`text-xs ${
@@ -166,32 +228,60 @@ export default function ServiceArea() {
                                 ))}
                             </div>
 
-                            {/* Service Info */}
-                            <div className="space-y-4 pt-6 border-t border-neutral-200">
-                                <div className="bg-primary-50 p-4 rounded-xl border border-primary-100">
+                            {/* Enhanced Service Info Cards */}
+                            <div className="space-y-4 pt-6 border-t-2 border-neutral-200">
+                                <motion.div
+                                    className="bg-primary-50 p-4 rounded-xl border-2 border-primary-100 hover:border-primary-700 transition-all cursor-pointer"
+                                    whileHover={{ scale: 1.02 }}
+                                >
                                     <h4 className="font-semibold mb-2 text-primary-900 flex items-center gap-2">
                                         <Car className="w-4 h-4" />
                                         Pickup & Drop-off Service
                                     </h4>
                                     <ul className="text-sm text-neutral-700 space-y-1">
-                                        <li>• Free within 10 miles of Wellesley Hills</li>
-                                        <li>• $20 for 10-25 miles</li>
-                                        <li>• $35 for 25-50 miles</li>
+                                        <li className="flex items-center gap-2">
+                                            <CheckCircle className="w-3 h-3 text-primary-700" />
+                                            Free within 10 miles of Wellesley Hills
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <DollarSign className="w-3 h-3 text-primary-700" />
+                                            $20 for 10-25 miles
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <DollarSign className="w-3 h-3 text-primary-700" />
+                                            $35 for 25-50 miles
+                                        </li>
                                     </ul>
-                                </div>
+                                </motion.div>
 
-                                <div className="bg-neutral-50 p-4 rounded-xl border border-neutral-200">
+                                <motion.div
+                                    className="bg-neutral-50 p-4 rounded-xl border-2 border-neutral-200 hover:border-neutral-400 transition-all cursor-pointer"
+                                    whileHover={{ scale: 1.02 }}
+                                >
                                     <h4 className="font-semibold mb-2 text-neutral-900 flex items-center gap-2">
-                                        ⏰ Service Hours
+                                        <Clock className="w-4 h-4 text-neutral-700" />
+                                        Service Hours
                                     </h4>
                                     <ul className="text-sm text-neutral-700 space-y-1">
-                                        <li>• Drop-off: 7:00 AM - 9:00 AM</li>
-                                        <li>• Pick-up: 4:00 PM - 7:00 PM</li>
-                                        <li>• Flexible timing available on request</li>
+                                        <li className="flex items-center gap-2">
+                                            <CheckCircle className="w-3 h-3 text-neutral-600" />
+                                            Drop-off: 7:00 AM - 9:00 AM
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <CheckCircle className="w-3 h-3 text-neutral-600" />
+                                            Pick-up: 4:00 PM - 7:00 PM
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <CheckCircle className="w-3 h-3 text-neutral-600" />
+                                            Flexible timing available on request
+                                        </li>
                                     </ul>
-                                </div>
+                                </motion.div>
 
-                                <div className="bg-primary-700 p-4 rounded-xl text-white">
+                                <motion.div
+                                    className="bg-gradient-to-br from-primary-700 to-primary-800 p-4 rounded-xl text-white relative overflow-hidden"
+                                    whileHover={{ scale: 1.02 }}
+                                >
                                     <h4 className="font-semibold mb-2 flex items-center gap-2">
                                         <MapPin className="w-4 h-4" />
                                         Extended Service
@@ -200,12 +290,31 @@ export default function ServiceArea() {
                                         Special arrangements available for locations beyond 50 miles.
                                         Contact us for custom quotes!
                                     </p>
-                                </div>
+                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -skew-x-12 -translate-x-full hover:translate-x-full transition-transform duration-1000" />
+                                </motion.div>
                             </div>
                         </div>
                     </motion.div>
                 </div>
             </div>
+
+            {/* Custom scrollbar styles */}
+            <style jsx>{`
+                .custom-scrollbar::-webkit-scrollbar {
+                    width: 8px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-track {
+                    background: #f3f4f6;
+                    border-radius: 4px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-thumb {
+                    background: #9ca3af;
+                    border-radius: 4px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+                    background: #0f766e;
+                }
+            `}</style>
         </section>
     )
 }

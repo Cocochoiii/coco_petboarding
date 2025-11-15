@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Star, Quote, Heart, ThumbsUp } from 'lucide-react'
+import { Star, Quote, Heart, ThumbsUp, MessageCircle } from 'lucide-react'
 import { useState } from 'react'
 
 interface Testimonial {
@@ -82,10 +82,19 @@ const testimonials: Testimonial[] = [
 export default function Testimonials() {
     const [selectedFilter, setSelectedFilter] = useState<'all' | 'cat' | 'dog'>('all')
     const [hoveredCard, setHoveredCard] = useState<number | null>(null)
+    const [likedReviews, setLikedReviews] = useState<number[]>([])
 
     const filteredTestimonials = selectedFilter === 'all'
         ? testimonials
         : testimonials.filter(t => t.petType === selectedFilter)
+
+    const handleLike = (id: number) => {
+        if (likedReviews.includes(id)) {
+            setLikedReviews(likedReviews.filter(reviewId => reviewId !== id))
+        } else {
+            setLikedReviews([...likedReviews, id])
+        }
+    }
 
     return (
         <section id="testimonials" className="py-20 bg-gradient-to-b from-neutral-50 to-white">
@@ -105,41 +114,55 @@ export default function Testimonials() {
                     </p>
                 </motion.div>
 
-                {/* Filter Buttons */}
+                {/* Enhanced Filter Buttons */}
                 <div className="flex justify-center gap-4 mb-12">
-                    <button
+                    <motion.button
                         onClick={() => setSelectedFilter('all')}
-                        className={`px-6 py-3 rounded-full font-medium transition-all ${
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className={`px-6 py-3 rounded-full font-medium transition-all duration-300 relative overflow-hidden ${
                             selectedFilter === 'all'
-                                ? 'bg-primary-700 text-white shadow-soft-lg'
-                                : 'bg-white text-neutral-700 border border-neutral-200 shadow-soft hover:shadow-soft-md hover:border-neutral-300'
+                                ? 'bg-neutral-900 text-white shadow-soft-lg'
+                                : 'bg-white text-neutral-700 border-2 border-neutral-200 shadow-soft hover:shadow-soft-md hover:border-neutral-400'
                         }`}
                     >
-                        All Reviews ({testimonials.length})
-                    </button>
-                    <button
+                        <span className="relative z-10">All Reviews ({testimonials.length})</span>
+                        {selectedFilter === 'all' && (
+                            <motion.div
+                                className="absolute inset-0 bg-primary-700"
+                                initial={{ x: '-100%' }}
+                                animate={{ x: 0 }}
+                                transition={{ duration: 0.3 }}
+                            />
+                        )}
+                    </motion.button>
+                    <motion.button
                         onClick={() => setSelectedFilter('cat')}
-                        className={`px-6 py-3 rounded-full font-medium transition-all flex items-center gap-2 ${
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className={`px-6 py-3 rounded-full font-medium transition-all duration-300 flex items-center gap-2 ${
                             selectedFilter === 'cat'
-                                ? 'bg-primary-700 text-white shadow-soft-lg'
-                                : 'bg-white text-neutral-700 border border-neutral-200 shadow-soft hover:shadow-soft-md hover:border-neutral-300'
+                                ? 'bg-neutral-900 text-white shadow-soft-lg'
+                                : 'bg-white text-neutral-700 border-2 border-neutral-200 shadow-soft hover:shadow-soft-md hover:border-neutral-400'
                         }`}
                     >
                         🐱 Cat Parents
-                    </button>
-                    <button
+                    </motion.button>
+                    <motion.button
                         onClick={() => setSelectedFilter('dog')}
-                        className={`px-6 py-3 rounded-full font-medium transition-all flex items-center gap-2 ${
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className={`px-6 py-3 rounded-full font-medium transition-all duration-300 flex items-center gap-2 ${
                             selectedFilter === 'dog'
-                                ? 'bg-primary-700 text-white shadow-soft-lg'
-                                : 'bg-white text-neutral-700 border border-neutral-200 shadow-soft hover:shadow-soft-md hover:border-neutral-300'
+                                ? 'bg-neutral-900 text-white shadow-soft-lg'
+                                : 'bg-white text-neutral-700 border-2 border-neutral-200 shadow-soft hover:shadow-soft-md hover:border-neutral-400'
                         }`}
                     >
                         🐶 Dog Parents
-                    </button>
+                    </motion.button>
                 </div>
 
-                {/* Testimonials Grid */}
+                {/* Enhanced Testimonials Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {filteredTestimonials.map((testimonial, index) => (
                         <motion.div
@@ -152,16 +175,37 @@ export default function Testimonials() {
                             onMouseLeave={() => setHoveredCard(null)}
                             className="relative"
                         >
-                            <div className={`bg-white p-6 rounded-2xl border border-neutral-100 transition-all duration-300 ${
-                                hoveredCard === testimonial.id ? 'shadow-soft-xl transform -translate-y-1' : 'shadow-soft'
-                            }`}>
+                            <motion.div
+                                className={`bg-white p-6 rounded-2xl border-2 transition-all duration-300 ${
+                                    hoveredCard === testimonial.id
+                                        ? 'border-primary-700 shadow-soft-xl'
+                                        : 'border-neutral-100 shadow-soft'
+                                }`}
+                                whileHover={{ y: -5 }}
+                            >
                                 {/* Quote Icon */}
-                                <Quote className="absolute top-4 right-4 h-8 w-8 text-neutral-200" />
+                                <motion.div
+                                    animate={{
+                                        rotate: hoveredCard === testimonial.id ? 180 : 0,
+                                        scale: hoveredCard === testimonial.id ? 1.1 : 1
+                                    }}
+                                    transition={{ duration: 0.3 }}
+                                    className="absolute top-4 right-4"
+                                >
+                                    <Quote className="h-8 w-8 text-neutral-200" />
+                                </motion.div>
 
-                                {/* Rating Stars */}
+                                {/* Rating Stars with Animation */}
                                 <div className="flex gap-1 mb-4">
                                     {[...Array(testimonial.rating)].map((_, i) => (
-                                        <Star key={i} className="h-5 w-5 fill-primary-600 text-primary-600" />
+                                        <motion.div
+                                            key={i}
+                                            initial={{ opacity: 0, scale: 0 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            transition={{ delay: 0.1 * i, type: "spring" }}
+                                        >
+                                            <Star className="h-5 w-5 fill-primary-700 text-primary-700" />
+                                        </motion.div>
                                     ))}
                                 </div>
 
@@ -181,46 +225,77 @@ export default function Testimonials() {
                                             <p className="text-xs text-neutral-500 mt-1">{testimonial.date}</p>
                                         </div>
                                         <div className="text-right">
-                                            <button className="text-neutral-400 hover:text-primary-700 transition-colors flex items-center gap-1 text-sm">
-                                                <ThumbsUp className="h-4 w-4" />
-                                                <span>{testimonial.helpful}</span>
-                                            </button>
+                                            <motion.button
+                                                onClick={() => handleLike(testimonial.id)}
+                                                className={`flex items-center gap-1 text-sm transition-colors ${
+                                                    likedReviews.includes(testimonial.id)
+                                                        ? 'text-primary-700'
+                                                        : 'text-neutral-400 hover:text-primary-700'
+                                                }`}
+                                                whileHover={{ scale: 1.1 }}
+                                                whileTap={{ scale: 0.9 }}
+                                            >
+                                                <ThumbsUp className={`h-4 w-4 ${
+                                                    likedReviews.includes(testimonial.id) ? 'fill-primary-700' : ''
+                                                }`} />
+                                                <span>{testimonial.helpful + (likedReviews.includes(testimonial.id) ? 1 : 0)}</span>
+                                            </motion.button>
                                         </div>
                                     </div>
                                 </div>
 
-                                {/* Pet Type Badge - 更优雅的设计 */}
-                                <div className={`absolute -top-2 -left-2 w-10 h-10 rounded-full flex items-center justify-center shadow-soft-md ${
-                                    testimonial.petType === 'cat'
-                                        ? 'bg-gradient-to-br from-primary-100 to-primary-200 text-primary-700'
-                                        : 'bg-gradient-to-br from-neutral-100 to-neutral-200 text-neutral-700'
-                                }`}>
+                                {/* Interactive Pet Type Badge */}
+                                <motion.div
+                                    className={`absolute -top-2 -left-2 w-10 h-10 rounded-full flex items-center justify-center shadow-soft-md ${
+                                        testimonial.petType === 'cat'
+                                            ? 'bg-gradient-to-br from-primary-100 to-primary-200 text-primary-700'
+                                            : 'bg-gradient-to-br from-neutral-100 to-neutral-200 text-neutral-700'
+                                    }`}
+                                    animate={{ rotate: hoveredCard === testimonial.id ? 360 : 0 }}
+                                    transition={{ duration: 0.5 }}
+                                >
                                     {testimonial.petType === 'cat' ? '🐾' : '🦴'}
-                                </div>
-                            </div>
+                                </motion.div>
+                            </motion.div>
                         </motion.div>
                     ))}
                 </div>
 
-                {/* Call to Action */}
+                {/* Enhanced Call to Action */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     className="text-center mt-16"
                 >
-                    <div className="bg-gradient-to-br from-primary-50 to-neutral-50 rounded-2xl shadow-soft-xl border border-primary-100 p-8 max-w-2xl mx-auto">
-                        <Heart className="h-12 w-12 text-primary-700 mx-auto mb-4" />
+                    <motion.div
+                        className="bg-gradient-to-br from-primary-50 to-neutral-50 rounded-2xl shadow-soft-xl border-2 border-primary-100 p-8 max-w-2xl mx-auto relative overflow-hidden"
+                        whileHover={{ scale: 1.02 }}
+                    >
+                        <motion.div
+                            animate={{ scale: [1, 1.2, 1] }}
+                            transition={{ duration: 2, repeat: Infinity }}
+                            className="mb-4"
+                        >
+                            <Heart className="h-12 w-12 text-primary-700 mx-auto" />
+                        </motion.div>
                         <h3 className="text-2xl font-display font-bold mb-2 text-neutral-900">
                             Join Our Happy Pet Family!
                         </h3>
                         <p className="text-neutral-600 mb-6">
                             Experience the difference of personalized, home-style pet care
                         </p>
-                        <button className="btn-primary">
-                            Book Your Pet's Stay Today
-                        </button>
-                    </div>
+                        <motion.button
+                            className="btn-primary px-8 py-3 rounded-full relative overflow-hidden"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            <span className="relative z-10">Book Your Pet's Stay Today</span>
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full hover:translate-x-full transition-transform duration-700" />
+                        </motion.button>
+                        <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-primary-700 opacity-5 rounded-full blur-2xl" />
+                        <div className="absolute -top-10 -left-10 w-40 h-40 bg-neutral-700 opacity-5 rounded-full blur-2xl" />
+                    </motion.div>
                 </motion.div>
             </div>
         </section>

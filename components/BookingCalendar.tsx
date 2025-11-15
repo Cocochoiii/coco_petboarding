@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Calendar, Clock, ChevronLeft, ChevronRight, Check, X, Info } from 'lucide-react'
+import { Calendar, Clock, ChevronLeft, ChevronRight, Check, X, Info, Star } from 'lucide-react'
 import { format, addMonths, subMonths, getDaysInMonth, startOfMonth, getDay, addDays, isSameDay, isAfter, isBefore } from 'date-fns'
 import toast from 'react-hot-toast'
 
@@ -17,6 +17,7 @@ export default function BookingCalendar() {
     const [selectedDate, setSelectedDate] = useState<Date | null>(null)
     const [selectedPetType, setSelectedPetType] = useState<'cat' | 'dog'>('cat')
     const [showBookingForm, setShowBookingForm] = useState(false)
+    const [hoveredDate, setHoveredDate] = useState<number | null>(null)
 
     // Mock availability data
     const getAvailability = (date: Date): BookingSlot => {
@@ -32,7 +33,12 @@ export default function BookingCalendar() {
 
     const handleDateSelect = (date: Date) => {
         if (isBefore(date, today)) {
-            toast.error('Cannot book past dates')
+            toast.error('Cannot book past dates', {
+                style: {
+                    background: '#1F2937',
+                    color: '#fff',
+                }
+            })
             return
         }
         setSelectedDate(date)
@@ -58,35 +64,42 @@ export default function BookingCalendar() {
             days.push(
                 <motion.button
                     key={day}
-                    whileHover={!isPast ? { scale: 1.05 } : {}}
+                    whileHover={!isPast ? { scale: 1.05, y: -2 } : {}}
                     whileTap={!isPast ? { scale: 0.95 } : {}}
                     onClick={() => !isPast && handleDateSelect(date)}
                     disabled={isPast || availability.available === 0}
+                    onMouseEnter={() => setHoveredDate(day)}
+                    onMouseLeave={() => setHoveredDate(null)}
                     className={`
-            relative p-3 rounded-xl transition-all
-            ${isPast ? 'bg-gray-50 text-gray-300 cursor-not-allowed' : ''}
-            ${availability.available === 0 && !isPast ? 'bg-red-50 text-gray-400 cursor-not-allowed' : ''}
-            ${availability.available > 0 && !isPast ? 'bg-white hover:shadow-lg cursor-pointer' : ''}
-            ${isToday ? 'ring-2 ring-primary' : ''}
-            ${isSelected ? 'bg-primary text-white' : ''}
-          `}
+                        relative p-3 rounded-xl transition-all duration-300
+                        ${isPast ? 'bg-neutral-50 text-neutral-300 cursor-not-allowed' : ''}
+                        ${availability.available === 0 && !isPast ? 'bg-neutral-100 text-neutral-400 cursor-not-allowed border-2 border-neutral-200' : ''}
+                        ${availability.available > 0 && !isPast ? 'bg-white hover:shadow-soft-lg cursor-pointer border-2 border-transparent hover:border-primary-700' : ''}
+                        ${isToday ? 'ring-2 ring-primary-700' : ''}
+                        ${isSelected ? 'bg-primary-700 text-white border-2 border-primary-800' : ''}
+                    `}
                 >
                     <div className="text-center">
                         <div className="font-semibold text-lg">{day}</div>
                         {!isPast && (
-                            <div className="mt-1">
+                            <motion.div
+                                className="mt-1"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.1 }}
+                            >
                                 {availability.available === 0 ? (
-                                    <span className="text-xs text-red-600 font-medium">Full</span>
+                                    <span className="text-xs text-neutral-600 font-medium">Full</span>
                                 ) : availability.available <= 2 ? (
-                                    <span className="text-xs text-orange-600 font-medium">
-                    {availability.available} spots
-                  </span>
+                                    <span className={`text-xs font-medium ${isSelected ? 'text-white' : 'text-neutral-700'}`}>
+                                        {availability.available} spots
+                                    </span>
                                 ) : (
-                                    <span className="text-xs text-green-600 font-medium">
-                    Available
-                  </span>
+                                    <span className={`text-xs font-medium ${isSelected ? 'text-white' : 'text-primary-700'}`}>
+                                        Available
+                                    </span>
                                 )}
-                            </div>
+                            </motion.div>
                         )}
                     </div>
 
@@ -94,11 +107,16 @@ export default function BookingCalendar() {
                     {!isPast && availability.available > 0 && (
                         <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 flex gap-0.5">
                             {[...Array(availability.total)].map((_, i) => (
-                                <div
+                                <motion.div
                                     key={i}
                                     className={`w-1.5 h-1.5 rounded-full ${
-                                        i < availability.available ? 'bg-green-500' : 'bg-gray-300'
+                                        i < availability.available
+                                            ? (isSelected ? 'bg-white' : 'bg-primary-700')
+                                            : 'bg-neutral-300'
                                     }`}
+                                    initial={{ scale: 0 }}
+                                    animate={{ scale: hoveredDate === day ? 1.2 : 1 }}
+                                    transition={{ delay: i * 0.02 }}
                                 />
                             ))}
                         </div>
@@ -119,42 +137,50 @@ export default function BookingCalendar() {
                     viewport={{ once: true }}
                     className="text-center mb-12"
                 >
-                    <h2 className="text-5xl font-display font-bold mb-4">
+                    <h2 className="text-5xl font-display font-bold mb-4 text-neutral-900">
                         Book Your Pet's <span className="text-gradient">Dream Stay</span>
                     </h2>
-                    <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                    <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
                         Check availability and reserve your spot. Limited spaces ensure personalized care for every pet.
                     </p>
                 </motion.div>
 
                 <div className="max-w-6xl mx-auto">
                     <div className="grid lg:grid-cols-3 gap-8">
-                        {/* Calendar */}
+                        {/* Enhanced Calendar */}
                         <div className="lg:col-span-2">
-                            <div className="bg-white rounded-3xl shadow-xl p-6">
+                            <motion.div
+                                className="bg-white rounded-3xl shadow-soft-xl border-2 border-neutral-100 p-6"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                            >
                                 {/* Calendar Header */}
                                 <div className="flex items-center justify-between mb-6">
-                                    <button
+                                    <motion.button
                                         onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}
-                                        className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                                        className="p-2 hover:bg-neutral-100 rounded-lg transition-colors"
+                                        whileHover={{ scale: 1.1 }}
+                                        whileTap={{ scale: 0.9 }}
                                     >
-                                        <ChevronLeft className="w-5 h-5" />
-                                    </button>
-                                    <h3 className="text-2xl font-bold text-gray-900">
+                                        <ChevronLeft className="w-5 h-5 text-neutral-700" />
+                                    </motion.button>
+                                    <h3 className="text-2xl font-bold text-neutral-900">
                                         {format(currentMonth, 'MMMM yyyy')}
                                     </h3>
-                                    <button
+                                    <motion.button
                                         onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}
-                                        className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                                        className="p-2 hover:bg-neutral-100 rounded-lg transition-colors"
+                                        whileHover={{ scale: 1.1 }}
+                                        whileTap={{ scale: 0.9 }}
                                     >
-                                        <ChevronRight className="w-5 h-5" />
-                                    </button>
+                                        <ChevronRight className="w-5 h-5 text-neutral-700" />
+                                    </motion.button>
                                 </div>
 
                                 {/* Weekday Headers */}
                                 <div className="grid grid-cols-7 gap-2 mb-2">
                                     {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                                        <div key={day} className="text-center text-sm font-semibold text-gray-600 py-2">
+                                        <div key={day} className="text-center text-sm font-semibold text-neutral-600 py-2">
                                             {day}
                                         </div>
                                     ))}
@@ -166,32 +192,36 @@ export default function BookingCalendar() {
                                 </div>
 
                                 {/* Legend */}
-                                <div className="flex flex-wrap items-center gap-4 mt-6 pt-6 border-t">
+                                <div className="flex flex-wrap items-center gap-4 mt-6 pt-6 border-t border-neutral-200">
                                     <div className="flex items-center gap-2">
-                                        <div className="w-4 h-4 bg-green-500 rounded-full" />
-                                        <span className="text-sm text-gray-600">Available</span>
+                                        <div className="w-4 h-4 bg-primary-700 rounded-full" />
+                                        <span className="text-sm text-neutral-600">Available</span>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <div className="w-4 h-4 bg-orange-500 rounded-full" />
-                                        <span className="text-sm text-gray-600">Limited</span>
+                                        <div className="w-4 h-4 bg-neutral-700 rounded-full" />
+                                        <span className="text-sm text-neutral-600">Limited</span>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <div className="w-4 h-4 bg-red-500 rounded-full" />
-                                        <span className="text-sm text-gray-600">Full</span>
+                                        <div className="w-4 h-4 bg-neutral-400 rounded-full" />
+                                        <span className="text-sm text-neutral-600">Full</span>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <div className="w-4 h-4 bg-gray-300 rounded-full" />
-                                        <span className="text-sm text-gray-600">Unavailable</span>
+                                        <div className="w-4 h-4 bg-neutral-200 rounded-full" />
+                                        <span className="text-sm text-neutral-600">Unavailable</span>
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
                         </div>
 
-                        {/* Booking Panel */}
+                        {/* Enhanced Booking Panel */}
                         <div>
-                            <div className="bg-white rounded-3xl shadow-xl p-6">
-                                <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-                                    <Calendar className="w-5 h-5 text-primary" />
+                            <motion.div
+                                className="bg-white rounded-3xl shadow-soft-xl border-2 border-neutral-100 p-6"
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                            >
+                                <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-neutral-900">
+                                    <Calendar className="w-5 h-5 text-primary-700" />
                                     Quick Booking
                                 </h3>
 
@@ -200,59 +230,75 @@ export default function BookingCalendar() {
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                     >
-                                        <div className="mb-4 p-4 bg-primary-50 rounded-xl border border-primary-100">
-                                            <p className="text-sm text-gray-600 mb-1">Selected Date:</p>
-                                            <p className="font-bold text-lg text-gray-900">
+                                        <div className="mb-4 p-4 bg-primary-50 rounded-xl border-2 border-primary-100">
+                                            <p className="text-sm text-neutral-600 mb-1">Selected Date:</p>
+                                            <p className="font-bold text-lg text-neutral-900">
                                                 {format(selectedDate, 'MMMM d, yyyy')}
                                             </p>
                                         </div>
 
                                         <div className="space-y-4">
                                             <div>
-                                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                                <label className="block text-sm font-medium text-neutral-700 mb-2">
                                                     Pet Type
                                                 </label>
                                                 <div className="grid grid-cols-2 gap-2">
-                                                    <button
+                                                    <motion.button
                                                         onClick={() => setSelectedPetType('cat')}
+                                                        whileHover={{ scale: 1.02 }}
+                                                        whileTap={{ scale: 0.98 }}
                                                         className={`p-3 rounded-lg border-2 transition-all ${
                                                             selectedPetType === 'cat'
-                                                                ? 'border-primary bg-primary/10'
-                                                                : 'border-gray-200 hover:border-gray-300'
+                                                                ? 'border-primary-700 bg-primary-50'
+                                                                : 'border-neutral-200 hover:border-neutral-400'
                                                         }`}
                                                     >
                                                         🐱 Cat
-                                                    </button>
-                                                    <button
+                                                    </motion.button>
+                                                    <motion.button
                                                         onClick={() => setSelectedPetType('dog')}
+                                                        whileHover={{ scale: 1.02 }}
+                                                        whileTap={{ scale: 0.98 }}
                                                         className={`p-3 rounded-lg border-2 transition-all ${
                                                             selectedPetType === 'dog'
-                                                                ? 'border-primary bg-primary/10'
-                                                                : 'border-gray-200 hover:border-gray-300'
+                                                                ? 'border-primary-700 bg-primary-50'
+                                                                : 'border-neutral-200 hover:border-neutral-400'
                                                         }`}
                                                     >
                                                         🐶 Dog
-                                                    </button>
+                                                    </motion.button>
                                                 </div>
                                             </div>
 
-                                            <button
-                                                onClick={() => toast.success('Booking form would open here!')}
-                                                className="w-full bg-primary-700 text-white py-3 rounded-xl font-semibold hover:bg-primary-800 hover:shadow-soft-lg transition-all"
+                                            <motion.button
+                                                onClick={() => toast.success('Booking form would open here!', {
+                                                    style: {
+                                                        background: '#111827',
+                                                        color: '#fff',
+                                                    }
+                                                })}
+                                                className="w-full btn-primary py-3 rounded-xl font-semibold"
+                                                whileHover={{ scale: 1.02 }}
+                                                whileTap={{ scale: 0.98 }}
                                             >
                                                 Continue Booking
-                                            </button>
+                                            </motion.button>
                                         </div>
                                     </motion.div>
                                 ) : (
-                                    <div className="text-center py-8 text-gray-500">
-                                        <Calendar className="w-12 h-12 mx-auto mb-3 text-gray-300" />
+                                    <div className="text-center py-8 text-neutral-500">
+                                        <motion.div
+                                            animate={{ scale: [1, 1.1, 1] }}
+                                            transition={{ duration: 2, repeat: Infinity }}
+                                        >
+                                            <Calendar className="w-12 h-12 mx-auto mb-3 text-neutral-300" />
+                                        </motion.div>
                                         <p>Select a date to begin booking</p>
                                     </div>
                                 )}
 
                                 {/* Info Box */}
-                                <div className="mt-6 p-4 bg-primary-50 rounded-xl border border-primary-100">
+                                <div className="mt-6 p-4 bg-primary-50 rounded-xl border-2 border-primary-100">
                                     <div className="flex gap-3">
                                         <Info className="w-5 h-5 text-primary-700 flex-shrink-0 mt-0.5" />
                                         <div>
@@ -267,26 +313,39 @@ export default function BookingCalendar() {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
 
-                            {/* Special Offers */}
-                            <div className="bg-gradient-to-br from-primary-700 to-primary-800 rounded-3xl shadow-soft-xl p-6 mt-4 relative overflow-hidden">
-                                {/* 添加微妙的图案 */}
+                            {/* Special Offer Card */}
+                            <motion.div
+                                className="bg-gradient-to-br from-primary-700 to-primary-800 rounded-3xl shadow-soft-xl p-6 mt-4 relative overflow-hidden"
+                                whileHover={{ scale: 1.02 }}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.2 }}
+                            >
                                 <div className="absolute inset-0 bg-dot-pattern opacity-10" />
-
-                                <div className="relative">
+                                <div className="relative z-10">
                                     <h4 className="text-white font-bold text-lg mb-2 flex items-center gap-2">
-                                        <span className="text-2xl">✨</span>
+                                        <motion.div
+                                            animate={{ rotate: [0, 10, -10, 0] }}
+                                            transition={{ duration: 2, repeat: Infinity }}
+                                        >
+                                            <Star className="w-5 h-5 fill-white" />
+                                        </motion.div>
                                         Special Offer
                                     </h4>
                                     <p className="text-primary-50 text-sm mb-3">
                                         Book 7+ days and get 10% off your stay!
                                     </p>
-                                    <button className="bg-white text-primary-700 px-4 py-2 rounded-lg font-semibold text-sm hover:bg-primary-50 transition-all hover:shadow-soft">
+                                    <motion.button
+                                        className="bg-white text-primary-700 px-4 py-2 rounded-lg font-semibold text-sm hover:bg-primary-50 transition-all"
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                    >
                                         Learn More
-                                    </button>
+                                    </motion.button>
                                 </div>
-                            </div>
+                            </motion.div>
                         </div>
                     </div>
                 </div>

@@ -7,7 +7,8 @@ export interface CurrentPet {
     status: 'resident' | 'boarding'
     personality: string[]
     favoriteActivities: string[]
-    image: string
+    image: string // Main cover image
+    images: string[] // Array of 3 images for gallery
     joinedDate: string
 }
 
@@ -21,7 +22,12 @@ export const currentPets: CurrentPet[] = [
         status: 'resident',
         personality: ['Playful', 'Curious', 'Affectionate'],
         favoriteActivities: ['Chasing toys', 'Sunbathing', 'Cuddles'],
-        image: '/pets/bibi.jpg',
+        image: '/pets/bibi/bibi-1.jpg',
+        images: [
+            '/pets/bibi/bibi-1.jpg',
+            '/pets/bibi/bibi-2.jpg',
+            '/pets/bibi/bibi-3.jpg'
+        ],
         joinedDate: '2022-01-15'
     },
     {
@@ -32,7 +38,12 @@ export const currentPets: CurrentPet[] = [
         status: 'resident',
         personality: ['Gentle', 'Calm', 'Friendly'],
         favoriteActivities: ['Napping', 'Bird watching', 'Treats'],
-        image: '/pets/dudu.jpg',
+        image: '/pets/dudu/dudu-1.jpg',
+        images: [
+            '/pets/dudu/dudu-1.jpg',
+            '/pets/dudu/dudu-2.jpg',
+            '/pets/dudu/dudu-3.jpg'
+        ],
         joinedDate: '2022-03-20'
     },
     {
@@ -44,7 +55,12 @@ export const currentPets: CurrentPet[] = [
         status: 'boarding',
         personality: ['Energetic', 'Playful', 'Adorable'],
         favoriteActivities: ['Playing with feathers', 'Exploring', 'Milk time'],
-        image: '/pets/fifi.jpg',
+        image: '/pets/fifi/fifi-1.jpg',
+        images: [
+            '/pets/fifi/fifi-1.jpg',
+            '/pets/fifi/fifi-2.jpg',
+            '/pets/fifi/fifi-3.jpg'
+        ],
         joinedDate: '2024-09-01'
     },
     {
@@ -55,7 +71,12 @@ export const currentPets: CurrentPet[] = [
         status: 'boarding',
         personality: ['Sweet', 'Docile', 'Loving'],
         favoriteActivities: ['Being held', 'Grooming', 'Quiet play'],
-        image: '/pets/meimei.jpg',
+        image: '/pets/meimei/meimei-1.jpg',
+        images: [
+            '/pets/meimei/meimei-1.jpg',
+            '/pets/meimei/meimei-2.jpg',
+            '/pets/meimei/meimei-3.jpg'
+        ],
         joinedDate: '2024-06-15'
     },
     {
@@ -66,7 +87,12 @@ export const currentPets: CurrentPet[] = [
         status: 'boarding',
         personality: ['Independent', 'Elegant', 'Observant'],
         favoriteActivities: ['High perches', 'Solo play', 'Window watching'],
-        image: '/pets/neon.jpg',
+        image: '/pets/neon/neon-1.jpg',
+        images: [
+            '/pets/neon/neon-1.jpg',
+            '/pets/neon/neon-2.jpg',
+            '/pets/neon/neon-3.jpg'
+        ],
         joinedDate: '2024-07-20'
     },
     {
@@ -77,7 +103,12 @@ export const currentPets: CurrentPet[] = [
         status: 'boarding',
         personality: ['Playful', 'Social', 'Gentle'],
         favoriteActivities: ['Group play', 'Feather wands', 'Treats'],
-        image: '/pets/xiabao.jpg',
+        image: '/pets/xiabao/xiabao-1.jpg',
+        images: [
+            '/pets/xiabao/xiabao-1.jpg',
+            '/pets/xiabao/xiabao-2.jpg',
+            '/pets/xiabao/xiabao-3.jpg'
+        ],
         joinedDate: '2024-08-10'
     },
     {
@@ -88,7 +119,12 @@ export const currentPets: CurrentPet[] = [
         status: 'boarding',
         personality: ['Affectionate', 'Quiet', 'Sweet'],
         favoriteActivities: ['Lap sitting', 'Soft toys', 'Gentle pets'],
-        image: '/pets/mia-cat.jpg',
+        image: '/pets/mia-cat/mia-1.jpg',
+        images: [
+            '/pets/mia-cat/mia-1.jpg',
+            '/pets/mia-cat/mia-2.jpg',
+            '/pets/mia-cat/mia-3.jpg'
+        ],
         joinedDate: '2024-08-25'
     },
     {
@@ -99,7 +135,12 @@ export const currentPets: CurrentPet[] = [
         status: 'boarding',
         personality: ['Vocal', 'Active', 'Intelligent'],
         favoriteActivities: ['Talking', 'Puzzle toys', 'Climbing'],
-        image: '/pets/tutu.jpg',
+        image: '/pets/tutu/tutu-1.jpg',
+        images: [
+            '/pets/tutu/tutu-1.jpg',
+            '/pets/tutu/tutu-2.jpg',
+            '/pets/tutu/tutu-3.jpg'
+        ],
         joinedDate: '2024-09-05'
     },
     {
@@ -110,7 +151,12 @@ export const currentPets: CurrentPet[] = [
         status: 'boarding',
         personality: ['Calm', 'Dignified', 'Observant'],
         favoriteActivities: ['Quiet spaces', 'Grooming', 'Watching others'],
-        image: '/pets/xianbei.jpg',
+        image: '/pets/xianbei/xianbei-1.jpg',
+        images: [
+            '/pets/xianbei/xianbei-1.jpg',
+            '/pets/xianbei/xianbei-2.jpg',
+            '/pets/xianbei/xianbei-3.jpg'
+        ],
         joinedDate: '2024-09-10'
     },
     {
@@ -121,7 +167,12 @@ export const currentPets: CurrentPet[] = [
         status: 'boarding',
         personality: ['Friendly', 'Curious', 'Adaptable'],
         favoriteActivities: ['Exploring', 'Making friends', 'Cat TV'],
-        image: '/pets/chacha.jpg',
+        image: '/pets/chacha/chacha-1.jpg',
+        images: [
+            '/pets/chacha/chacha-1.jpg',
+            '/pets/chacha/chacha-2.jpg',
+            '/pets/chacha/chacha-3.jpg'
+        ],
         joinedDate: '2024-09-15'
     },
     {
@@ -132,7 +183,12 @@ export const currentPets: CurrentPet[] = [
         status: 'boarding',
         personality: ['Mysterious', 'Playful', 'Loyal'],
         favoriteActivities: ['Night play', 'Hide and seek', 'String toys'],
-        image: '/pets/yaya.jpg',
+        image: '/pets/yaya/yaya-1.jpg',
+        images: [
+            '/pets/yaya/yaya-1.jpg',
+            '/pets/yaya/yaya-2.jpg',
+            '/pets/yaya/yaya-3.jpg'
+        ],
         joinedDate: '2024-09-20'
     },
     {
@@ -143,7 +199,12 @@ export const currentPets: CurrentPet[] = [
         status: 'boarding',
         personality: ['Mischievous', 'Energetic', 'Loving'],
         favoriteActivities: ['Running', 'Playing with balls', 'Attention'],
-        image: '/pets/ergou.jpg',
+        image: '/pets/ergou/ergou-1.jpg',
+        images: [
+            '/pets/ergou/ergou-1.jpg',
+            '/pets/ergou/ergou-2.jpg',
+            '/pets/ergou/ergou-3.jpg'
+        ],
         joinedDate: '2024-09-25'
     },
     {
@@ -154,7 +215,12 @@ export const currentPets: CurrentPet[] = [
         status: 'boarding',
         personality: ['Laid-back', 'Food-loving', 'Cuddly'],
         favoriteActivities: ['Eating', 'Sleeping', 'Belly rubs'],
-        image: '/pets/chouchou.jpg',
+        image: '/pets/chouchou/chouchou-1.jpg',
+        images: [
+            '/pets/chouchou/chouchou-1.jpg',
+            '/pets/chouchou/chouchou-2.jpg',
+            '/pets/chouchou/chouchou-3.jpg'
+        ],
         joinedDate: '2024-10-01'
     },
     // Dogs
@@ -167,7 +233,12 @@ export const currentPets: CurrentPet[] = [
         status: 'boarding',
         personality: ['Puppy Energy', 'Friendly', 'Eager to Learn'],
         favoriteActivities: ['Fetch', 'Puppy play', 'Training treats'],
-        image: '/pets/oscar.jpg',
+        image: '/pets/oscar/oscar-1.jpg',
+        images: [
+            '/pets/oscar/oscar-1.jpg',
+            '/pets/oscar/oscar-2.jpg',
+            '/pets/oscar/oscar-3.jpg'
+        ],
         joinedDate: '2024-09-01'
     },
     {
@@ -178,7 +249,12 @@ export const currentPets: CurrentPet[] = [
         status: 'boarding',
         personality: ['Fast', 'Gentle', 'Calm Indoors'],
         favoriteActivities: ['Running', 'Couch lounging', 'Gentle walks'],
-        image: '/pets/loki.jpg',
+        image: '/pets/loki/loki-1.jpg',
+        images: [
+            '/pets/loki/loki-1.jpg',
+            '/pets/loki/loki-2.jpg',
+            '/pets/loki/loki-3.jpg'
+        ],
         joinedDate: '2024-07-15'
     },
     {
@@ -189,7 +265,12 @@ export const currentPets: CurrentPet[] = [
         status: 'boarding',
         personality: ['Intelligent', 'Active', 'Herding Instinct'],
         favoriteActivities: ['Agility', 'Frisbee', 'Problem solving'],
-        image: '/pets/nana.jpg',
+        image: '/pets/nana/nana-1.jpg',
+        images: [
+            '/pets/nana/nana-1.jpg',
+            '/pets/nana/nana-2.jpg',
+            '/pets/nana/nana-3.jpg'
+        ],
         joinedDate: '2024-08-01'
     },
     {
@@ -200,7 +281,12 @@ export const currentPets: CurrentPet[] = [
         status: 'boarding',
         personality: ['Smart', 'Energetic', 'Focused'],
         favoriteActivities: ['Training', 'Ball games', 'Running'],
-        image: '/pets/richard.jpg',
+        image: '/pets/richard/richard-1.jpg',
+        images: [
+            '/pets/richard/richard-1.jpg',
+            '/pets/richard/richard-2.jpg',
+            '/pets/richard/richard-3.jpg'
+        ],
         joinedDate: '2024-08-10'
     },
     {
@@ -211,7 +297,12 @@ export const currentPets: CurrentPet[] = [
         status: 'boarding',
         personality: ['Playful', 'Alert', 'Loyal'],
         favoriteActivities: ['Herding games', 'Tricks', 'Long walks'],
-        image: '/pets/tata.jpg',
+        image: '/pets/tata/tata-1.jpg',
+        images: [
+            '/pets/tata/tata-1.jpg',
+            '/pets/tata/tata-2.jpg',
+            '/pets/tata/tata-3.jpg'
+        ],
         joinedDate: '2024-08-20'
     },
     {
@@ -222,7 +313,12 @@ export const currentPets: CurrentPet[] = [
         status: 'boarding',
         personality: ['Independent', 'Alert', 'Spirited'],
         favoriteActivities: ['Exploring', 'Tug of war', 'Puzzle toys'],
-        image: '/pets/caicai.jpg',
+        image: '/pets/caicai/caicai-1.jpg',
+        images: [
+            '/pets/caicai/caicai-1.jpg',
+            '/pets/caicai/caicai-2.jpg',
+            '/pets/caicai/caicai-3.jpg'
+        ],
         joinedDate: '2024-09-05'
     },
     {
@@ -233,7 +329,12 @@ export const currentPets: CurrentPet[] = [
         status: 'boarding',
         personality: ['Gentle', 'Happy', 'Affectionate'],
         favoriteActivities: ['Grooming', 'Gentle play', 'Cuddles'],
-        image: '/pets/mia-dog.jpg',
+        image: '/pets/mia-dog/mia-1.jpg',
+        images: [
+            '/pets/mia-dog/mia-1.jpg',
+            '/pets/mia-dog/mia-2.jpg',
+            '/pets/mia-dog/mia-3.jpg'
+        ],
         joinedDate: '2024-09-12'
     },
     {
@@ -244,7 +345,12 @@ export const currentPets: CurrentPet[] = [
         status: 'boarding',
         personality: ['Friendly', 'Patient', 'Loving'],
         favoriteActivities: ['Swimming', 'Fetch', 'Meeting friends'],
-        image: '/pets/nova.jpg',
+        image: '/pets/nova/nova-1.jpg',
+        images: [
+            '/pets/nova/nova-1.jpg',
+            '/pets/nova/nova-2.jpg',
+            '/pets/nova/nova-3.jpg'
+        ],
         joinedDate: '2024-09-18'
     }
 ]
