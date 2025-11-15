@@ -5,6 +5,7 @@ import { Toaster } from 'react-hot-toast'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import ChatWidget from '@/components/ChatWidget'
+import PageTransition from '@/components/PageTransition'
 
 const inter = Inter({
     subsets: ['latin'],
@@ -21,6 +22,8 @@ export const metadata: Metadata = {
     title: "Coco's Pet Paradise - Luxury Home Pet Boarding in Boston",
     description: 'Premium home-style pet boarding in Wellesley Hills. 24/7 care for 13 cats and 8 dogs. Serving Greater Boston within 50 miles.',
     keywords: 'pet boarding, dog boarding, cat boarding, Boston, Wellesley Hills, luxury pet care',
+    viewport: 'width=device-width, initial-scale=1, maximum-scale=5',
+    themeColor: '#0F766E',
 }
 
 export default function RootLayout({
@@ -29,21 +32,47 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     return (
-        <html lang="en">
-        <body className={`${inter.variable} ${poppins.variable} font-sans`}>
-        <Navigation />
-        <main className="min-h-screen">
-            {children}
-        </main>
-        <Footer />
-        <ChatWidget />
+        <html lang="en" className="smooth-scroll">
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+            <meta name="theme-color" content="#0F766E" />
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+            <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        </head>
+        <body className={`${inter.variable} ${poppins.variable} font-sans noise-texture overflow-x-hidden`}>
+        <PageTransition>
+            <Navigation />
+            <main className="min-h-screen overflow-x-hidden">
+                {children}
+            </main>
+            <Footer />
+            <ChatWidget />
+        </PageTransition>
+
         <Toaster
             position="bottom-right"
             toastOptions={{
+                duration: 4000,
                 style: {
-                    background: '#333',
+                    background: 'linear-gradient(135deg, #1F2937 0%, #111827 100%)',
                     color: '#fff',
                     borderRadius: '12px',
+                    boxShadow: '0 10px 40px rgba(0, 0, 0, 0.2)',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    fontSize: '14px',
+                    maxWidth: '90vw',
+                },
+                success: {
+                    iconTheme: {
+                        primary: '#0F766E',
+                        secondary: '#fff',
+                    },
+                },
+                error: {
+                    iconTheme: {
+                        primary: '#DC2626',
+                        secondary: '#fff',
+                    },
                 },
             }}
         />
