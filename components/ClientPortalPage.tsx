@@ -1,21 +1,33 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { User, Lock, Mail, Phone, ArrowRight, Eye, EyeOff, LogIn, UserPlus, Home, Heart } from 'lucide-react'
+import {
+    User,
+    Lock,
+    Mail,
+    Phone,
+    ArrowRight,
+    Eye,
+    EyeOff,
+    LogIn,
+    UserPlus,
+    Home,
+    Heart,
+    Shield
+} from 'lucide-react'
 import Link from 'next/link'
 import toast from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
 
 export default function ClientPortalPage() {
+    const router = useRouter()
     const [isLogin, setIsLogin] = useState(true)
     const [showPassword, setShowPassword] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
+    const [mounted, setMounted] = useState(false)
 
-    const [loginData, setLoginData] = useState({
-        email: '',
-        password: ''
-    })
-
+    const [loginData, setLoginData] = useState({ email: '', password: '' })
     const [signupData, setSignupData] = useState({
         name: '',
         email: '',
@@ -24,79 +36,135 @@ export default function ClientPortalPage() {
         confirmPassword: ''
     })
 
-    const handleLogin = async (e: React.FormEvent) => {
-        e.preventDefault()
-        setIsLoading(true)
+    useEffect(() => {
+        setMounted(true)
+        // Don't auto-redirect if coming from dashboard logout
+        const isFromLogout = sessionStorage.getItem('fromLogout')
+        if (isFromLogout) {
+            sessionStorage.removeItem('fromLogout')
+            return
+        }
 
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500))
+        // Check if already logged in
+        const user = localStorage.getItem('user')
+        if (user && window.location.pathname === '/client-portal') {
+            router.replace('/dashboard')
+        }
+    }, [router])
 
-        // Store user data in localStorage (in real app, use proper auth)
-        localStorage.setItem('user', JSON.stringify({
-            name: 'Demo User',
-            email: loginData.email
-        }))
-
-        toast.success('Login successful! Redirecting...', {
-            style: {
-                background: '#111827',
-                color: '#fff',
-            }
-        })
-
-        setTimeout(() => {
-            window.location.href = '/dashboard'
-        }, 1000)
-
-        setIsLoading(false)
+    const isAdminCredentials = (email: string, password: string) => {
+        return email.trim().toLowerCase() === 'hcaicoco@gmail.com' && password === '121212'
     }
 
-    const handleSignup = async (e: React.FormEvent) => {
-        e.preventDefault()
-
-        if (signupData.password !== signupData.confirmPassword) {
-            toast.error('Passwords do not match!', {
-                style: {
-                    background: '#111827',
-                    color: '#fff',
-                }
-            })
+    const handleLogin = async () => {
+        if (!loginData.email || !loginData.password) {
+            toast.error('Please fill in all fields')
             return
         }
 
         setIsLoading(true)
 
         // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500))
+        await new Promise(r => setTimeout(r, 700))
 
-        toast.success('Account created successfully! Please log in.', {
-            style: {
-                background: '#111827',
-                color: '#fff',
+        // Check if admin
+        if (isAdminCredentials(loginData.email, loginData.password)) {
+            const adminUser = {
+                name: 'Coco',
+                email: loginData.email,
+                role: 'admin',
+                permissions: ['edit_pets', 'edit_content', 'view_all']
             }
+            localStorage.setItem('user', JSON.stringify(adminUser))
+            toast.success('Welcome back, Admin Coco! 👑', {
+                icon: '🔐',
+                style: { background: '#111827', color: '#fff' }
+            })
+        } else {
+            // Regular user - can only view
+            const regularUser = {
+                name: loginData.email.split('@')[0],
+                email: loginData.email,
+                role: 'user',
+                permissions: ['view_only']
+            }
+            localStorage.setItem('user', JSON.stringify(regularUser))
+            toast.success('Welcome! You have view-only access.', {
+                style: { background: '#111827', color: '#fff' }
+            })
+        }
+
+        setIsLoading(false)
+        router.replace('/dashboard')
+    }
+
+    const handleSignup = async () => {
+        if (!signupData.name || !signupData.email || !signupData.phone || !signupData.password || !signupData.confirmPassword) {
+            toast.error('Please fill in all fields')
+            return
+        }
+
+        if (signupData.password !== signupData.confirmPassword) {
+            toast.error('Passwords do not match!')
+            return
+        }
+
+        if (signupData.password.length < 6) {
+            toast.error('Password must be at least 6 characters')
+            return
+        }
+
+        setIsLoading(true)
+        await new Promise(r => setTimeout(r, 700))
+
+        // New signups are always regular users (view-only)
+        const newUser = {
+            name: signupData.name || signupData.email.split('@')[0],
+            email: signupData.email,
+            phone: signupData.phone,
+            role: 'user',
+            permissions: ['view_only'],
+            createdAt: new Date().toISOString()
+        }
+
+        localStorage.setItem('user', JSON.stringify(newUser))
+        toast.success('Account created! You have view-only access.', {
+            icon: '✅',
+            style: { background: '#111827', color: '#fff' }
         })
 
-        setIsLogin(true)
         setIsLoading(false)
+        router.push('/dashboard')
+    }
+
+    if (!mounted) {
+        return (
+            <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-neutral-50 flex items-center justify-center">
+                <div className="w-12 h-12 border-3 border-primary-700 border-t-transparent rounded-full animate-spin" />
+            </div>
+        )
     }
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-neutral-50">
             {/* Header */}
             <div className="container mx-auto px-4 py-6">
-                <Link href="/public" className="flex items-center gap-2 text-neutral-700 hover:text-primary-700 transition-colors">
-                    <Home className="w-5 h-5" />
-                    <span>Back to Home</span>
+                <Link
+                    href="/"
+                    className="inline-flex items-center gap-2 text-neutral-700 hover:text-primary-700 transition-colors group"
+                >
+                    <Home className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+                    <span className="font-medium">Back to Home</span>
                 </Link>
             </div>
 
-            <div className="container mx-auto px-4 py-12">
+            <div className="container mx-auto px-4 py-8">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="max-w-md mx-auto"
+                    className="max-w-2xl mx-auto"
                 >
-                    {/* Logo and Title */}
+                    {/* Logo & Title */}
                     <div className="text-center mb-8">
                         <motion.div
                             className="inline-flex items-center justify-center w-20 h-20 bg-primary-100 rounded-full mb-4"
@@ -105,10 +173,23 @@ export default function ClientPortalPage() {
                         >
                             <Heart className="w-10 h-10 text-primary-700" />
                         </motion.div>
-                        <h1 className="text-3xl font-bold text-neutral-900 mb-2">Client Portal</h1>
+                        <h1 className="text-3xl font-bold text-neutral-900 mb-2">
+                            Coco's Pet Paradise
+                        </h1>
                         <p className="text-neutral-600">
-                            {isLogin ? 'Welcome back to' : 'Join'} Coco's Pet Paradise
+                            {isLogin ? 'Welcome back to your pet paradise' : 'Join our pet-loving community'}
                         </p>
+
+                        {/* Admin Notice */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.5 }}
+                            className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-amber-50 text-amber-800 rounded-full text-sm"
+                        >
+                            <Shield className="w-4 h-4" />
+                            <span>Admin access available for Coco only</span>
+                        </motion.div>
                     </div>
 
                     {/* Auth Card */}
@@ -116,7 +197,7 @@ export default function ClientPortalPage() {
                         className="bg-white rounded-3xl shadow-soft-xl border border-neutral-100 p-8"
                         layout
                     >
-                        {/* Toggle Buttons */}
+                        {/* Tab Switcher */}
                         <div className="flex rounded-full bg-neutral-100 p-1 mb-6">
                             <button
                                 onClick={() => setIsLogin(true)}
@@ -144,13 +225,11 @@ export default function ClientPortalPage() {
 
                         <AnimatePresence mode="wait">
                             {isLogin ? (
-                                /* Login Form */
-                                <motion.form
+                                <motion.div
                                     key="login"
                                     initial={{ opacity: 0, x: -20 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     exit={{ opacity: 0, x: 20 }}
-                                    onSubmit={handleLogin}
                                     className="space-y-4"
                                 >
                                     <div>
@@ -189,7 +268,11 @@ export default function ClientPortalPage() {
                                                 onClick={() => setShowPassword(!showPassword)}
                                                 className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600 transition-colors"
                                             >
-                                                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                                                {showPassword ? (
+                                                    <EyeOff className="w-5 h-5" />
+                                                ) : (
+                                                    <Eye className="w-5 h-5" />
+                                                )}
                                             </button>
                                         </div>
                                     </div>
@@ -205,11 +288,11 @@ export default function ClientPortalPage() {
                                     </div>
 
                                     <motion.button
-                                        type="submit"
+                                        onClick={handleLogin}
                                         disabled={isLoading}
                                         whileHover={{ scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
-                                        className="w-full py-3 bg-primary-700 text-white rounded-lg font-medium hover:bg-primary-800 transition-all flex items-center justify-center gap-2"
+                                        className="w-full py-3 bg-primary-700 text-white rounded-lg font-medium hover:bg-primary-800 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                                     >
                                         {isLoading ? (
                                             <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -220,15 +303,13 @@ export default function ClientPortalPage() {
                                             </>
                                         )}
                                     </motion.button>
-                                </motion.form>
+                                </motion.div>
                             ) : (
-                                /* Signup Form */
-                                <motion.form
+                                <motion.div
                                     key="signup"
                                     initial={{ opacity: 0, x: 20 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     exit={{ opacity: 0, x: -20 }}
-                                    onSubmit={handleSignup}
                                     className="space-y-4"
                                 >
                                     <div>
@@ -291,17 +372,22 @@ export default function ClientPortalPage() {
                                             <input
                                                 type={showPassword ? "text" : "password"}
                                                 required
+                                                minLength={6}
                                                 value={signupData.password}
                                                 onChange={(e) => setSignupData({ ...signupData, password: e.target.value })}
                                                 className="w-full pl-10 pr-12 py-3 border-2 border-neutral-200 rounded-lg focus:border-primary-700 focus:outline-none transition-all"
-                                                placeholder="Create a password"
+                                                placeholder="Min. 6 characters"
                                             />
                                             <button
                                                 type="button"
                                                 onClick={() => setShowPassword(!showPassword)}
                                                 className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600 transition-colors"
                                             >
-                                                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                                                {showPassword ? (
+                                                    <EyeOff className="w-5 h-5" />
+                                                ) : (
+                                                    <Eye className="w-5 h-5" />
+                                                )}
                                             </button>
                                         </div>
                                     </div>
@@ -333,11 +419,11 @@ export default function ClientPortalPage() {
                                     </div>
 
                                     <motion.button
-                                        type="submit"
+                                        onClick={handleSignup}
                                         disabled={isLoading}
                                         whileHover={{ scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
-                                        className="w-full py-3 bg-primary-700 text-white rounded-lg font-medium hover:bg-primary-800 transition-all flex items-center justify-center gap-2"
+                                        className="w-full py-3 bg-primary-700 text-white rounded-lg font-medium hover:bg-primary-800 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                                     >
                                         {isLoading ? (
                                             <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -348,7 +434,7 @@ export default function ClientPortalPage() {
                                             </>
                                         )}
                                     </motion.button>
-                                </motion.form>
+                                </motion.div>
                             )}
                         </AnimatePresence>
                     </motion.div>
@@ -357,28 +443,28 @@ export default function ClientPortalPage() {
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.3 }}
+                        transition={{ delay: 0.2 }}
                         className="mt-8 text-center"
                     >
-                        <p className="text-sm text-neutral-600 mb-4">As a member, you'll enjoy:</p>
-                        <div className="flex justify-center gap-6">
+                        <p className="text-sm text-neutral-600 mb-6">As a member, you'll enjoy:</p>
+                        <div className="grid grid-cols-3 gap-4 max-w-md mx-auto">
                             <div className="text-center">
                                 <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-2">
-                                    <Heart className="w-6 h-6 text-primary-700" />
+                                    <Calendar className="w-6 h-6 text-primary-700" />
                                 </div>
                                 <p className="text-xs text-neutral-600">Easy Booking</p>
                             </div>
                             <div className="text-center">
                                 <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-2">
-                                    <User className="w-6 h-6 text-primary-700" />
+                                    <Heart className="w-6 h-6 text-primary-700" />
                                 </div>
                                 <p className="text-xs text-neutral-600">Pet Profiles</p>
                             </div>
                             <div className="text-center">
                                 <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-2">
-                                    <Mail className="w-6 h-6 text-primary-700" />
+                                    <Bell className="w-6 h-6 text-primary-700" />
                                 </div>
-                                <p className="text-xs text-neutral-600">Updates</p>
+                                <p className="text-xs text-neutral-600">Real-time Updates</p>
                             </div>
                         </div>
                     </motion.div>
@@ -387,3 +473,6 @@ export default function ClientPortalPage() {
         </div>
     )
 }
+
+// Add missing imports
+import { Calendar, Bell } from 'lucide-react'

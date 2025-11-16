@@ -1,3 +1,5 @@
+'use client'
+
 import ClientPortalPage from '@/components/ClientPortalPage'
 
 export default function ClientPortal() {
