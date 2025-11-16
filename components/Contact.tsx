@@ -85,14 +85,14 @@ export default function Contact() {
                             alt="Contact decoration left"
                             width={80}
                             height={80}
-                            className="w-16 h-16 opacity-90"
+                            className="w-100 h-100 opacity-90"
                         />
                         <Image
                             src="/svgs/contact-decoration.svg"
                             alt="Contact decoration right"
                             width={80}
                             height={80}
-                            className="w-16 h-16 opacity-90"
+                            className="w-100 h-100 opacity-90"
                         />
                     </div>
 

@@ -112,7 +112,7 @@ export default function HeroSection() {
                             animate={{
                                 opacity: 1,
                                 y: [0, -8, 0],
-                                scale: 1
+                                scale: 1.0
                             }}
                             transition={{
                                 delay: 0.4,
@@ -312,7 +312,7 @@ export default function HeroSection() {
                             animate={{
                                 opacity: 1,
                                 y: [0, 10, 0],
-                                scale: 1
+                                scale: 1.2
                             }}
                             transition={{
                                 delay: 0.5,

@@ -61,7 +61,7 @@ export default function CurrentPets() {
                             alt="Current pets decoration left"
                             width={72}
                             height={72}
-                            className="w-16 h-16 opacity-90"
+                            className="w-100 h-100 opacity-90"
                             priority
                         />
                         <Image
@@ -69,7 +69,7 @@ export default function CurrentPets() {
                             alt="Current pets decoration right"
                             width={72}
                             height={72}
-                            className="w-16 h-16 opacity-90"
+                            className="w-100 h-100 opacity-90"
                             priority
                         />
                     </div>

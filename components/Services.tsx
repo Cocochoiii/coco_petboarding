@@ -170,7 +170,7 @@ export default function Services() {
                                 alt="Services decoration left"
                                 width={120}
                                 height={120}
-                                className="w-20 h-20 opacity-90"
+                                className="w-100 h-100 opacity-90"
                             />
                         </motion.div>
                         <motion.div
@@ -183,7 +183,7 @@ export default function Services() {
                                 alt="Services decoration right"
                                 width={120}
                                 height={120}
-                                className="w-20 h-20 opacity-90"
+                                className="w-100 h-100 opacity-90"
                             />
                         </motion.div>
                     </div>

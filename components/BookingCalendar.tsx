@@ -198,14 +198,14 @@ export default function BookingCalendar() {
                             alt="Booking decoration left"
                             width={100}
                             height={100}
-                            className="w-16 h-16 opacity-90"
+                            className="w-100 h-100 opacity-90"
                         />
                         <Image
                             src="/svgs/booking-decoration.svg"
                             alt="Booking decoration right"
                             width={100}
                             height={100}
-                            className="w-16 h-16 opacity-90"
+                            className="w-100 h-100 opacity-90"
                         />
                     </div>
 
