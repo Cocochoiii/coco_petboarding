@@ -248,7 +248,7 @@ export default function Testimonials() {
                                 : 'bg-white text-neutral-700 border-2 border-neutral-200 shadow-soft hover:shadow-soft-md hover:border-neutral-400'
                         }`}
                     >
-                        🐱 Cat Parents
+                        Cat Parents
                     </motion.button>
 
                     <motion.button
@@ -261,7 +261,7 @@ export default function Testimonials() {
                                 : 'bg-white text-neutral-700 border-2 border-neutral-200 shadow-soft hover:shadow-soft-md hover:border-neutral-400'
                         }`}
                     >
-                        🐕 Dog Parents
+                        Dog Parents
                     </motion.button>
                 </div>
 

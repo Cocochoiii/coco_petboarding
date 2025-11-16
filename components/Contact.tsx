@@ -253,9 +253,9 @@ export default function Contact() {
                                             onChange={handleChange}
                                             className="w-full px-4 py-3 border-2 border-neutral-200 rounded-lg focus:border-primary-700 focus:outline-none transition-all text-sm md:text-base"
                                         >
-                                            <option value="dog">🐕 Dog</option>
-                                            <option value="cat">🐱 Cat</option>
-                                            <option value="both">🐾 Both</option>
+                                            <option value="dog"> Dog</option>
+                                            <option value="cat"> Cat</option>
+                                            <option value="both"> Both</option>
                                         </select>
                                     </div>
                                 </div>
