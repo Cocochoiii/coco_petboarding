@@ -8,7 +8,7 @@ export default function AboutSection() {
         { icon: Users, value: '500+', label: 'Happy Pets' },
         { icon: Clock, value: '5 Years', label: 'Experience' },
         { icon: Award, value: '100%', label: 'Satisfaction' },
-        { icon: Shield, value: 'Certified', label: 'Pet First Aid' }
+        { icon: Shield, value: 'Trust', label: 'Pet Aid' }
     ]
 
     const features = [

@@ -51,7 +51,6 @@ export const currentPets: CurrentPet[] = [
         name: 'Fifi',
         type: 'cat',
         breed: 'Golden British Shorthair',
-        age: '3 months',
         status: 'boarding',
         personality: ['Energetic', 'Playful', 'Adorable'],
         favoriteActivities: ['Playing with feathers', 'Exploring', 'Milk time'],
