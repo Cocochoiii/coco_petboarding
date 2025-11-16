@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { MapPin, Navigation, Car, Home, Clock, DollarSign, CheckCircle } from 'lucide-react'
 import { useState } from 'react'
-import Image from 'next/image' // ★ 新增：为了插入 SVG
+import Image from 'next/image'
 
 export default function ServiceArea() {
     const [hoveredArea, setHoveredArea] = useState<string | null>(null)
@@ -33,43 +33,62 @@ export default function ServiceArea() {
     return (
         <section id="service-area" className="py-20 bg-gradient-to-b from-neutral-50 to-white">
             <div className="container mx-auto px-4">
-                {/* 原来的 Title，保持不变 */}
+                {/* ===== Title + Mobile SVG ===== */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
-                    className="text-center mb-12"
+                    className="text-center mb-12 relative"
                 >
-                    <span className="text-primary-700 font-semibold text-sm uppercase tracking-wide">Service Area</span>
-                    <h2 className="text-4xl md:text-5xl font-display font-bold mt-2 mb-4 text-neutral-900">
+                    {/* Mobile SVG：标题上方居中显示 */}
+                    <div className="flex items-center justify-center mb-6 lg:hidden">
+                        <motion.div
+                            initial={{ opacity: 0, y: -10, scale: 0.9 }}
+                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                            transition={{ duration: 0.6 }}
+                        >
+                            <Image
+                                src="/svgs/service-area-hours.svg"
+                                alt="Service area decoration"
+                                width={120}
+                                height={120}
+                                className="w-24 h-24 opacity-90"
+                            />
+                        </motion.div>
+                    </div>
+
+                    <span className="text-primary-700 font-semibold text-sm uppercase tracking-wide">
+                        Service Area
+                    </span>
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mt-2 mb-4 text-neutral-900">
                         Serving Greater Boston
                     </h2>
-                    <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
+                    <p className="text-base sm:text-lg md:text-xl text-neutral-600 max-w-3xl mx-auto">
                         We proudly serve pet families within a 50-mile radius of Wellesley Hills.
                         Convenient pickup and drop-off services available!
                     </p>
                 </motion.div>
 
                 <div className="grid lg:grid-cols-2 gap-8">
-                    {/* Enhanced Map Visual */}
+                    {/* ===== Map / Radius Visual ===== */}
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         className="relative"
                     >
-                        <div className="bg-gradient-to-br from-neutral-100 to-white rounded-3xl p-8 h-[500px] flex items-center justify-center relative overflow-hidden border-2 border-neutral-200">
+                        <div className="bg-gradient-to-br from-neutral-100 to-white rounded-3xl p-6 sm:p-8 h-[360px] sm:h-[420px] lg:h-[500px] flex items-center justify-center relative overflow-hidden border-2 border-neutral-200">
                             {/* Subtle pattern overlay */}
                             <div className="absolute inset-0 bg-dot-pattern opacity-[0.03]" />
 
-                            {/* Interactive Zone Selector */}
+                            {/* Zone Selector */}
                             <div className="absolute top-4 left-4 z-20 bg-white rounded-lg shadow-soft-lg p-2 border border-neutral-200">
                                 <div className="flex gap-1">
                                     {['10', '25', '50'].map((zone) => (
                                         <motion.button
                                             key={zone}
                                             onClick={() => setSelectedZone(zone as any)}
-                                            className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
+                                            className={`px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-all ${
                                                 selectedZone === zone
                                                     ? 'bg-primary-700 text-white'
                                                     : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
@@ -86,10 +105,10 @@ export default function ServiceArea() {
                             {/* Animated Center Point */}
                             <motion.div
                                 animate={{ scale: [1, 1.2, 1] }}
-                                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                                 className="absolute z-10"
                             >
-                                <div className="w-6 h-6 bg-primary-700 rounded-full shadow-soft-lg" />
+                                <div className="w-5 h-5 sm:w-6 sm:h-6 bg-primary-700 rounded-full shadow-soft-lg" />
                                 <div className="absolute inset-0 bg-primary-600 rounded-full animate-ping" />
                             </motion.div>
 
@@ -98,77 +117,79 @@ export default function ServiceArea() {
                                 <motion.div
                                     className="border-2 border-primary-700/30 rounded-full absolute"
                                     animate={{
-                                        width: selectedZone === '10' ? '160px' : selectedZone === '25' ? '240px' : '320px',
-                                        height: selectedZone === '10' ? '160px' : selectedZone === '25' ? '240px' : '320px'
+                                        width: selectedZone === '10' ? '140px' : selectedZone === '25' ? '220px' : '300px',
+                                        height: selectedZone === '10' ? '140px' : selectedZone === '25' ? '220px' : '300px'
                                     }}
                                     transition={{ duration: 0.5 }}
                                 />
                                 <motion.div
                                     className="border-2 border-primary-700/20 rounded-full absolute"
                                     animate={{
-                                        width: selectedZone === '10' ? '240px' : selectedZone === '25' ? '320px' : '400px',
-                                        height: selectedZone === '10' ? '240px' : selectedZone === '25' ? '320px' : '400px'
+                                        width: selectedZone === '10' ? '220px' : selectedZone === '25' ? '300px' : '380px',
+                                        height: selectedZone === '10' ? '220px' : selectedZone === '25' ? '300px' : '380px'
                                     }}
                                     transition={{ duration: 0.5 }}
                                 />
                                 <motion.div
                                     className="border-2 border-primary-700/10 rounded-full absolute"
                                     animate={{
-                                        width: selectedZone === '10' ? '320px' : selectedZone === '25' ? '400px' : '480px',
-                                        height: selectedZone === '10' ? '320px' : selectedZone === '25' ? '400px' : '480px'
+                                        width: selectedZone === '10' ? '300px' : selectedZone === '25' ? '380px' : '460px',
+                                        height: selectedZone === '10' ? '300px' : selectedZone === '25' ? '380px' : '460px'
                                     }}
                                     transition={{ duration: 0.5 }}
                                 />
                             </div>
 
-                            {/* Enhanced Location Label */}
+                            {/* Center Label */}
                             <motion.div
-                                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-12 bg-white rounded-lg shadow-soft-lg border-2 border-primary-700 p-3 z-10"
+                                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 mt-10 sm:mt-12 bg-white rounded-lg shadow-soft-lg border-2 border-primary-700 p-2.5 sm:p-3 z-10"
                                 whileHover={{ scale: 1.05 }}
                             >
                                 <div className="flex items-center gap-2">
-                                    <Home className="h-5 w-5 text-primary-700" />
+                                    <Home className="h-4 w-4 sm:h-5 sm:w-5 text-primary-700" />
                                     <div>
-                                        <p className="font-bold text-sm text-neutral-900">Coco&apos;s Pet Paradise</p>
-                                        <p className="text-xs text-neutral-600">Wellesley Hills, MA</p>
+                                        <p className="font-bold text-xs sm:text-sm text-neutral-900">
+                                            Coco&apos;s Pet Paradise
+                                        </p>
+                                        <p className="text-[10px] sm:text-xs text-neutral-600">Wellesley Hills, MA</p>
                                     </div>
                                 </div>
                             </motion.div>
 
-                            {/* Interactive Service Info Cards */}
+                            {/* Info Cards on Map */}
                             <motion.div
-                                className="absolute top-8 left-8 bg-white rounded-lg shadow-soft-md border-2 border-neutral-100 p-4 hover:border-primary-700 transition-all cursor-pointer"
+                                className="absolute top-8 left-8 bg-white rounded-lg shadow-soft-md border-2 border-neutral-100 p-3 sm:p-4 hover:border-primary-700 transition-all cursor-pointer"
                                 whileHover={{ scale: 1.05, rotate: -2 }}
                             >
-                                <MapPin className="h-5 w-5 text-primary-700 mb-2" />
-                                <p className="font-bold text-2xl text-neutral-900">{selectedZone}</p>
-                                <p className="text-sm text-neutral-600">Mile Radius</p>
+                                <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-primary-700 mb-1.5" />
+                                <p className="font-bold text-lg sm:text-2xl text-neutral-900">{selectedZone}</p>
+                                <p className="text-xs sm:text-sm text-neutral-600">Mile Radius</p>
                             </motion.div>
 
                             <motion.div
-                                className="absolute bottom-8 right-8 bg-white rounded-lg shadow-soft-md border-2 border-neutral-100 p-4 hover:border-primary-700 transition-all cursor-pointer"
+                                className="absolute bottom-8 right-8 bg-white rounded-lg shadow-soft-md border-2 border-neutral-100 p-3 sm:p-4 hover:border-primary-700 transition-all cursor-pointer"
                                 whileHover={{ scale: 1.05, rotate: 2 }}
                             >
-                                <Car className="h-5 w-5 text-primary-700 mb-2" />
-                                <p className="font-bold text-2xl text-neutral-900">Free</p>
-                                <p className="text-sm text-neutral-600">Pickup (10mi)</p>
+                                <Car className="h-4 w-4 sm:h-5 sm:w-5 text-primary-700 mb-1.5" />
+                                <p className="font-bold text-lg sm:text-2xl text-neutral-900">Free</p>
+                                <p className="text-xs sm:text-sm text-neutral-600">Pickup (10mi)</p>
                             </motion.div>
                         </div>
                     </motion.div>
 
-                    {/* Enhanced Service Areas List */}
+                    {/* ===== Areas List + Info Cards ===== */}
                     <motion.div
                         initial={{ opacity: 0, x: 20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                     >
-                        <div className="bg-white rounded-3xl shadow-soft-xl border-2 border-neutral-100 p-8">
-                            <h3 className="text-2xl font-bold mb-6 flex items-center gap-2 text-neutral-900">
+                        <div className="bg-white rounded-3xl shadow-soft-xl border-2 border-neutral-100 p-6 sm:p-8">
+                            <h3 className="text-xl sm:text-2xl font-bold mb-6 flex items-center gap-2 text-neutral-900">
                                 <Navigation className="text-primary-700" />
                                 Areas We Serve
                             </h3>
 
-                            <div className="grid grid-cols-2 gap-3 mb-6 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
                                 {serviceAreas.map((area, index) => (
                                     <motion.div
                                         key={area.name}
@@ -196,45 +217,57 @@ export default function ServiceArea() {
                                                             ? 'bg-primary-700'
                                                             : 'bg-neutral-400'
                                                 }`}
-                                                animate={hoveredArea === area.name ? { scale: [1, 1.5, 1] } : {}}
+                                                animate={
+                                                    hoveredArea === area.name
+                                                        ? { scale: [1, 1.5, 1] }
+                                                        : {}
+                                                }
                                                 transition={{ duration: 0.5, repeat: Infinity }}
                                             />
-                                            <span className={`font-medium text-sm ${
-                                                hoveredArea === area.name
-                                                    ? 'text-white'
-                                                    : 'text-neutral-700'
-                                            }`}>{area.name}</span>
+                                            <span
+                                                className={`font-medium text-xs sm:text-sm ${
+                                                    hoveredArea === area.name
+                                                        ? 'text-white'
+                                                        : 'text-neutral-700'
+                                                }`}
+                                            >
+                                                {area.name}
+                                            </span>
                                             {area.popular && hoveredArea !== area.name && (
                                                 <motion.span
-                                                    className="text-xs bg-primary-700/10 text-primary-700 px-2 py-0.5 rounded-full font-medium"
+                                                    className="text-[10px] sm:text-xs bg-primary-700/10 text-primary-700 px-2 py-0.5 rounded-full font-medium"
                                                     initial={{ scale: 0 }}
                                                     animate={{ scale: 1 }}
-                                                    transition={{ type: "spring" }}
+                                                    transition={{ type: 'spring' }}
                                                 >
                                                     Popular
                                                 </motion.span>
                                             )}
                                         </div>
-                                        <span className={`text-xs ${
-                                            hoveredArea === area.name ? 'text-white/80' : 'text-neutral-500'
-                                        }`}>
+                                        <span
+                                            className={`text-[10px] sm:text-xs ${
+                                                hoveredArea === area.name
+                                                    ? 'text-white/80'
+                                                    : 'text-neutral-500'
+                                            }`}
+                                        >
                                             {area.distance}
                                         </span>
                                     </motion.div>
                                 ))}
                             </div>
 
-                            {/* Enhanced Service Info Cards */}
+                            {/* Info Cards */}
                             <div className="space-y-4 pt-6 border-t-2 border-neutral-200">
                                 <motion.div
                                     className="bg-primary-50 p-4 rounded-xl border-2 border-primary-100 hover:border-primary-700 transition-all cursor-pointer"
                                     whileHover={{ scale: 1.02 }}
                                 >
-                                    <h4 className="font-semibold mb-2 text-primary-900 flex items-center gap-2">
+                                    <h4 className="font-semibold mb-2 text-primary-900 flex items-center gap-2 text-sm sm:text-base">
                                         <Car className="w-4 h-4" />
                                         Pickup & Drop-off Service
                                     </h4>
-                                    <ul className="text-sm text-neutral-700 space-y-1">
+                                    <ul className="text-xs sm:text-sm text-neutral-700 space-y-1">
                                         <li className="flex items-center gap-2">
                                             <CheckCircle className="w-3 h-3 text-primary-700" />
                                             Free within 10 miles of Wellesley Hills
@@ -250,13 +283,12 @@ export default function ServiceArea() {
                                     </ul>
                                 </motion.div>
 
-                                {/* ★ 在 Service Hours 左侧插入一个 SVG，正好占住 Map 下方的空白 */}
                                 <div className="relative">
-                                    {/* 只在大屏显示，放大一点填充空白区域 */}
+                                    {/* Desktop: 大号 SVG 在 Service Hours 左侧 */}
                                     <motion.div
-                                        className="hidden lg:block absolute bottom-4 -left-32"
-                                        initial={{ opacity: 0, x: -350, y: 50, scale: 3.0 }}
-                                        whileInView={{ opacity: 1, x: -350, y: 50, scale: 3.0 }}
+                                        className="hidden lg:block absolute bottom-3 -left-28"
+                                        initial={{ opacity: 0, x: -40, y: 20, scale: 1.2 }}
+                                        whileInView={{ opacity: 1, x: 0, y: 0, scale: 1.2 }}
                                         viewport={{ once: true }}
                                         transition={{ duration: 0.8 }}
                                     >
@@ -269,15 +301,17 @@ export default function ServiceArea() {
                                         />
                                     </motion.div>
 
+                                    {/* ⬇️ 手机端这里的 SVG 已删掉，只保留上面 Title 那个 */}
+
                                     <motion.div
                                         className="bg-neutral-50 p-4 rounded-xl border-2 border-neutral-200 hover:border-neutral-400 transition-all cursor-pointer"
                                         whileHover={{ scale: 1.02 }}
                                     >
-                                        <h4 className="font-semibold mb-2 text-neutral-900 flex items-center gap-2">
+                                        <h4 className="font-semibold mb-2 text-neutral-900 flex items-center gap-2 text-sm sm:text-base">
                                             <Clock className="w-4 h-4 text-neutral-700" />
                                             Service Hours
                                         </h4>
-                                        <ul className="text-sm text-neutral-700 space-y-1">
+                                        <ul className="text-xs sm:text-sm text-neutral-700 space-y-1">
                                             <li className="flex items-center gap-2">
                                                 <CheckCircle className="w-3 h-3 text-neutral-600" />
                                                 Drop-off: 7:00 AM - 9:00 AM
@@ -298,11 +332,11 @@ export default function ServiceArea() {
                                     className="bg-gradient-to-br from-primary-700 to-primary-800 p-4 rounded-xl text-white relative overflow-hidden"
                                     whileHover={{ scale: 1.02 }}
                                 >
-                                    <h4 className="font-semibold mb-2 flex items-center gap-2">
+                                    <h4 className="font-semibold mb-2 flex items-center gap-2 text-sm sm:text-base">
                                         <MapPin className="w-4 h-4" />
                                         Extended Service
                                     </h4>
-                                    <p className="text-sm text-primary-50">
+                                    <p className="text-xs sm:text-sm text-primary-50">
                                         Special arrangements available for locations beyond 50 miles.
                                         Contact us for custom quotes!
                                     </p>
@@ -319,17 +353,14 @@ export default function ServiceArea() {
                 .custom-scrollbar::-webkit-scrollbar {
                     width: 8px;
                 }
-
                 .custom-scrollbar::-webkit-scrollbar-track {
                     background: #f3f4f6;
                     border-radius: 4px;
                 }
-
                 .custom-scrollbar::-webkit-scrollbar-thumb {
                     background: #9ca3af;
                     border-radius: 4px;
                 }
-
                 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
                     background: #d4a5a5;
                 }

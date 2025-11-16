@@ -85,9 +85,10 @@ export default function Testimonials() {
     const [hoveredCard, setHoveredCard] = useState<number | null>(null)
     const [likedReviews, setLikedReviews] = useState<number[]>([])
 
-    const filteredTestimonials = selectedFilter === 'all'
-        ? testimonials
-        : testimonials.filter(t => t.petType === selectedFilter)
+    const filteredTestimonials =
+        selectedFilter === 'all'
+            ? testimonials
+            : testimonials.filter(t => t.petType === selectedFilter)
 
     const handleLike = (id: number) => {
         if (likedReviews.includes(id)) {
@@ -100,22 +101,51 @@ export default function Testimonials() {
     return (
         <section id="testimonials" className="py-20 bg-gradient-to-b from-neutral-50 to-white">
             <div className="container mx-auto px-4">
-                {/* Title Section with centered text + left & right SVG */}
+                {/* ===== Title + SVG ===== */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
                     className="mb-12 relative"
                 >
-                    {/* LEFT SVG (只改 vertical 位置：top-4) */}
+                    {/* Mobile SVGs: 上方居中，小一号 */}
+                    <div className="flex items-center justify-center gap-6 mb-6 lg:hidden">
+                        <motion.div
+                            initial={{ opacity: 0, y: -10, scale: 0.8 }}
+                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                            transition={{ duration: 0.6 }}
+                        >
+                            <Image
+                                src="/svgs/testimonials-decoration2.svg"
+                                alt="Testimonials decoration left"
+                                width={120}
+                                height={120}
+                                className="w-20 h-20 opacity-90"
+                            />
+                        </motion.div>
+                        <motion.div
+                            initial={{ opacity: 0, y: -10, scale: 0.8 }}
+                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                            transition={{ duration: 0.6, delay: 0.1 }}
+                        >
+                            <Image
+                                src="/svgs/testimonials-decoration.svg"
+                                alt="Testimonials decoration right"
+                                width={120}
+                                height={120}
+                                className="w-20 h-20 opacity-90"
+                            />
+                        </motion.div>
+                    </div>
+
+                    {/* LEFT SVG - Desktop only */}
                     <motion.div
-                        className="hidden lg:block flex-shrink-0 mr-6 xl:mr-8 absolute top-4 left-0"
+                        className="hidden lg:block absolute top-4 left-0 flex-shrink-0 mr-6 xl:mr-8"
                         initial={{ opacity: 0, x: -50, scale: 0.8 }}
-                        animate={{ opacity: 1, x: 0, scale: 25 }}
                         whileInView={{
                             opacity: 1,
-                            x: 0,
-                            scale: 1.8,
+                            x: -10,
+                            scale: 1.6,
                             y: [0, 10, 0]
                         }}
                         viewport={{ once: true }}
@@ -124,13 +154,13 @@ export default function Testimonials() {
                             y: {
                                 duration: 4,
                                 repeat: Infinity,
-                                ease: "easeInOut"
+                                ease: 'easeInOut'
                             }
                         }}
                     >
                         <Image
                             src="/svgs/testimonials-decoration2.svg"
-                            alt="Testimonials decoration"
+                            alt="Testimonials decoration left"
                             width={200}
                             height={200}
                             className="w-32 h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48 opacity-90"
@@ -138,25 +168,14 @@ export default function Testimonials() {
                         />
                     </motion.div>
 
-                    {/* CENTER TITLE（保持和以前一样） */}
-                    <div className="text-center mb-8">
-                        <span className="text-primary-700 font-semibold text-sm uppercase tracking-wide">
-                            Testimonials
-                        </span>
-                        <h2 className="text-4xl md:text-5xl font-display font-bold mt-2 mb-4 text-neutral-900">
-                            What Pet Parents Say
-                        </h2>
-                    </div>
-
-                    {/* RIGHT SVG - 只改 vertical 位置：top-4 */}
+                    {/* RIGHT SVG - Desktop only */}
                     <motion.div
-                        className="hidden lg:block flex-shrink-0 ml-6 xl:ml-8 absolute top-4 right-0"
+                        className="hidden lg:block absolute top-4 right-0 flex-shrink-0 ml-6 xl:ml-8"
                         initial={{ opacity: 0, x: 50, scale: 0.8 }}
-                        animate={{ opacity: 1, x: 0, scale: 25 }}
                         whileInView={{
                             opacity: 1,
-                            x: 0,
-                            scale: 1.8,
+                            x: 10,
+                            scale: 1.6,
                             y: [0, -10, 0]
                         }}
                         viewport={{ once: true }}
@@ -165,7 +184,7 @@ export default function Testimonials() {
                             y: {
                                 duration: 4,
                                 repeat: Infinity,
-                                ease: "easeInOut"
+                                ease: 'easeInOut'
                             }
                         }}
                     >
@@ -178,25 +197,37 @@ export default function Testimonials() {
                         />
                     </motion.div>
 
-                    {/* Description - Full Width Center */}
-                    <p className="text-xl text-neutral-600 max-w-3xl mx-auto text-center">
-                        Don't just take our word for it – hear from the families who trust us with their beloved pets
+                    {/* Center Title */}
+                    <div className="text-center mb-8">
+                        <span className="text-primary-700 font-semibold text-sm uppercase tracking-wide">
+                            Testimonials
+                        </span>
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mt-2 mb-4 text-neutral-900">
+                            What Pet Parents Say
+                        </h2>
+                    </div>
+
+                    {/* Description */}
+                    <p className="text-base sm:text-lg md:text-xl text-neutral-600 max-w-3xl mx-auto text-center">
+                        Don&apos;t just take our word for it – hear from the families who trust us with their beloved pets
                     </p>
                 </motion.div>
 
-                {/* Enhanced Filter Buttons */}
-                <div className="flex justify-center gap-4 mb-12">
+                {/* ===== Filter Buttons ===== */}
+                <div className="flex justify-center gap-3 sm:gap-4 mb-12 flex-wrap">
                     <motion.button
                         onClick={() => setSelectedFilter('all')}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className={`px-6 py-3 rounded-full font-medium transition-all duration-300 relative overflow-hidden ${
+                        className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-full font-medium transition-all duration-300 relative overflow-hidden text-sm sm:text-base ${
                             selectedFilter === 'all'
                                 ? 'bg-neutral-900 text-white shadow-soft-lg'
                                 : 'bg-white text-neutral-700 border-2 border-neutral-200 shadow-soft hover:shadow-soft-md hover:border-neutral-400'
                         }`}
                     >
-                        <span className="relative z-10">All Reviews ({testimonials.length})</span>
+                        <span className="relative z-10">
+                            All Reviews ({testimonials.length})
+                        </span>
                         {selectedFilter === 'all' && (
                             <motion.div
                                 className="absolute inset-0 bg-primary-700"
@@ -206,33 +237,35 @@ export default function Testimonials() {
                             />
                         )}
                     </motion.button>
+
                     <motion.button
                         onClick={() => setSelectedFilter('cat')}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className={`px-6 py-3 rounded-full font-medium transition-all duration-300 flex items-center gap-2 ${
+                        className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-full font-medium transition-all duration-300 flex items-center gap-2 text-sm sm:text-base ${
                             selectedFilter === 'cat'
                                 ? 'bg-neutral-900 text-white shadow-soft-lg'
                                 : 'bg-white text-neutral-700 border-2 border-neutral-200 shadow-soft hover:shadow-soft-md hover:border-neutral-400'
                         }`}
                     >
-                        Cat Parents
+                        🐱 Cat Parents
                     </motion.button>
+
                     <motion.button
                         onClick={() => setSelectedFilter('dog')}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className={`px-6 py-3 rounded-full font-medium transition-all duration-300 flex items-center gap-2 ${
+                        className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-full font-medium transition-all duration-300 flex items-center gap-2 text-sm sm:text-base ${
                             selectedFilter === 'dog'
                                 ? 'bg-neutral-900 text-white shadow-soft-lg'
                                 : 'bg-white text-neutral-700 border-2 border-neutral-200 shadow-soft hover:shadow-soft-md hover:border-neutral-400'
                         }`}
                     >
-                        Dog Parents
+                        🐕 Dog Parents
                     </motion.button>
                 </div>
 
-                {/* Enhanced Testimonials Grid */}
+                {/* ===== Testimonials Grid ===== */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {filteredTestimonials.map((testimonial, index) => (
                         <motion.div
@@ -246,7 +279,7 @@ export default function Testimonials() {
                             className="relative"
                         >
                             <motion.div
-                                className={`bg-white p-6 rounded-2xl border-2 transition-all duration-300 ${
+                                className={`bg-white p-5 sm:p-6 rounded-2xl border-2 transition-all duration-300 ${
                                     hoveredCard === testimonial.id
                                         ? 'border-primary-700 shadow-soft-xl'
                                         : 'border-neutral-100 shadow-soft'
@@ -262,42 +295,46 @@ export default function Testimonials() {
                                     transition={{ duration: 0.3 }}
                                     className="absolute top-4 right-4"
                                 >
-                                    <Quote className="h-8 w-8 text-neutral-200" />
+                                    <Quote className="h-7 w-7 text-neutral-200" />
                                 </motion.div>
 
-                                {/* Rating Stars with Animation */}
+                                {/* Rating Stars */}
                                 <div className="flex gap-1 mb-4">
                                     {[...Array(testimonial.rating)].map((_, i) => (
                                         <motion.div
                                             key={i}
                                             initial={{ opacity: 0, scale: 0 }}
                                             animate={{ opacity: 1, scale: 1 }}
-                                            transition={{ delay: 0.1 * i, type: "spring" }}
+                                            transition={{ delay: 0.08 * i, type: 'spring' }}
                                         >
-                                            <Star className="h-5 w-5 fill-primary-700 text-primary-700" />
+                                            <Star className="h-4 w-4 sm:h-5 sm:w-5 fill-primary-700 text-primary-700" />
                                         </motion.div>
                                     ))}
                                 </div>
 
-                                {/* Review Text */}
-                                <p className="text-neutral-700 mb-6 italic leading-relaxed">
-                                    "{testimonial.text}"
+                                {/* Text */}
+                                <p className="text-sm sm:text-base text-neutral-700 mb-6 italic leading-relaxed">
+                                    &quot;{testimonial.text}&quot;
                                 </p>
 
                                 {/* Reviewer Info */}
-                                <div className="border-t border-neutral-100 pt-4">
-                                    <div className="flex items-center justify-between">
+                                <div className="border-top border-neutral-100 pt-4">
+                                    <div className="flex items-center justify-between gap-3">
                                         <div>
-                                            <p className="font-semibold text-neutral-900">{testimonial.name}</p>
-                                            <p className="text-sm text-neutral-600 flex items-center gap-1">
+                                            <p className="font-semibold text-neutral-900 text-sm sm:text-base">
+                                                {testimonial.name}
+                                            </p>
+                                            <p className="text-xs sm:text-sm text-neutral-600 flex items-center gap-1">
                                                 {testimonial.petType === 'cat' ? '🐱' : '🐕'} {testimonial.pet}
                                             </p>
-                                            <p className="text-xs text-neutral-500 mt-1">{testimonial.date}</p>
+                                            <p className="text-[10px] sm:text-xs text-neutral-500 mt-1">
+                                                {testimonial.date}
+                                            </p>
                                         </div>
                                         <div className="text-right">
                                             <motion.button
                                                 onClick={() => handleLike(testimonial.id)}
-                                                className={`flex items-center gap-1 text-sm transition-colors ${
+                                                className={`flex items-center gap-1 text-xs sm:text-sm transition-colors ${
                                                     likedReviews.includes(testimonial.id)
                                                         ? 'text-primary-700'
                                                         : 'text-neutral-400 hover:text-primary-700'
@@ -321,9 +358,9 @@ export default function Testimonials() {
                                     </div>
                                 </div>
 
-                                {/* Interactive Pet Type Badge */}
+                                {/* Pet Type Badge */}
                                 <motion.div
-                                    className={`absolute -top-2 -left-2 w-10 h-10 rounded-full flex items-center justify-center shadow-soft-md ${
+                                    className={`absolute -top-2 -left-2 w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shadow-soft-md ${
                                         testimonial.petType === 'cat'
                                             ? 'bg-gradient-to-br from-primary-100 to-primary-200 text-primary-700'
                                             : 'bg-gradient-to-br from-neutral-100 to-neutral-200 text-neutral-700'
@@ -338,7 +375,7 @@ export default function Testimonials() {
                     ))}
                 </div>
 
-                {/* Enhanced Call to Action */}
+                {/* ===== CTA ===== */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -346,7 +383,7 @@ export default function Testimonials() {
                     className="text-center mt-16"
                 >
                     <motion.div
-                        className="bg-gradient-to-br from-primary-50 to-neutral-50 rounded-2xl shadow-soft-xl border-2 border-primary-100 p-8 max-w-2xl mx-auto relative overflow-hidden"
+                        className="bg-gradient-to-br from-primary-50 to-neutral-50 rounded-2xl shadow-soft-xl border-2 border-primary-100 p-6 sm:p-8 max-w-2xl mx-auto relative overflow-hidden"
                         whileHover={{ scale: 1.02 }}
                     >
                         <motion.div
@@ -354,24 +391,24 @@ export default function Testimonials() {
                             transition={{ duration: 2, repeat: Infinity }}
                             className="mb-4"
                         >
-                            <Heart className="h-12 w-12 text-primary-700 mx-auto" />
+                            <Heart className="h-10 w-10 sm:h-12 sm:w-12 text-primary-700 mx-auto" />
                         </motion.div>
-                        <h3 className="text-2xl font-display font-bold mb-2 text-neutral-900">
+                        <h3 className="text-xl sm:text-2xl font-display font-bold mb-2 text-neutral-900">
                             Join Our Happy Pet Family!
                         </h3>
-                        <p className="text-neutral-600 mb-6">
+                        <p className="text-sm sm:text-base text-neutral-600 mb-6">
                             Experience the difference of personalized, home-style pet care
                         </p>
                         <motion.button
-                            className="btn-primary px-8 py-3 rounded-full relative overflow-hidden"
+                            className="btn-primary px-6 sm:px-8 py-2.5 sm:py-3 rounded-full relative overflow-hidden text-sm sm:text-base"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                         >
-                            <span className="relative z-10">Book Your Pet's Stay Today</span>
+                            <span className="relative z-10">Book Your Pet&apos;s Stay Today</span>
                             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full hover:translate-x-full transition-transform duration-700" />
                         </motion.button>
-                        <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-primary-700 opacity-5 rounded-full blur-2xl" />
-                        <div className="absolute -top-10 -left-10 w-40 h-40 bg-neutral-700 opacity-5 rounded-full blur-2xl" />
+                        <div className="absolute -bottom-10 -right-10 w-32 sm:w-40 h-32 sm:h-40 bg-primary-700 opacity-5 rounded-full blur-2xl" />
+                        <div className="absolute -top-10 -left-10 w-32 sm:w-40 h-32 sm:h-40 bg-neutral-700 opacity-5 rounded-full blur-2xl" />
                     </motion.div>
                 </motion.div>
             </div>
