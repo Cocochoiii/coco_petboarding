@@ -2,7 +2,19 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Menu, X, Heart, ArrowRight, Home, Phone, Calendar, Info, Star, User, PawPrint} from 'lucide-react'
+import {
+    Menu,
+    X,
+    Heart,
+    ArrowRight,
+    Home,
+    Phone,
+    Calendar,
+    Info,
+    Star,
+    User,
+    PawPrint
+} from 'lucide-react'
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 
 export default function Navigation() {
@@ -10,41 +22,52 @@ export default function Navigation() {
     const [scrolled, setScrolled] = useState(false)
     const [hoveredItem, setHoveredItem] = useState<string | null>(null)
     const [documentHeight, setDocumentHeight] = useState(1)
-    const { scrollY } = useScroll()
-    const navBackground = useTransform(scrollY, [0, 100], ['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, 0.95)'])
-    const navShadow = useTransform(scrollY, [0, 100], ['0px 0px 0px rgba(0,0,0,0)', '0px 10px 30px rgba(0,0,0,0.1)'])
+    const [isDarkNav, setIsDarkNav] = useState(false)
 
-    // Fix for document is not defined error
-    const progressWidth = useTransform(
+    const { scrollY } = useScroll()
+
+    // 顶部 -> 轻微白色背景，用于 Hero 区域
+    const navBackground = useTransform(
         scrollY,
-        [0, documentHeight],
-        ['0%', '100%']
+        [0, 100],
+        ['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, 0.95)']
+    )
+    const navShadow = useTransform(
+        scrollY,
+        [0, 100],
+        ['0px 0px 0px rgba(0,0,0,0)', '0px 10px 30px rgba(0,0,0,0.1)']
     )
 
+    // Fix for document is not defined error
+    const progressWidth = useTransform(scrollY, [0, documentHeight], ['0%', '100%'])
+
     useEffect(() => {
-        // Only access document in the browser
         if (typeof window !== 'undefined') {
             const updateDocumentHeight = () => {
-                setDocumentHeight(document.documentElement.scrollHeight - window.innerHeight || 1)
+                setDocumentHeight(
+                    document.documentElement.scrollHeight - window.innerHeight || 1
+                )
             }
             updateDocumentHeight()
-            window.addEventListener('resize', updateDocumentHeight)
 
             const handleScroll = () => {
-                setScrolled(window.scrollY > 20)
+                const y = window.scrollY
+                setScrolled(y > 20)
+                // 当下滑超过 ~300px，认为已经离开首屏，切换为深色导航（和 footer 风格一致）
+                setIsDarkNav(y > 300)
             }
-            window.addEventListener('scroll', handleScroll)
 
-            // Close mobile menu on resize
             const handleResize = () => {
+                updateDocumentHeight()
                 if (window.innerWidth > 768) {
                     setIsOpen(false)
                 }
             }
+
+            window.addEventListener('scroll', handleScroll)
             window.addEventListener('resize', handleResize)
 
             return () => {
-                window.removeEventListener('resize', updateDocumentHeight)
                 window.removeEventListener('scroll', handleScroll)
                 window.removeEventListener('resize', handleResize)
             }
@@ -57,25 +80,31 @@ export default function Navigation() {
         { href: '#current-pets', label: 'Our Pets', icon: Heart },
         { href: '#booking', label: 'Book Now', icon: Calendar },
         { href: '#about', label: 'About', icon: Info },
-        { href: '#contact', label: 'Contact', icon: Phone },
+        { href: '#contact', label: 'Contact', icon: Phone }
     ]
 
     return (
         <>
             <motion.nav
-                className="sticky top-0 z-50 backdrop-blur-md"
+                className={`sticky top-0 z-50 backdrop-blur-md transition-colors duration-300 ${
+                    isDarkNav ? 'bg-gradient-to-br from-neutral-900 to-neutral-800' : ''
+                }`}
                 style={{
-                    backgroundColor: navBackground,
-                    boxShadow: navShadow,
+                    // 顶部时用浅色透明背景，下面交给深色渐变 class 处理
+                    backgroundColor: isDarkNav ? 'transparent' : (navBackground as any),
+                    boxShadow: navShadow as any
                 }}
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
-                transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
+                transition={{ duration: 0.5, type: 'spring', stiffness: 100 }}
             >
                 <div className="container mx-auto px-4">
                     <div className="flex justify-between items-center h-16 md:h-20">
                         {/* Logo with Enhanced Animation */}
-                        <Link href="/" className="flex items-center space-x-2 md:space-x-3 group">
+                        <Link
+                            href="/"
+                            className="flex items-center space-x-2 md:space-x-3 group"
+                        >
                             <motion.div
                                 className="relative"
                                 whileHover={{ scale: 1.1 }}
@@ -85,33 +114,47 @@ export default function Navigation() {
                                     animate={{ rotate: scrolled ? 360 : 0 }}
                                     transition={{ duration: 0.5 }}
                                 >
-                                    <PawPrint className="h-8 w-8 md:h-10 md:w-10 text-primary-700 group-hover:text-primary-800 transition-colors" />
+                                    <PawPrint
+                                        className={`h-8 w-8 md:h-10 md:w-10 transition-colors ${
+                                            isDarkNav
+                                                ? 'text-primary-300 group-hover:text-primary-200'
+                                                : 'text-primary-700 group-hover:text-primary-800'
+                                        }`}
+                                    />
                                 </motion.div>
                                 <motion.div
                                     className="absolute inset-0"
                                     animate={{
                                         scale: [1, 1.3, 1],
-                                        opacity: [0.5, 0, 0.5],
+                                        opacity: [0.5, 0, 0.5]
                                     }}
                                     transition={{
                                         duration: 2,
-                                        repeat: Infinity,
+                                        repeat: Infinity
                                     }}
                                 >
-                                    <PawPrint className="h-8 w-8 md:h-10 md:w-10 text-primary-700 opacity-30" />
+                                    <PawPrint
+                                        className={`h-8 w-8 md:h-10 md:w-10 opacity-30 ${
+                                            isDarkNav ? 'text-primary-300' : 'text-primary-700'
+                                        }`}
+                                    />
                                 </motion.div>
                             </motion.div>
                             <div className="hidden sm:block">
                                 <motion.span
-                                    className="font-bold text-lg md:text-xl text-neutral-900 block"
+                                    className={`font-bold text-lg md:text-xl block transition-colors ${
+                                        isDarkNav ? 'text-white' : 'text-neutral-900'
+                                    }`}
                                     initial={{ opacity: 0, x: -20 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: 0.2 }}
                                 >
-                                    Coco's Pet Paradise
+                                    Coco&apos;s Pet Paradise
                                 </motion.span>
                                 <motion.span
-                                    className="text-xs text-neutral-500 hidden md:block"
+                                    className={`text-xs hidden md:block transition-colors ${
+                                        isDarkNav ? 'text-neutral-300' : 'text-neutral-500'
+                                    }`}
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ delay: 0.3 }}
@@ -135,23 +178,48 @@ export default function Navigation() {
                                 >
                                     <Link
                                         href={item.href}
-                                        className="relative text-neutral-700 hover:text-primary-700 transition-colors font-medium group flex items-center gap-2"
+                                        className={`relative transition-colors font-medium group flex items-center gap-2 ${
+                                            isDarkNav
+                                                ? 'text-neutral-100 hover:text-primary-200'
+                                                : 'text-neutral-700 hover:text-primary-700'
+                                        }`}
                                     >
                                         <motion.div
-                                            animate={{ rotate: hoveredItem === item.label ? 360 : 0 }}
+                                            animate={{
+                                                rotate:
+                                                    hoveredItem === item.label ? 360 : 0
+                                            }}
                                             transition={{ duration: 0.3 }}
                                         >
-                                            <item.icon className={`w-4 h-4 transition-all ${hoveredItem === item.label ? 'text-primary-700' : 'text-neutral-400'}`} />
+                                            <item.icon
+                                                className={`w-4 h-4 transition-all ${
+                                                    hoveredItem === item.label
+                                                        ? isDarkNav
+                                                            ? 'text-primary-300'
+                                                            : 'text-primary-700'
+                                                        : isDarkNav
+                                                            ? 'text-neutral-300'
+                                                            : 'text-neutral-400'
+                                                }`}
+                                            />
                                         </motion.div>
                                         <span>{item.label}</span>
                                     </Link>
                                     {hoveredItem === item.label && (
                                         <motion.div
-                                            className="absolute -bottom-2 left-0 right-0 h-0.5 bg-primary-700"
+                                            className={`absolute -bottom-2 left-0 right-0 h-0.5 ${
+                                                isDarkNav
+                                                    ? 'bg-primary-300'
+                                                    : 'bg-primary-700'
+                                            }`}
                                             layoutId="navbar-indicator"
                                             initial={{ scaleX: 0 }}
                                             animate={{ scaleX: 1 }}
-                                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                            transition={{
+                                                type: 'spring',
+                                                stiffness: 300,
+                                                damping: 30
+                                            }}
                                         />
                                     )}
                                 </motion.div>
@@ -161,18 +229,18 @@ export default function Navigation() {
                             <motion.div
                                 initial={{ opacity: 0, scale: 0 }}
                                 animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: 0.6, type: "spring" }}
+                                transition={{ delay: 0.6, type: 'spring' }}
                                 className="relative"
                             >
                                 <motion.div
                                     className="absolute inset-0 bg-primary-700 rounded-lg"
                                     animate={{
                                         scale: [1, 1.1, 1],
-                                        opacity: [0.3, 0.1, 0.3],
+                                        opacity: [0.3, 0.1, 0.3]
                                     }}
                                     transition={{
                                         duration: 2,
-                                        repeat: Infinity,
+                                        repeat: Infinity
                                     }}
                                 />
                                 <Link
@@ -189,7 +257,11 @@ export default function Navigation() {
                         {/* Mobile Menu Button */}
                         <motion.button
                             onClick={() => setIsOpen(!isOpen)}
-                            className="lg:hidden p-2 md:p-3 hover:bg-neutral-100 rounded-lg transition-colors"
+                            className={`lg:hidden p-2 md:p-3 rounded-lg transition-colors ${
+                                isDarkNav
+                                    ? 'hover:bg-neutral-800'
+                                    : 'hover:bg-neutral-100'
+                            }`}
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.9 }}
                         >
@@ -202,7 +274,13 @@ export default function Navigation() {
                                         exit={{ rotate: 90, opacity: 0 }}
                                         transition={{ duration: 0.2 }}
                                     >
-                                        <X className="h-6 w-6 text-neutral-700" />
+                                        <X
+                                            className={`h-6 w-6 ${
+                                                isDarkNav
+                                                    ? 'text-neutral-100'
+                                                    : 'text-neutral-700'
+                                            }`}
+                                        />
                                     </motion.div>
                                 ) : (
                                     <motion.div
@@ -212,7 +290,13 @@ export default function Navigation() {
                                         exit={{ rotate: -90, opacity: 0 }}
                                         transition={{ duration: 0.2 }}
                                     >
-                                        <Menu className="h-6 w-6 text-neutral-700" />
+                                        <Menu
+                                            className={`h-6 w-6 ${
+                                                isDarkNav
+                                                    ? 'text-neutral-100'
+                                                    : 'text-neutral-700'
+                                            }`}
+                                        />
                                     </motion.div>
                                 )}
                             </AnimatePresence>
@@ -227,8 +311,12 @@ export default function Navigation() {
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
-                            transition={{ duration: 0.3, ease: "easeInOut" }}
-                            className="lg:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-md border-t border-neutral-200 shadow-soft-xl"
+                            transition={{ duration: 0.3, ease: 'easeInOut' }}
+                            className={`lg:hidden absolute top-full left-0 right-0 border-t shadow-soft-xl backdrop-blur-md ${
+                                isDarkNav
+                                    ? 'bg-neutral-900/95 border-neutral-700'
+                                    : 'bg-white/95 border-neutral-200'
+                            }`}
                         >
                             <div className="container mx-auto px-4 py-4 md:py-6">
                                 {navItems.map((item, index) => (
@@ -241,23 +329,42 @@ export default function Navigation() {
                                     >
                                         <Link
                                             href={item.href}
-                                            className="flex items-center gap-3 py-3 md:py-4 px-4 text-neutral-700 hover:text-primary-700 hover:bg-primary-50 rounded-lg transition-all font-medium group"
+                                            className={`flex items-center gap-3 py-3 md:py-4 px-4 rounded-lg transition-all font-medium group ${
+                                                isDarkNav
+                                                    ? 'text-neutral-100 hover:text-primary-200 hover:bg-neutral-800'
+                                                    : 'text-neutral-700 hover:text-primary-700 hover:bg-primary-50'
+                                            }`}
                                             onClick={() => setIsOpen(false)}
                                         >
                                             <motion.div
                                                 whileHover={{ rotate: 360 }}
                                                 transition={{ duration: 0.3 }}
                                             >
-                                                <item.icon className="w-5 h-5 text-neutral-400 group-hover:text-primary-700 transition-colors" />
+                                                <item.icon
+                                                    className={`w-5 h-5 transition-colors ${
+                                                        isDarkNav
+                                                            ? 'text-neutral-300 group-hover:text-primary-200'
+                                                            : 'text-neutral-400 group-hover:text-primary-700'
+                                                    }`}
+                                                />
                                             </motion.div>
-                                            <span className="text-base md:text-lg">{item.label}</span>
-                                            <ArrowRight className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-all transform group-hover:translate-x-1" />
+                                            <span className="text-base md:text-lg">
+                                                {item.label}
+                                            </span>
+                                            <ArrowRight
+                                                className={`w-4 h-4 ml-auto transition-all transform group-hover:translate-x-1 ${
+                                                    isDarkNav
+                                                        ? 'text-neutral-400 group-hover:text-primary-200'
+                                                        : 'text-neutral-300 group-hover:text-primary-700'
+                                                }`}
+                                            />
                                         </Link>
                                     </motion.div>
                                 ))}
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: 20 }}
                                     transition={{ delay: navItems.length * 0.05 }}
                                     className="mt-4 px-4"
                                 >
