@@ -7,8 +7,6 @@ import {
     Clock,
     ChevronLeft,
     ChevronRight,
-    Check,
-    X,
     Info,
     Star
 } from 'lucide-react'
@@ -19,13 +17,11 @@ import {
     getDaysInMonth,
     startOfMonth,
     getDay,
-    addDays,
     isSameDay,
-    isAfter,
     isBefore
 } from 'date-fns'
 import toast from 'react-hot-toast'
-import Image from 'next/image' // ⭐ 新增：为了插入 SVG
+import Image from 'next/image'
 
 interface BookingSlot {
     date: Date
@@ -40,7 +36,6 @@ export default function BookingCalendar() {
     const [showBookingForm, setShowBookingForm] = useState(false)
     const [hoveredDate, setHoveredDate] = useState<number | null>(null)
 
-    // Mock availability data
     const getAvailability = (date: Date): BookingSlot => {
         const random = date.getDate() % 3
         if (random === 0) return { date, available: 0, total: 5 }
@@ -69,12 +64,10 @@ export default function BookingCalendar() {
     const renderCalendarDays = () => {
         const days = []
 
-        // Empty cells for days before month starts
         for (let i = 0; i < firstDayOfWeek; i++) {
             days.push(<div key={`empty-${i}`} />)
         }
 
-        // Calendar days
         for (let day = 1; day <= daysInMonth; day++) {
             const date = new Date(
                 currentMonth.getFullYear(),
@@ -96,7 +89,8 @@ export default function BookingCalendar() {
                     onMouseEnter={() => setHoveredDate(day)}
                     onMouseLeave={() => setHoveredDate(null)}
                     className={`
-                        relative p-3 rounded-xl transition-all duration-300
+                        relative rounded-xl transition-all duration-300
+                        p-2 sm:p-3
                         ${isPast ? 'bg-neutral-50 text-neutral-300 cursor-not-allowed' : ''}
                         ${
                         availability.available === 0 && !isPast
@@ -117,7 +111,7 @@ export default function BookingCalendar() {
                     `}
                 >
                     <div className="text-center">
-                        <div className="font-semibold text-lg">{day}</div>
+                        <div className="font-semibold text-base sm:text-lg">{day}</div>
                         {!isPast && (
                             <motion.div
                                 className="mt-1"
@@ -126,25 +120,21 @@ export default function BookingCalendar() {
                                 transition={{ delay: 0.1 }}
                             >
                                 {availability.available === 0 ? (
-                                    <span className="text-xs text-neutral-600 font-medium">
+                                    <span className="text-[10px] sm:text-xs text-neutral-600 font-medium">
                                         Full
                                     </span>
                                 ) : availability.available <= 2 ? (
                                     <span
-                                        className={`text-xs font-medium ${
-                                            isSelected
-                                                ? 'text-white'
-                                                : 'text-neutral-700'
+                                        className={`text-[10px] sm:text-xs font-medium ${
+                                            isSelected ? 'text-white' : 'text-neutral-700'
                                         }`}
                                     >
                                         {availability.available} spots
                                     </span>
                                 ) : (
                                     <span
-                                        className={`text-xs font-medium ${
-                                            isSelected
-                                                ? 'text-white'
-                                                : 'text-primary-700'
+                                        className={`text-[10px] sm:text-xs font-medium ${
+                                            isSelected ? 'text-white' : 'text-primary-700'
                                         }`}
                                     >
                                         Available
@@ -154,7 +144,6 @@ export default function BookingCalendar() {
                         )}
                     </div>
 
-                    {/* Availability Indicator */}
                     {!isPast && availability.available > 0 && (
                         <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 flex gap-0.5">
                             {[...Array(availability.total)].map((_, i) => (
@@ -186,18 +175,35 @@ export default function BookingCalendar() {
     return (
         <section className="py-20 bg-gradient-to-b from-white to-neutral-50">
             <div className="container mx-auto px-4">
-                {/* ⭐ Title + 左右 SVG */}
+                {/* Title + SVG */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
                     className="mb-12 relative"
                 >
-                    {/* LEFT SVG */}
+                    {/* 🌟 Mobile SVG：上方并排显示，lg 以上隐藏 */}
+                    <div className="flex items-center justify-center gap-4 mb-4 lg:hidden">
+                        <Image
+                            src="/svgs/booking-decoration2.svg"
+                            alt="Booking decoration left"
+                            width={100}
+                            height={100}
+                            className="w-16 h-16 opacity-90"
+                        />
+                        <Image
+                            src="/svgs/booking-decoration.svg"
+                            alt="Booking decoration right"
+                            width={100}
+                            height={100}
+                            className="w-16 h-16 opacity-90"
+                        />
+                    </div>
+
+                    {/* LEFT SVG - desktop only */}
                     <motion.div
                         className="hidden lg:block absolute top-1/2 -translate-y-1/2 left-0"
                         initial={{ opacity: 0, x: -50, scale: 0.8 }}
-                        animate={{ opacity: 1, x: 0, scale: 1 }}
                         whileInView={{
                             opacity: 1,
                             x: -20,
@@ -225,21 +231,20 @@ export default function BookingCalendar() {
 
                     {/* CENTER TITLE + SUBTITLE */}
                     <div className="text-center">
-                        <h2 className="text-5xl font-display font-bold mb-4 text-neutral-900">
+                        <h2 className="text-3xl md:text-5xl font-display font-bold mb-4 text-neutral-900">
                             Book Your Pet&apos;s{' '}
                             <span className="text-gradient">Dream Stay</span>
                         </h2>
-                        <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
+                        <p className="text-base md:text-xl text-neutral-600 max-w-3xl mx-auto">
                             Check availability and reserve your spot. Limited spaces
                             ensure personalized care for every pet.
                         </p>
                     </div>
 
-                    {/* RIGHT SVG */}
+                    {/* RIGHT SVG - desktop only */}
                     <motion.div
                         className="hidden lg:block absolute top-1/2 -translate-y-1/2 right-0"
                         initial={{ opacity: 0, x: 50, scale: 0.8 }}
-                        animate={{ opacity: 1, x: 0, scale: 1 }}
                         whileInView={{
                             opacity: 1,
                             x: 20,
@@ -268,51 +273,47 @@ export default function BookingCalendar() {
 
                 <div className="max-w-6xl mx-auto">
                     <div className="grid lg:grid-cols-3 gap-8">
-                        {/* Enhanced Calendar */}
-                        <div className="lg:col-span-2">
+                        {/* Calendar */}
+                        <div className="lg:col-span-2 max-w-md mx-auto lg:max-w-none w-full">
                             <motion.div
-                                className="bg-white rounded-3xl shadow-soft-xl border-2 border-neutral-100 p-6"
+                                className="bg-white rounded-3xl shadow-soft-xl border-2 border-neutral-100 p-4 sm:p-6"
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                             >
-                                {/* Calendar Header */}
-                                <div className="flex items中心 justify-between mb-6">
+                                {/* Header */}
+                                <div className="flex items-center justify-between mb-4 sm:mb-6">
                                     <motion.button
                                         onClick={() =>
-                                            setCurrentMonth(
-                                                subMonths(currentMonth, 1)
-                                            )
+                                            setCurrentMonth(subMonths(currentMonth, 1))
                                         }
-                                        className="p-2 hover:bg-neutral-100 rounded-lg transition-colors"
+                                        className="p-1.5 sm:p-2 hover:bg-neutral-100 rounded-lg transition-colors"
                                         whileHover={{ scale: 1.1 }}
                                         whileTap={{ scale: 0.9 }}
                                     >
-                                        <ChevronLeft className="w-5 h-5 text-neutral-700" />
+                                        <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 text-neutral-700" />
                                     </motion.button>
-                                    <h3 className="text-2xl font-bold text-neutral-900">
+                                    <h3 className="text-lg sm:text-2xl font-bold text-neutral-900">
                                         {format(currentMonth, 'MMMM yyyy')}
                                     </h3>
                                     <motion.button
                                         onClick={() =>
-                                            setCurrentMonth(
-                                                addMonths(currentMonth, 1)
-                                            )
+                                            setCurrentMonth(addMonths(currentMonth, 1))
                                         }
-                                        className="p-2 hover:bg-neutral-100 rounded-lg transition-colors"
+                                        className="p-1.5 sm:p-2 hover:bg-neutral-100 rounded-lg transition-colors"
                                         whileHover={{ scale: 1.1 }}
                                         whileTap={{ scale: 0.9 }}
                                     >
-                                        <ChevronRight className="w-5 h-5 text-neutral-700" />
+                                        <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-neutral-700" />
                                     </motion.button>
                                 </div>
 
-                                {/* Weekday Headers */}
-                                <div className="grid grid-cols-7 gap-2 mb-2">
+                                {/* Weekdays */}
+                                <div className="grid grid-cols-7 gap-1.5 sm:gap-2 mb-2">
                                     {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(
                                         day => (
                                             <div
                                                 key={day}
-                                                className="text-center text-sm font-semibold text-neutral-600 py-2"
+                                                className="text-center text-[11px] sm:text-sm font-semibold text-neutral-600 py-1.5 sm:py-2"
                                             >
                                                 {day}
                                             </div>
@@ -320,34 +321,34 @@ export default function BookingCalendar() {
                                     )}
                                 </div>
 
-                                {/* Calendar Grid */}
-                                <div className="grid grid-cols-7 gap-2">
+                                {/* Grid */}
+                                <div className="grid grid-cols-7 gap-1.5 sm:gap-2">
                                     {renderCalendarDays()}
                                 </div>
 
                                 {/* Legend */}
-                                <div className="flex flex-wrap items-center gap-4 mt-6 pt-6 border-t border-neutral-200">
+                                <div className="flex flex-wrap items-center gap-3 sm:gap-4 mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-neutral-200">
                                     <div className="flex items-center gap-2">
-                                        <div className="w-4 h-4 bg-primary-700 rounded-full" />
-                                        <span className="text-sm text-neutral-600">
+                                        <div className="w-3 h-3 sm:w-4 sm:h-4 bg-primary-700 rounded-full" />
+                                        <span className="text-xs sm:text-sm text-neutral-600">
                                             Available
                                         </span>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <div className="w-4 h-4 bg-neutral-700 rounded-full" />
-                                        <span className="text-sm text-neutral-600">
+                                        <div className="w-3 h-3 sm:w-4 sm:h-4 bg-neutral-700 rounded-full" />
+                                        <span className="text-xs sm:text-sm text-neutral-600">
                                             Limited
                                         </span>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <div className="w-4 h-4 bg-neutral-400 rounded-full" />
-                                        <span className="text-sm text-neutral-600">
+                                        <div className="w-3 h-3 sm:w-4 sm:h-4 bg-neutral-400 rounded-full" />
+                                        <span className="text-xs sm:text-sm text-neutral-600">
                                             Full
                                         </span>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <div className="w-4 h-4 bg-neutral-200 rounded-full" />
-                                        <span className="text-sm text-neutral-600">
+                                        <div className="w-3 h-3 sm:w-4 sm:h-4 bg-neutral-200 rounded-full" />
+                                        <span className="text-xs sm:text-sm text-neutral-600">
                                             Unavailable
                                         </span>
                                     </div>
@@ -355,14 +356,14 @@ export default function BookingCalendar() {
                             </motion.div>
                         </div>
 
-                        {/* Enhanced Booking Panel */}
-                        <div>
+                        {/* Booking Panel */}
+                        <div className="max-w-md mx-auto lg:max-w-none w-full">
                             <motion.div
                                 className="bg-white rounded-3xl shadow-soft-xl border-2 border-neutral-100 p-6"
                                 initial={{ opacity: 0, x: 20 }}
                                 animate={{ opacity: 1, x: 0 }}
                             >
-                                <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-neutral-900">
+                                <h3 className="text-lg sm:text-xl font-bold mb-4 flex items-center gap-2 text-neutral-900">
                                     <Calendar className="w-5 h-5 text-primary-700" />
                                     Quick Booking
                                 </h3>
@@ -373,14 +374,11 @@ export default function BookingCalendar() {
                                         animate={{ opacity: 1, y: 0 }}
                                     >
                                         <div className="mb-4 p-4 bg-primary-50 rounded-xl border-2 border-primary-100">
-                                            <p className="text-sm text-neutral-600 mb-1">
+                                            <p className="text-xs sm:text-sm text-neutral-600 mb-1">
                                                 Selected Date:
                                             </p>
-                                            <p className="font-bold text-lg text-neutral-900">
-                                                {format(
-                                                    selectedDate,
-                                                    'MMMM d, yyyy'
-                                                )}
+                                            <p className="font-bold text-base sm:text-lg text-neutral-900">
+                                                {format(selectedDate, 'MMMM d, yyyy')}
                                             </p>
                                         </div>
 
@@ -391,46 +389,28 @@ export default function BookingCalendar() {
                                                 </label>
                                                 <div className="grid grid-cols-2 gap-2">
                                                     <motion.button
-                                                        onClick={() =>
-                                                            setSelectedPetType(
-                                                                'cat'
-                                                            )
-                                                        }
-                                                        whileHover={{
-                                                            scale: 1.02
-                                                        }}
-                                                        whileTap={{
-                                                            scale: 0.98
-                                                        }}
-                                                        className={`p-3 rounded-lg border-2 transition-all ${
-                                                            selectedPetType ===
-                                                            'cat'
+                                                        onClick={() => setSelectedPetType('cat')}
+                                                        whileHover={{ scale: 1.02 }}
+                                                        whileTap={{ scale: 0.98 }}
+                                                        className={`p-3 rounded-lg border-2 text-sm sm:text-base transition-all ${
+                                                            selectedPetType === 'cat'
                                                                 ? 'border-primary-700 bg-primary-50'
                                                                 : 'border-neutral-200 hover:border-neutral-400'
                                                         }`}
                                                     >
-                                                        🐱 Cat
+                                                        Cat
                                                     </motion.button>
                                                     <motion.button
-                                                        onClick={() =>
-                                                            setSelectedPetType(
-                                                                'dog'
-                                                            )
-                                                        }
-                                                        whileHover={{
-                                                            scale: 1.02
-                                                        }}
-                                                        whileTap={{
-                                                            scale: 0.98
-                                                        }}
-                                                        className={`p-3 rounded-lg border-2 transition-all ${
-                                                            selectedPetType ===
-                                                            'dog'
+                                                        onClick={() => setSelectedPetType('dog')}
+                                                        whileHover={{ scale: 1.02 }}
+                                                        whileTap={{ scale: 0.98 }}
+                                                        className={`p-3 rounded-lg border-2 text-sm sm:text-base transition-all ${
+                                                            selectedPetType === 'dog'
                                                                 ? 'border-primary-700 bg-primary-50'
                                                                 : 'border-neutral-200 hover:border-neutral-400'
                                                         }`}
                                                     >
-                                                        🐶 Dog
+                                                        Dog
                                                     </motion.button>
                                                 </div>
                                             </div>
@@ -441,14 +421,13 @@ export default function BookingCalendar() {
                                                         'Booking form would open here!',
                                                         {
                                                             style: {
-                                                                background:
-                                                                    '#111827',
+                                                                background: '#111827',
                                                                 color: '#fff'
                                                             }
                                                         }
                                                     )
                                                 }
-                                                className="w-full btn-primary py-3 rounded-xl font-semibold"
+                                                className="w-full btn-primary py-3 rounded-xl font-semibold text-sm sm:text-base"
                                                 whileHover={{ scale: 1.02 }}
                                                 whileTap={{ scale: 0.98 }}
                                             >
@@ -459,17 +438,14 @@ export default function BookingCalendar() {
                                 ) : (
                                     <div className="text-center py-8 text-neutral-500">
                                         <motion.div
-                                            animate={{
-                                                scale: [1, 1.1, 1]
-                                            }}
-                                            transition={{
-                                                duration: 2,
-                                                repeat: Infinity
-                                            }}
+                                            animate={{ scale: [1, 1.1, 1] }}
+                                            transition={{ duration: 2, repeat: Infinity }}
                                         >
-                                            <Calendar className="w-12 h-12 mx-auto mb-3 text-neutral-300" />
+                                            <Calendar className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-3 text-neutral-300" />
                                         </motion.div>
-                                        <p>Select a date to begin booking</p>
+                                        <p className="text-sm sm:text-base">
+                                            Select a date to begin booking
+                                        </p>
                                     </div>
                                 )}
 
@@ -482,21 +458,18 @@ export default function BookingCalendar() {
                                                 Booking Policy
                                             </p>
                                             <p className="text-xs text-neutral-700">
-                                                • Book at least 24 hours in
-                                                advance
+                                                • Book at least 24 hours in advance
                                                 <br />
-                                                • Free cancellation up to 48
-                                                hours before
+                                                • Free cancellation up to 48 hours before
                                                 <br />
-                                                • Meet &amp; greet required for
-                                                first-time guests
+                                                • Meet &amp; greet required for first-time guests
                                             </p>
                                         </div>
                                     </div>
                                 </div>
                             </motion.div>
 
-                            {/* Special Offer Card */}
+                            {/* Special Offer */}
                             <motion.div
                                 className="bg-gradient-to-br from-primary-700 to-primary-800 rounded-3xl shadow-soft-xl p-6 mt-4 relative overflow-hidden"
                                 whileHover={{ scale: 1.02 }}
@@ -506,25 +479,20 @@ export default function BookingCalendar() {
                             >
                                 <div className="absolute inset-0 bg-dot-pattern opacity-10" />
                                 <div className="relative z-10">
-                                    <h4 className="text-white font-bold text-lg mb-2 flex items-center gap-2">
+                                    <h4 className="text-white font-bold text-base sm:text-lg mb-2 flex items-center gap-2">
                                         <motion.div
-                                            animate={{
-                                                rotate: [0, 10, -10, 0]
-                                            }}
-                                            transition={{
-                                                duration: 2,
-                                                repeat: Infinity
-                                            }}
+                                            animate={{ rotate: [0, 10, -10, 0] }}
+                                            transition={{ duration: 2, repeat: Infinity }}
                                         >
                                             <Star className="w-5 h-5 fill-white" />
                                         </motion.div>
                                         Special Offer
                                     </h4>
-                                    <p className="text-primary-50 text-sm mb-3">
+                                    <p className="text-primary-50 text-xs sm:text-sm mb-3">
                                         Book 7+ days and get 10% off your stay!
                                     </p>
                                     <motion.button
-                                        className="bg-white text-primary-700 px-4 py-2 rounded-lg font-semibold text-sm hover:bg-primary-50 transition-all"
+                                        className="bg-white text-primary-700 px-4 py-2 rounded-lg font-semibold text-xs sm:text-sm hover:bg-primary-50 transition-all"
                                         whileHover={{ scale: 1.05 }}
                                         whileTap={{ scale: 0.95 }}
                                     >

@@ -2,7 +2,18 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Phone, Mail, MapPin, Clock, Send, MessageSquare, Calendar, Info, ArrowRight, MessageCircle } from 'lucide-react'
+import {
+    Phone,
+    Mail,
+    MapPin,
+    Clock,
+    Send,
+    MessageSquare,
+    Calendar,
+    Info,
+    ArrowRight,
+    MessageCircle
+} from 'lucide-react'
 import toast from 'react-hot-toast'
 import Image from 'next/image'
 
@@ -27,11 +38,11 @@ export default function Contact() {
 
         await new Promise(resolve => setTimeout(resolve, 1500))
 
-        toast.success('Thank you for your inquiry! We\'ll get back to you within 2 hours.', {
+        toast.success("Thank you for your inquiry! We'll get back to you within 2 hours.", {
             duration: 5000,
             style: {
                 background: '#111827',
-                color: '#fff',
+                color: '#fff'
             }
         })
 
@@ -48,7 +59,9 @@ export default function Contact() {
         setIsSubmitting(false)
     }
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    ) => {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
@@ -58,14 +71,32 @@ export default function Contact() {
     return (
         <section id="contact" className="py-20 bg-gradient-to-br from-neutral-50 to-white">
             <div className="container mx-auto px-4">
-                {/* Title + 左右 SVG */}
+                {/* Title + SVG */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
                     className="mb-12 relative"
                 >
-                    {/* LEFT SVG */}
+                    {/* 🌟 Mobile SVG：标题上方的小图，桌面端隐藏 */}
+                    <div className="flex items-center justify-center gap-4 mb-4 lg:hidden">
+                        <Image
+                            src="/svgs/contact-decoration2.svg"
+                            alt="Contact decoration left"
+                            width={80}
+                            height={80}
+                            className="w-16 h-16 opacity-90"
+                        />
+                        <Image
+                            src="/svgs/contact-decoration.svg"
+                            alt="Contact decoration right"
+                            width={80}
+                            height={80}
+                            className="w-16 h-16 opacity-90"
+                        />
+                    </div>
+
+                    {/* LEFT SVG - 桌面端左右两侧保持原样 */}
                     <motion.div
                         className="hidden lg:block absolute top-[40%] -translate-y-1/2 left-0"
                         initial={{ opacity: 0, x: -50, y: 100, scale: 0.8 }}
@@ -81,8 +112,8 @@ export default function Contact() {
                             y: {
                                 duration: 4,
                                 repeat: Infinity,
-                                ease: 'easeInOut',
-                            },
+                                ease: 'easeInOut'
+                            }
                         }}
                     >
                         <Image
@@ -94,18 +125,17 @@ export default function Contact() {
                         />
                     </motion.div>
 
-
                     {/* CENTER TITLE */}
                     <div className="text-center mb-8">
                         <span className="text-primary-700 font-semibold text-sm uppercase tracking-wide">
                             Contact Us
                         </span>
-                        <h2 className="text-4xl md:text-5xl font-bold mt-2 mb-4 text-neutral-900">
+                        <h2 className="text-3xl md:text-5xl font-bold mt-2 mb-4 text-neutral-900">
                             Ready to Book Your <span className="text-gradient">Pet&apos;s Stay?</span>
                         </h2>
                     </div>
 
-                    {/* RIGHT SVG */}
+                    {/* RIGHT SVG - 桌面端 */}
                     <motion.div
                         className="hidden lg:block absolute top-[36%] -translate-y-1/2 right-0"
                         initial={{ opacity: 0, x: 50, scale: 0.8 }}
@@ -121,8 +151,8 @@ export default function Contact() {
                             y: {
                                 duration: 4,
                                 repeat: Infinity,
-                                ease: 'easeInOut',
-                            },
+                                ease: 'easeInOut'
+                            }
                         }}
                     >
                         <Image
@@ -134,10 +164,10 @@ export default function Contact() {
                         />
                     </motion.div>
 
-
                     {/* DESCRIPTION */}
-                    <p className="text-xl text-neutral-600 max-w-3xl mx-auto text-center">
-                        Get in touch today to reserve your spot or ask any questions. We typically respond within 2 hours!
+                    <p className="text-base md:text-xl text-neutral-600 max-w-3xl mx-auto text-center">
+                        Get in touch today to reserve your spot or ask any questions. We typically
+                        respond within 2 hours!
                     </p>
                 </motion.div>
 
@@ -149,8 +179,8 @@ export default function Contact() {
                         viewport={{ once: true }}
                         className="lg:col-span-2"
                     >
-                        <div className="bg-white rounded-3xl shadow-soft-xl border border-neutral-100 p-8">
-                            <h3 className="text-2xl font-bold mb-6 flex items-center gap-2 text-neutral-900">
+                        <div className="bg-white rounded-3xl shadow-soft-xl border border-neutral-100 p-6 md:p-8">
+                            <h3 className="text-xl md:text-2xl font-bold mb-6 flex items-center gap-2 text-neutral-900">
                                 <MessageSquare className="text-primary-700" />
                                 Send Us a Message
                             </h3>
@@ -170,9 +200,9 @@ export default function Contact() {
                                             onFocus={() => setFocusedField('name')}
                                             onBlur={() => setFocusedField(null)}
                                             animate={{
-                                                scale: focusedField === 'name' ? 1.01 : 1,
+                                                scale: focusedField === 'name' ? 1.01 : 1
                                             }}
-                                            className="w-full px-4 py-3 border-2 border-neutral-200 rounded-lg focus:border-primary-700 focus:outline-none transition-all"
+                                            className="w-full px-4 py-3 border-2 border-neutral-200 rounded-lg focus:border-primary-700 focus:outline-none transition-all text-sm md:text-base"
                                             placeholder="John Doe"
                                         />
                                     </div>
@@ -190,9 +220,9 @@ export default function Contact() {
                                             onFocus={() => setFocusedField('email')}
                                             onBlur={() => setFocusedField(null)}
                                             animate={{
-                                                scale: focusedField === 'email' ? 1.01 : 1,
+                                                scale: focusedField === 'email' ? 1.01 : 1
                                             }}
-                                            className="w-full px-4 py-3 border-2 border-neutral-200 rounded-lg focus:border-primary-700 focus:outline-none transition-all"
+                                            className="w-full px-4 py-3 border-2 border-neutral-200 rounded-lg focus:border-primary-700 focus:outline-none transition-all text-sm md:text-base"
                                             placeholder="john@example.com"
                                         />
                                     </div>
@@ -208,7 +238,7 @@ export default function Contact() {
                                             name="phone"
                                             value={formData.phone}
                                             onChange={handleChange}
-                                            className="w-full px-4 py-3 border-2 border-neutral-200 rounded-lg focus:border-primary-700 focus:outline-none transition-all"
+                                            className="w-full px-4 py-3 border-2 border-neutral-200 rounded-lg focus:border-primary-700 focus:outline-none transition-all text-sm md:text-base"
                                             placeholder="(781) 492-3134"
                                         />
                                     </div>
@@ -221,7 +251,7 @@ export default function Contact() {
                                             name="petType"
                                             value={formData.petType}
                                             onChange={handleChange}
-                                            className="w-full px-4 py-3 border-2 border-neutral-200 rounded-lg focus:border-primary-700 focus:outline-none transition-all"
+                                            className="w-full px-4 py-3 border-2 border-neutral-200 rounded-lg focus:border-primary-700 focus:outline-none transition-all text-sm md:text-base"
                                         >
                                             <option value="dog">🐕 Dog</option>
                                             <option value="cat">🐱 Cat</option>
@@ -232,14 +262,14 @@ export default function Contact() {
 
                                 <div>
                                     <label className="block text-sm font-medium text-neutral-700 mb-2">
-                                        Pet's Name
+                                        Pet&apos;s Name
                                     </label>
                                     <input
                                         type="text"
                                         name="petName"
                                         value={formData.petName}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-3 border-2 border-neutral-200 rounded-lg focus:border-primary-700 focus:outline-none transition-all"
+                                        className="w-full px-4 py-3 border-2 border-neutral-200 rounded-lg focus:border-primary-700 focus:outline-none transition-all text-sm md:text-base"
                                         placeholder="Max, Luna, etc."
                                     />
                                 </div>
@@ -254,7 +284,7 @@ export default function Contact() {
                                             name="startDate"
                                             value={formData.startDate}
                                             onChange={handleChange}
-                                            className="w-full px-4 py-3 border-2 border-neutral-200 rounded-lg focus:border-primary-700 focus:outline-none transition-all"
+                                            className="w-full px-4 py-3 border-2 border-neutral-200 rounded-lg focus:border-primary-700 focus:outline-none transition-all text-sm md:text-base"
                                         />
                                     </div>
 
@@ -267,7 +297,7 @@ export default function Contact() {
                                             name="endDate"
                                             value={formData.endDate}
                                             onChange={handleChange}
-                                            className="w-full px-4 py-3 border-2 border-neutral-200 rounded-lg focus:border-primary-700 focus:outline-none transition-all"
+                                            className="w-full px-4 py-3 border-2 border-neutral-200 rounded-lg focus:border-primary-700 focus:outline-none transition-all text-sm md:text-base"
                                         />
                                     </div>
                                 </div>
@@ -281,7 +311,7 @@ export default function Contact() {
                                         rows={4}
                                         value={formData.message}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-3 border-2 border-neutral-200 rounded-lg focus:border-primary-700 focus:outline-none transition-all resize-none"
+                                        className="w-full px-4 py-3 border-2 border-neutral-200 rounded-lg focus:border-primary-700 focus:outline-none transition-all resize-none text-sm md:text-base"
                                         placeholder="Tell us about your pet's needs, medications, preferences, or any questions you have..."
                                     />
                                 </div>
@@ -291,13 +321,13 @@ export default function Contact() {
                                     disabled={isSubmitting}
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
-                                    className={`w-full py-4 rounded-lg font-semibold text-white transition-all flex items-center justify-center gap-2 relative overflow-hidden ${
+                                    className={`w-full py-3 md:py-4 rounded-lg font-semibold text-white transition-all flex items-center justify-center gap-2 relative overflow-hidden ${
                                         isSubmitting
                                             ? 'bg-neutral-400 cursor-not-allowed'
                                             : 'bg-primary-700 hover:bg-primary-800 hover:shadow-soft-xl'
                                     }`}
                                 >
-                                    <span className="relative z-10">
+                                    <span className="relative z-10 text-sm md:text-base">
                                         {isSubmitting ? (
                                             <>
                                                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin inline-block mr-2" />
@@ -339,7 +369,9 @@ export default function Contact() {
                                     </div>
                                     <div>
                                         <p className="font-medium text-neutral-900">Phone</p>
-                                        <p className="text-neutral-600">(781) 492-3134</p>
+                                        <p className="text-neutral-600 text-sm md:text-base">
+                                            (781) 492-3134
+                                        </p>
                                     </div>
                                 </motion.a>
 
@@ -353,7 +385,9 @@ export default function Contact() {
                                     </div>
                                     <div>
                                         <p className="font-medium text-neutral-900">Email</p>
-                                        <p className="text-neutral-600 text-sm">choi.coco0328@gmail.com</p>
+                                        <p className="text-neutral-600 text-xs md:text-sm">
+                                            choi.coco0328@gmail.com
+                                        </p>
                                     </div>
                                 </motion.a>
 
@@ -367,7 +401,9 @@ export default function Contact() {
                                     </div>
                                     <div>
                                         <p className="font-medium text-neutral-900">WeChat</p>
-                                        <p className="text-neutral-600 text-sm">Bibi0210-Dudu0830</p>
+                                        <p className="text-neutral-600 text-xs md:text-sm">
+                                            Bibi0210-Dudu0830
+                                        </p>
                                     </div>
                                 </motion.div>
 
@@ -377,7 +413,9 @@ export default function Contact() {
                                     </div>
                                     <div>
                                         <p className="font-medium text-neutral-900">Location</p>
-                                        <p className="text-neutral-600">Wellesley Hills, MA</p>
+                                        <p className="text-neutral-600 text-sm md:text-base">
+                                            Wellesley Hills, MA
+                                        </p>
                                     </div>
                                 </div>
 
@@ -387,7 +425,9 @@ export default function Contact() {
                                     </div>
                                     <div>
                                         <p className="font-medium text-neutral-900">Hours</p>
-                                        <p className="text-neutral-600 text-sm">Mon-Sun: 7AM - 8PM</p>
+                                        <p className="text-neutral-600 text-xs md:text-sm">
+                                            Mon-Sun: 7AM - 8PM
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -401,7 +441,7 @@ export default function Contact() {
                             <div className="relative z-10">
                                 <Calendar className="w-10 h-10 mb-3" />
                                 <h4 className="font-bold text-lg mb-2">Quick Response Guarantee</h4>
-                                <p className="text-primary-50">
+                                <p className="text-primary-50 text-sm">
                                     We respond to all inquiries within 2 hours during business hours!
                                 </p>
                             </div>
@@ -436,7 +476,9 @@ export default function Contact() {
                                         >
                                             {index + 1}
                                         </motion.span>
-                                        <span className="text-neutral-700">{step}</span>
+                                        <span className="text-neutral-700 text-sm md:text-base">
+                                            {step}
+                                        </span>
                                     </motion.li>
                                 ))}
                             </ol>

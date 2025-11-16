@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence, useAnimation } from 'framer-motion'
-import { MessageCircle, Send, X, Bot, User, Sparkles, ChevronDown, Mic, Paperclip, Smile } from 'lucide-react'
+import { MessageCircle, Send, X, Bot, User, Sparkles, Mic, Paperclip } from 'lucide-react'
 import toast from 'react-hot-toast'
 
 interface Message {
@@ -39,12 +39,11 @@ export default function ChatWidget() {
     }, [messages])
 
     useEffect(() => {
-        // Animate button when closed
         if (!isOpen) {
             const animateButton = async () => {
                 await buttonControls.start({
                     scale: [1, 1.1, 1],
-                    rotate: [0, 10, -10, 0],
+                    rotate: [0, 10, -10, 0]
                 })
             }
             const interval = setInterval(animateButton, 4000)
@@ -53,10 +52,10 @@ export default function ChatWidget() {
     }, [isOpen, buttonControls])
 
     const quickReplies = [
-        "What are your rates?",
-        "Do you accept puppies?",
+        'What are your rates?',
+        'Do you accept puppies?',
         "What's included in boarding?",
-        "How do I book?"
+        'How do I book?'
     ]
 
     const getBotReply = (userMessage: string): string => {
@@ -65,9 +64,9 @@ export default function ChatWidget() {
         if (lowerMessage.includes('rate') || lowerMessage.includes('price')) {
             return "Our rates start at $45/day for cats and $55/day for dogs. Extended stays (7+ days) receive a 10% discount! 🏷️"
         } else if (lowerMessage.includes('puppy') || lowerMessage.includes('puppies')) {
-            return "Yes, we love puppies! We accept puppies 12 weeks and older. They get extra playtime and attention! 🐶"
+            return 'Yes, we love puppies! We accept puppies 12 weeks and older. They get extra playtime and attention! 🐶'
         } else if (lowerMessage.includes('included') || lowerMessage.includes('service')) {
-            return "Our boarding includes: 24/7 care, daily photos/videos, personalized feeding, playtime, basic grooming, and lots of love! ❤️"
+            return 'Our boarding includes: 24/7 care, daily photos/videos, personalized feeding, playtime, basic grooming, and lots of love! ❤️'
         } else if (lowerMessage.includes('book') || lowerMessage.includes('reservation')) {
             return "You can book directly through our calendar above, or call us at (617) 555-0123. We recommend booking at least 24 hours in advance! 📅"
         } else {
@@ -90,22 +89,18 @@ export default function ChatWidget() {
         setInputValue('')
         setIsTyping(true)
 
-        // Simulate message sent
         setTimeout(() => {
             setMessages(prev =>
                 prev.map(msg =>
-                    msg.id === userMessage.id
-                        ? { ...msg, status: 'sent' }
-                        : msg
+                    msg.id === userMessage.id ? { ...msg, status: 'sent' } : msg
                 )
             )
         }, 300)
 
-        // Simulate bot response
         setTimeout(() => {
             const botReply: Message = {
                 id: (Date.now() + 1).toString(),
-                text: getBotReply(inputValue),
+                text: getBotReply(userMessage.text),
                 sender: 'bot',
                 timestamp: new Date()
             }
@@ -121,7 +116,7 @@ export default function ChatWidget() {
                 icon: '🎤',
                 style: {
                     background: '#111827',
-                    color: '#fff',
+                    color: '#fff'
                 }
             })
         }
@@ -129,11 +124,11 @@ export default function ChatWidget() {
 
     return (
         <>
-            {/* Enhanced Chat Button - POSITIONED ON THE LEFT SIDE */}
+            {/* Chat Button：手机 & 桌面都在左下角 */}
             <AnimatePresence>
                 {!isOpen && (
                     <motion.div
-                        className="fixed bottom-6 left-6 z-40"
+                        className="fixed bottom-4 left-4 md:bottom-6 md:left-6 z-40"
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
                         exit={{ scale: 0 }}
@@ -147,23 +142,24 @@ export default function ChatWidget() {
                         >
                             <MessageCircle className="w-6 h-6" />
 
-                            {/* Ripple Effect */}
+                            {/* Ripple */}
                             <motion.div
                                 className="absolute inset-0 rounded-2xl"
                                 animate={{
                                     scale: [1, 1.5, 1.5],
-                                    opacity: [0.3, 0, 0],
+                                    opacity: [0.3, 0, 0]
                                 }}
                                 transition={{
                                     duration: 2,
-                                    repeat: Infinity,
+                                    repeat: Infinity
                                 }}
                                 style={{
-                                    background: 'radial-gradient(circle, rgba(212, 165, 165, 0.4), transparent)',
+                                    background:
+                                        'radial-gradient(circle, rgba(212, 165, 165, 0.4), transparent)'
                                 }}
                             />
 
-                            {/* Notification Dot */}
+                            {/* Notification dot */}
                             <motion.div
                                 className="absolute -top-1 -right-1 bg-neutral-900 text-white text-xs w-6 h-6 rounded-full flex items-center justify-center"
                                 animate={{ scale: [1, 1.2, 1] }}
@@ -173,7 +169,7 @@ export default function ChatWidget() {
                             </motion.div>
                         </motion.button>
 
-                        {/* Tooltip - adjusted for left side */}
+                        {/* Tooltip：依然贴着左边 */}
                         <motion.div
                             className="absolute bottom-full left-0 mb-2 bg-neutral-900 text-white text-sm px-3 py-2 rounded-lg whitespace-nowrap"
                             initial={{ opacity: 0, y: 10 }}
@@ -189,19 +185,27 @@ export default function ChatWidget() {
                 )}
             </AnimatePresence>
 
-            {/* Enhanced Chat Window - POSITIONED ON THE LEFT SIDE */}
+            {/* Chat Window：mobile bottom sheet，md+ 左下角浮窗 */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
                         initial={{ opacity: 0, y: 20, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 20, scale: 0.95 }}
-                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                        className="fixed bottom-6 left-6 z-50 w-[400px] h-[600px] bg-white rounded-3xl shadow-soft-2xl border-2 border-neutral-100 flex flex-col overflow-hidden"
+                        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                        className="
+                            fixed bottom-0 left-0 right-0 z-50
+                            w-full h-[80vh] max-h-[700px]
+                            bg-white rounded-t-3xl shadow-soft-2xl
+                            border-t-2 border-neutral-100
+                            flex flex-col overflow-hidden
+                            md:bottom-6 md:left-6 md:right-auto
+                            md:w-[400px] md:h-[600px] md:max-h-none
+                            md:rounded-3xl md:border-2
+                        "
                     >
-                        {/* Header with Gradient */}
+                        {/* Header */}
                         <div className="bg-gradient-to-r from-primary-700 to-primary-800 p-4 text-white relative overflow-hidden">
-                            {/* Animated Background Pattern */}
                             <div className="absolute inset-0 opacity-10">
                                 <div className="absolute inset-0 bg-dot-pattern" />
                             </div>
@@ -212,18 +216,18 @@ export default function ChatWidget() {
                                         className="w-12 h-12 bg-white/20 backdrop-blur rounded-full flex items-center justify-center"
                                         animate={{
                                             rotate: [0, 10, -10, 0],
-                                            scale: [1, 1.05, 1],
+                                            scale: [1, 1.05, 1]
                                         }}
                                         transition={{
                                             duration: 3,
                                             repeat: Infinity,
-                                            ease: "easeInOut"
+                                            ease: 'easeInOut'
                                         }}
                                     >
                                         <Bot className="w-6 h-6" />
                                     </motion.div>
                                     <div>
-                                        <h3 className="font-semibold text-lg">Coco's Assistant</h3>
+                                        <h3 className="font-semibold text-lg">Coco&apos;s Assistant</h3>
                                         <div className="flex items-center gap-2">
                                             <motion.div
                                                 className="w-2 h-2 bg-green-400 rounded-full"
@@ -245,7 +249,7 @@ export default function ChatWidget() {
                             </div>
                         </div>
 
-                        {/* Messages with Enhanced Animations */}
+                        {/* Messages */}
                         <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-neutral-50/50 to-white">
                             {messages.map((message, index) => (
                                 <motion.div
@@ -254,11 +258,13 @@ export default function ChatWidget() {
                                     animate={{ opacity: 1, y: 0, scale: 1 }}
                                     transition={{
                                         delay: index * 0.05,
-                                        type: "spring",
+                                        type: 'spring',
                                         stiffness: 300,
                                         damping: 30
                                     }}
-                                    className={`flex gap-2 ${message.sender === 'user' ? 'flex-row-reverse' : ''}`}
+                                    className={`flex gap-2 ${
+                                        message.sender === 'user' ? 'flex-row-reverse' : ''
+                                    }`}
                                 >
                                     <motion.div
                                         className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
@@ -275,9 +281,11 @@ export default function ChatWidget() {
                                             <Bot className="w-4 h-4 text-neutral-600" />
                                         )}
                                     </motion.div>
-                                    <div className={`max-w-[70%] ${
-                                        message.sender === 'user' ? 'text-right' : ''
-                                    }`}>
+                                    <div
+                                        className={`max-w-[70%] ${
+                                            message.sender === 'user' ? 'text-right' : ''
+                                        }`}
+                                    >
                                         <motion.div
                                             className={`rounded-2xl px-4 py-2.5 ${
                                                 message.sender === 'user'
@@ -285,13 +293,20 @@ export default function ChatWidget() {
                                                     : 'bg-white text-neutral-800 shadow-soft border border-neutral-100'
                                             }`}
                                             whileHover={{ scale: 1.02 }}
-                                            transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                                            transition={{
+                                                type: 'spring',
+                                                stiffness: 400,
+                                                damping: 30
+                                            }}
                                         >
                                             {message.text}
                                         </motion.div>
                                         <div className="flex items-center gap-1 mt-1">
                                             <p className="text-xs text-neutral-400">
-                                                {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                                {message.timestamp.toLocaleTimeString([], {
+                                                    hour: '2-digit',
+                                                    minute: '2-digit'
+                                                })}
                                             </p>
                                             {message.sender === 'user' && message.status && (
                                                 <motion.span
@@ -307,7 +322,6 @@ export default function ChatWidget() {
                                 </motion.div>
                             ))}
 
-                            {/* Typing Indicator */}
                             {isTyping && (
                                 <motion.div
                                     initial={{ opacity: 0, y: 10 }}
@@ -319,7 +333,7 @@ export default function ChatWidget() {
                                     </div>
                                     <div className="bg-white rounded-2xl px-4 py-3 shadow-soft border border-neutral-100">
                                         <div className="flex gap-1">
-                                            {[0, 1, 2].map((i) => (
+                                            {[0, 1, 2].map(i => (
                                                 <motion.div
                                                     key={i}
                                                     className="w-2 h-2 bg-neutral-400 rounded-full"
@@ -342,7 +356,7 @@ export default function ChatWidget() {
                             <div ref={messagesEndRef} />
                         </div>
 
-                        {/* Quick Replies with Animation */}
+                        {/* Quick Replies */}
                         <AnimatePresence>
                             {messages.length === 1 && (
                                 <motion.div
@@ -351,7 +365,9 @@ export default function ChatWidget() {
                                     exit={{ opacity: 0, height: 0 }}
                                     className="px-4 py-3 border-t border-neutral-100 bg-white"
                                 >
-                                    <p className="text-xs text-neutral-500 mb-2 font-medium">Quick questions:</p>
+                                    <p className="text-xs text-neutral-500 mb-2 font-medium">
+                                        Quick questions:
+                                    </p>
                                     <div className="flex flex-wrap gap-2">
                                         {quickReplies.map((reply, index) => (
                                             <motion.button
@@ -372,10 +388,9 @@ export default function ChatWidget() {
                             )}
                         </AnimatePresence>
 
-                        {/* Enhanced Input Area */}
+                        {/* Input Area */}
                         <div className="p-4 border-t-2 border-neutral-100 bg-white">
                             <div className="flex items-center gap-2">
-                                {/* Action Buttons */}
                                 <motion.button
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.9 }}
@@ -397,18 +412,16 @@ export default function ChatWidget() {
                                     <Mic className="w-5 h-5" />
                                 </motion.button>
 
-                                {/* Input Field */}
                                 <input
                                     ref={inputRef}
                                     type="text"
                                     value={inputValue}
-                                    onChange={(e) => setInputValue(e.target.value)}
-                                    onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+                                    onChange={e => setInputValue(e.target.value)}
+                                    onKeyPress={e => e.key === 'Enter' && handleSend()}
                                     placeholder="Type your message..."
-                                    className="flex-1 px-4 py-2.5 border-2 border-neutral-200 rounded-full focus:outline-none focus:border-primary-700 focus:shadow-soft-lg transition-all placeholder-neutral-400"
+                                    className="flex-1 px-4 py-2.5 border-2 border-neutral-200 rounded-full focus:outline-none focus:border-primary-700 focus:shadow-soft-lg transition-all placeholder-neutral-400 text-sm"
                                 />
 
-                                {/* Send Button */}
                                 <motion.button
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}

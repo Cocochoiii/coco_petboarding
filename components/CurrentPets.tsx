@@ -54,7 +54,27 @@ export default function CurrentPets() {
                     viewport={{ once: true }}
                     className="mb-12 relative"
                 >
-                    {/* LEFT SVG */}
+                    {/* 🌟 Mobile SVG：标题上方的小图，桌面端隐藏 */}
+                    <div className="flex items-center justify-center gap-4 mb-4 lg:hidden">
+                        <Image
+                            src="/svgs/current-pets-left.svg"
+                            alt="Current pets decoration left"
+                            width={72}
+                            height={72}
+                            className="w-16 h-16 opacity-90"
+                            priority
+                        />
+                        <Image
+                            src="/svgs/current-pets-right.svg"
+                            alt="Current pets decoration right"
+                            width={72}
+                            height={72}
+                            className="w-16 h-16 opacity-90"
+                            priority
+                        />
+                    </div>
+
+                    {/* LEFT SVG - 桌面端左右两侧保持原样 */}
                     <motion.div
                         className="hidden lg:block absolute top-4 left-0"
                         initial={{ opacity: 0, x: -50, scale: 0.8 }}
@@ -85,7 +105,7 @@ export default function CurrentPets() {
                         />
                     </motion.div>
 
-                    {/* RIGHT SVG */}
+                    {/* RIGHT SVG - 桌面端 */}
                     <motion.div
                         className="hidden lg:block absolute top-4 right-0"
                         initial={{ opacity: 0, x: 50, scale: 0.8 }}
@@ -116,38 +136,38 @@ export default function CurrentPets() {
                         />
                     </motion.div>
 
-                    {/* 原来的标题 + 文案 + stats，整体保持不变，只是包在同一个 text-center 里 */}
+                    {/* 标题 + 文案 + stats */}
                     <div className="text-center">
-                        <h2 className="text-5xl font-display font-bold mb-4 text-neutral-900">
+                        <h2 className="text-3xl md:text-5xl font-display font-bold mb-4 text-neutral-900">
                             Our Current <span className="text-gradient">Furry Residents</span>
                         </h2>
-                        <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
+                        <p className="text-base md:text-xl text-neutral-600 max-w-3xl mx-auto">
                             Meet the adorable pets currently enjoying their stay at Coco&apos;s Paradise.
                             Each one receives personalized care and endless love!
                         </p>
 
-                        {/* Stats with Enhanced Design */}
-                        <div className="flex justify-center gap-8 mt-8">
+                        {/* Stats */}
+                        <div className="flex justify-center gap-4 md:gap-8 mt-6 md:mt-8">
                             <motion.div
-                                className="flex items-center gap-2 bg-white border-2 border-primary-700 px-6 py-3 rounded-full shadow-soft-md"
+                                className="flex items-center gap-2 bg-white border-2 border-primary-700 px-4 md:px-6 py-2.5 md:py-3 rounded-full shadow-soft-md text-sm md:text-base"
                                 whileHover={{ scale: 1.05, shadow: '0 10px 30px rgba(0,0,0,0.1)' }}
                             >
-                                <Cat className="w-6 h-6 text-primary-700" />
+                                <Cat className="w-5 h-5 md:w-6 md:h-6 text-primary-700" />
                                 <span className="font-bold text-neutral-900">{cats.length} Cats</span>
                             </motion.div>
                             <motion.div
-                                className="flex items-center gap-2 bg-white border-2 border-neutral-700 px-6 py-3 rounded-full shadow-soft-md"
+                                className="flex items-center gap-2 bg-white border-2 border-neutral-700 px-4 md:px-6 py-2.5 md:py-3 rounded-full shadow-soft-md text-sm md:text-base"
                                 whileHover={{ scale: 1.05, shadow: '0 10px 30px rgba(0,0,0,0.1)' }}
                             >
-                                <Dog className="w-6 h-6 text-neutral-700" />
+                                <Dog className="w-5 h-5 md:w-6 md:h-6 text-neutral-700" />
                                 <span className="font-bold text-neutral-900">{dogs.length} Dogs</span>
                             </motion.div>
                         </div>
                     </div>
                 </motion.div>
 
-                {/* Enhanced Filter Pills */}
-                <div className="flex justify-center gap-4 mb-12">
+                {/* Filter Pills */}
+                <div className="flex justify-center gap-3 md:gap-4 mb-10 md:mb-12">
                     {[
                         { value: 'all', label: 'All Pets', icon: Heart },
                         { value: 'cat', label: 'Cats', icon: Cat },
@@ -158,13 +178,13 @@ export default function CurrentPets() {
                             onClick={() => setFilter(option.value as any)}
                             whileHover={{ scale: 1.05, y: -2 }}
                             whileTap={{ scale: 0.95 }}
-                            className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center gap-2 relative overflow-hidden ${
+                            className={`px-4 md:px-6 py-2.5 md:py-3 rounded-lg font-medium transition-all duration-300 flex items-center gap-2 relative overflow-hidden text-sm md:text-base ${
                                 filter === option.value
                                     ? 'bg-neutral-900 text-white shadow-soft-lg'
                                     : 'bg-white text-neutral-700 border-2 border-neutral-200 hover:border-neutral-400 hover:shadow-soft-md'
                             }`}
                         >
-                            <option.icon className="w-5 h-5 relative z-10" />
+                            <option.icon className="w-4 h-4 md:w-5 md:h-5 relative z-10" />
                             <span className="relative z-10">{option.label}</span>
                             {filter === option.value && (
                                 <motion.div
@@ -178,10 +198,10 @@ export default function CurrentPets() {
                     ))}
                 </div>
 
-                {/* Enhanced Pet Grid with Image Placeholders */}
+                {/* Pet Grid：手机 2 列，小平板 3 列，桌面 4 列 */}
                 <motion.div
                     layout
-                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+                    className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6"
                 >
                     <AnimatePresence mode="popLayout">
                         {filteredPets.map((pet, index) => (
@@ -204,7 +224,7 @@ export default function CurrentPets() {
                                     {/* Status Badge */}
                                     {pet.status === 'resident' && (
                                         <motion.div
-                                            className="absolute top-3 left-3 z-10 bg-neutral-900 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1"
+                                            className="absolute top-2 left-2 z-10 bg-neutral-900 text-white px-2.5 py-1 rounded-full text-[10px] sm:text-xs font-bold flex items-center gap-1"
                                             initial={{ scale: 0, rotate: -180 }}
                                             animate={{ scale: 1, rotate: 0 }}
                                             transition={{ type: 'spring' }}
@@ -214,7 +234,7 @@ export default function CurrentPets() {
                                         </motion.div>
                                     )}
 
-                                    {/* Image Container with Placeholder */}
+                                    {/* Image */}
                                     <div className="aspect-square bg-gradient-to-br from-neutral-50 to-neutral-100 relative overflow-hidden">
                                         <div className="absolute inset-0">
                                             {pet.image && pet.image !== '' ? (
@@ -223,21 +243,21 @@ export default function CurrentPets() {
                                                     alt={pet.name}
                                                     fill
                                                     className="object-cover"
-                                                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                                                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                                                 />
                                             ) : (
                                                 <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary-50 to-neutral-100">
                                                     {pet.type === 'cat' ? (
-                                                        <Cat className="w-24 h-24 text-primary-200" />
+                                                        <Cat className="w-16 h-16 sm:w-20 sm:h-20 text-primary-200" />
                                                     ) : (
-                                                        <Dog className="w-24 h-24 text-neutral-300" />
+                                                        <Dog className="w-16 h-16 sm:w-20 sm:h-20 text-neutral-300" />
                                                     )}
                                                 </div>
                                             )}
                                         </div>
 
                                         {/* Photo Count Badge */}
-                                        <div className="absolute top-3 right-3 bg-black/60 text-white px-2 py-1 rounded-full text-xs flex items-center gap-1">
+                                        <div className="absolute top-2 right-2 bg-black/60 text-white px-2 py-1 rounded-full text-[10px] sm:text-xs flex items-center gap-1">
                                             <Camera className="w-3 h-3" />
                                             <span>3</span>
                                         </div>
@@ -246,11 +266,11 @@ export default function CurrentPets() {
                                         <motion.div
                                             initial={{ opacity: 0 }}
                                             animate={{ opacity: hoveredPet === pet.id ? 1 : 0 }}
-                                            className="absolute inset-0 bg-gradient-to-t from-neutral-900/70 via-neutral-900/20 to-transparent flex items-end p-4"
+                                            className="absolute inset-0 bg-gradient-to-t from-neutral-900/70 via-neutral-900/20 to-transparent flex items-end p-2 sm:p-4"
                                         >
                                             <div className="text-white">
-                                                <p className="text-sm font-medium flex items-center gap-2">
-                                                    <Camera className="w-4 h-4" />
+                                                <p className="text-[11px] sm:text-sm font-medium flex items-center gap-2">
+                                                    <Camera className="w-3 h-3 sm:w-4 sm:h-4" />
                                                     Click to see more photos
                                                 </p>
                                             </div>
@@ -258,13 +278,19 @@ export default function CurrentPets() {
                                     </div>
 
                                     {/* Pet Info */}
-                                    <div className="p-5">
-                                        <div className="flex items-start justify-between mb-3">
+                                    <div className="p-3 sm:p-5">
+                                        <div className="flex items-start justify-between mb-2 sm:mb-3">
                                             <div>
-                                                <h3 className="font-bold text-lg text-neutral-900">{pet.name}</h3>
-                                                <p className="text-sm text-neutral-500">{pet.breed}</p>
+                                                <h3 className="font-bold text-sm sm:text-lg text-neutral-900">
+                                                    {pet.name}
+                                                </h3>
+                                                <p className="text-[11px] sm:text-sm text-neutral-500">
+                                                    {pet.breed}
+                                                </p>
                                                 {pet.age && (
-                                                    <p className="text-xs text-neutral-400 mt-1">{pet.age}</p>
+                                                    <p className="text-[10px] sm:text-xs text-neutral-400 mt-1">
+                                                        {pet.age}
+                                                    </p>
                                                 )}
                                             </div>
                                             <motion.div
@@ -272,9 +298,9 @@ export default function CurrentPets() {
                                                 transition={{ duration: 0.3 }}
                                             >
                                                 {pet.type === 'cat' ? (
-                                                    <Cat className="w-6 h-6 text-primary-700" />
+                                                    <Cat className="w-5 h-5 sm:w-6 sm:h-6 text-primary-700" />
                                                 ) : (
-                                                    <Dog className="w-6 h-6 text-neutral-700" />
+                                                    <Dog className="w-5 h-5 sm:w-6 sm:h-6 text-neutral-700" />
                                                 )}
                                             </motion.div>
                                         </div>
@@ -284,13 +310,13 @@ export default function CurrentPets() {
                                             {pet.personality.slice(0, 2).map((trait) => (
                                                 <span
                                                     key={trait}
-                                                    className="text-xs px-2 py-1 bg-neutral-100 text-neutral-600 rounded-full hover:bg-primary-100 hover:text-primary-700 transition-colors"
+                                                    className="text-[10px] sm:text-xs px-2 py-1 bg-neutral-100 text-neutral-600 rounded-full hover:bg-primary-100 hover:text-primary-700 transition-colors"
                                                 >
                                                     {trait}
                                                 </span>
                                             ))}
                                             {pet.personality.length > 2 && (
-                                                <span className="text-xs px-2 py-1 bg-primary-100 text-primary-700 rounded-full font-medium">
+                                                <span className="text-[10px] sm:text-xs px-2 py-1 bg-primary-100 text-primary-700 rounded-full font-medium">
                                                     +{pet.personality.length - 2}
                                                 </span>
                                             )}
@@ -302,7 +328,7 @@ export default function CurrentPets() {
                     </AnimatePresence>
                 </motion.div>
 
-                {/* Enhanced Pet Modal with Image Gallery */}
+                {/* Modal */}
                 <AnimatePresence>
                     {selectedPet && (
                         <motion.div
@@ -320,14 +346,14 @@ export default function CurrentPets() {
                                 onClick={e => e.stopPropagation()}
                             >
                                 {/* Image Gallery Header */}
-                                <div className="relative h-96 bg-gradient-to-br from-primary-50 to-neutral-50">
+                                <div className="relative h-72 sm:h-96 bg-gradient-to-br from-primary-50 to-neutral-50">
                                     <motion.button
                                         onClick={() => setSelectedPet(null)}
                                         whileHover={{ scale: 1.1, rotate: 90 }}
                                         whileTap={{ scale: 0.9 }}
-                                        className="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-soft-md hover:shadow-soft-lg transition-shadow z-20"
+                                        className="absolute top-4 right-4 w-9 h-9 sm:w-10 sm:h-10 bg-white rounded-full flex items-center justify-center shadow-soft-md hover:shadow-soft-lg transition-shadow z-20"
                                     >
-                                        <X className="w-5 h-5 text-neutral-700" />
+                                        <X className="w-4 h-4 sm:w-5 sm:h-5 text-neutral-700" />
                                     </motion.button>
 
                                     {/* Image Carousel */}
@@ -345,26 +371,26 @@ export default function CurrentPets() {
 
                                                 <button
                                                     onClick={prevImage}
-                                                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm rounded-full p-2 shadow-soft-lg hover:bg-white transition-all"
+                                                    className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm rounded-full p-1.5 sm:p-2 shadow-soft-lg hover:bg-white transition-all"
                                                 >
-                                                    <ChevronLeft className="w-6 h-6 text-neutral-700" />
+                                                    <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-neutral-700" />
                                                 </button>
                                                 <button
                                                     onClick={nextImage}
-                                                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm rounded-full p-2 shadow-soft-lg hover:bg-white transition-all"
+                                                    className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm rounded-full p-1.5 sm:p-2 shadow-soft-lg hover:bg-white transition-all"
                                                 >
-                                                    <ChevronRight className="w-6 h-6 text-neutral-700" />
+                                                    <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-neutral-700" />
                                                 </button>
 
-                                                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                                                <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 sm:gap-2">
                                                     {[0, 1, 2].map((index) => (
                                                         <button
                                                             key={index}
                                                             onClick={() => setCurrentImageIndex(index)}
-                                                            className={`w-2 h-2 rounded-full transition-all ${
+                                                            className={`rounded-full transition-all ${
                                                                 currentImageIndex === index
-                                                                    ? 'w-8 bg-white'
-                                                                    : 'bg-white/60 hover:bg-white/80'
+                                                                    ? 'w-6 sm:w-8 h-2 bg-white'
+                                                                    : 'w-2 h-2 bg-white/60 hover:bg-white/80'
                                                             }`}
                                                         />
                                                     ))}
@@ -374,9 +400,9 @@ export default function CurrentPets() {
                                             <div className="absolute inset-0 flex items-center justify-center">
                                                 <div className="text-center">
                                                     {selectedPet.type === 'cat' ? (
-                                                        <Cat className="w-32 h-32 text-primary-300 mx-auto mb-4" />
+                                                        <Cat className="w-24 h-24 sm:w-32 sm:h-32 text-primary-300 mx-auto mb-4" />
                                                     ) : (
-                                                        <Dog className="w-32 h-32 text-neutral-400 mx-auto mb-4" />
+                                                        <Dog className="w-24 h-24 sm:w-32 sm:h-32 text-neutral-400 mx-auto mb-4" />
                                                     )}
                                                     <p className="text-neutral-500">Photos coming soon!</p>
                                                 </div>
@@ -389,7 +415,7 @@ export default function CurrentPets() {
                                                 <button
                                                     key={index}
                                                     onClick={() => setCurrentImageIndex(index)}
-                                                    className={`w-20 h-20 rounded-lg overflow-hidden border-2 transition-all ${
+                                                    className={`w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden border-2 transition-all ${
                                                         currentImageIndex === index
                                                             ? 'border-primary-700'
                                                             : 'border-neutral-200 hover:border-neutral-400'
@@ -414,7 +440,7 @@ export default function CurrentPets() {
                                     </div>
 
                                     {selectedPet.status === 'resident' && (
-                                        <div className="absolute top-4 left-4 bg-neutral-900 text-white px-4 py-2 rounded-full text-sm font-bold flex items-center gap-2">
+                                        <div className="absolute top-4 left-4 bg-neutral-900 text-white px-3 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold flex items-center gap-2">
                                             <Sparkles className="w-4 h-4" />
                                             Original Resident
                                         </div>
@@ -422,23 +448,31 @@ export default function CurrentPets() {
                                 </div>
 
                                 {/* Modal Content */}
-                                <div className="p-8 pt-20">
-                                    <div className="flex items-start justify-between mb-6">
+                                <div className="p-6 sm:p-8 pt-20">
+                                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-4 sm:mb-6 gap-3">
                                         <div>
-                                            <h3 className="text-3xl font-bold text-neutral-900">{selectedPet.name}</h3>
-                                            <p className="text-lg text-neutral-600">{selectedPet.breed}</p>
+                                            <h3 className="text-2xl sm:text-3xl font-bold text-neutral-900">
+                                                {selectedPet.name}
+                                            </h3>
+                                            <p className="text-base sm:text-lg text-neutral-600">
+                                                {selectedPet.breed}
+                                            </p>
                                             {selectedPet.age && (
-                                                <p className="text-sm text-neutral-500 mt-1">Age: {selectedPet.age}</p>
+                                                <p className="text-sm text-neutral-500 mt-1">
+                                                    Age: {selectedPet.age}
+                                                </p>
                                             )}
                                         </div>
-                                        <div className="flex items-center gap-2 bg-primary-50 px-4 py-2 rounded-full border border-primary-200">
-                                            <Star className="w-5 h-5 text-primary-700 fill-primary-700" />
-                                            <span className="font-semibold text-primary-900">Star Guest</span>
+                                        <div className="flex items-center gap-2 bg-primary-50 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-primary-200">
+                                            <Star className="w-4 h-4 sm:w-5 sm:h-5 text-primary-700 fill-primary-700" />
+                                            <span className="font-semibold text-primary-900 text-xs sm:text-sm">
+                                                Star Guest
+                                            </span>
                                         </div>
                                     </div>
 
                                     {/* Personality */}
-                                    <div className="mb-6">
+                                    <div className="mb-5 sm:mb-6">
                                         <h4 className="font-semibold text-lg mb-3 flex items-center gap-2 text-neutral-900">
                                             <Heart className="w-5 h-5 text-primary-700" />
                                             Personality Traits
@@ -448,7 +482,7 @@ export default function CurrentPets() {
                                                 <motion.span
                                                     key={trait}
                                                     whileHover={{ scale: 1.05 }}
-                                                    className="px-4 py-2 bg-neutral-100 text-neutral-700 rounded-full font-medium hover:bg-primary-100 hover:text-primary-700 transition-colors cursor-default"
+                                                    className="px-3 sm:px-4 py-1.5 bg-neutral-100 text-neutral-700 rounded-full font-medium text-xs sm:text-sm hover:bg-primary-100 hover:text-primary-700 transition-colors cursor-default"
                                                 >
                                                     {trait}
                                                 </motion.span>
@@ -457,12 +491,12 @@ export default function CurrentPets() {
                                     </div>
 
                                     {/* Favorite Activities */}
-                                    <div className="mb-6">
+                                    <div className="mb-5 sm:mb-6">
                                         <h4 className="font-semibold text-lg mb-3 flex items-center gap-2 text-neutral-900">
                                             <Sparkles className="w-5 h-5 text-primary-700" />
                                             Favorite Activities
                                         </h4>
-                                        <div className="grid grid-cols-2 gap-3">
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                             {selectedPet.favoriteActivities.map((activity, idx) => (
                                                 <motion.div
                                                     key={activity}
@@ -472,7 +506,9 @@ export default function CurrentPets() {
                                                     className="flex items-center gap-2 bg-neutral-50 p-3 rounded-lg hover:bg-primary-50 transition-colors"
                                                 >
                                                     <div className="w-2 h-2 bg-primary-700 rounded-full" />
-                                                    <span className="text-neutral-700">{activity}</span>
+                                                    <span className="text-neutral-700 text-sm">
+                                                        {activity}
+                                                    </span>
                                                 </motion.div>
                                             ))}
                                         </div>
@@ -481,7 +517,7 @@ export default function CurrentPets() {
                                     {/* Member Since */}
                                     <div className="flex items-center gap-2 text-neutral-500">
                                         <Calendar className="w-4 h-4" />
-                                        <span className="text-sm">
+                                        <span className="text-xs sm:text-sm">
                                             Member since{' '}
                                             {new Date(selectedPet.joinedDate).toLocaleDateString('en-US', {
                                                 month: 'long',

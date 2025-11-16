@@ -1,10 +1,10 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import {AnimatePresence, motion, useScroll, useTransform} from 'framer-motion'
+import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowRight, CheckCircle, Star, ChevronDown, Heart } from 'lucide-react'
+import { ArrowRight, CheckCircle, Star, Heart } from 'lucide-react'
 import CountUp from 'react-countup'
 import { useInView } from 'react-intersection-observer'
 
@@ -20,7 +20,7 @@ export default function HeroSection() {
     const opacity = useTransform(scrollY, [0, 200], [1, 0])
     const scale = useTransform(scrollY, [0, 200], [1, 1.2])
 
-    const titles = ["Premium Pet Care", "Luxury Boarding", "Home Away From Home"]
+    const titles = ['Premium Pet Care', 'Luxury Boarding', 'Home Away From Home']
 
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
@@ -29,7 +29,7 @@ export default function HeroSection() {
         window.addEventListener('mousemove', handleMouseMove)
 
         const interval = setInterval(() => {
-            setTextIndex((prev) => (prev + 1) % titles.length)
+            setTextIndex(prev => (prev + 1) % titles.length)
         }, 3000)
 
         return () => {
@@ -50,18 +50,18 @@ export default function HeroSection() {
                     style={{ y: y1 }}
                     animate={{
                         x: mousePosition.x * 0.02,
-                        y: mousePosition.y * 0.02,
+                        y: mousePosition.y * 0.02
                     }}
-                    transition={{ type: "spring", stiffness: 50 }}
+                    transition={{ type: 'spring', stiffness: 50 }}
                 />
                 <motion.div
                     className="absolute bottom-0 -right-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-neutral-200 rounded-full opacity-10 blur-3xl"
                     style={{ y: y2 }}
                     animate={{
                         x: mousePosition.x * -0.02,
-                        y: mousePosition.y * -0.02,
+                        y: mousePosition.y * -0.02
                     }}
-                    transition={{ type: "spring", stiffness: 50 }}
+                    transition={{ type: 'spring', stiffness: 50 }}
                 />
             </div>
 
@@ -72,18 +72,30 @@ export default function HeroSection() {
                         key={i}
                         className="absolute w-1 h-1 md:w-2 md:h-2 bg-primary-700/10 rounded-full"
                         initial={{
-                            x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
-                            y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800)
+                            x:
+                                Math.random() *
+                                (typeof window !== 'undefined' ? window.innerWidth : 1000),
+                            y:
+                                Math.random() *
+                                (typeof window !== 'undefined' ? window.innerHeight : 800)
                         }}
                         animate={{
-                            x: [null, Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000)],
-                            y: [null, Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800)],
+                            x: [
+                                null,
+                                Math.random() *
+                                (typeof window !== 'undefined' ? window.innerWidth : 1000)
+                            ],
+                            y: [
+                                null,
+                                Math.random() *
+                                (typeof window !== 'undefined' ? window.innerHeight : 800)
+                            ]
                         }}
                         transition={{
                             duration: 20 + Math.random() * 20,
                             repeat: Infinity,
-                            repeatType: "reverse",
-                            ease: "linear"
+                            repeatType: 'reverse',
+                            ease: 'linear'
                         }}
                     />
                 ))}
@@ -92,16 +104,15 @@ export default function HeroSection() {
             <div className="container mx-auto px-4 relative z-10">
                 {/* Main Hero Content Container */}
                 <div className="flex items-center justify-center min-h-[70vh]">
-                    <div className="flex items-center justify-center w-full max-w-7xl">
-
-                        {/* LEFT SVG - RESPONSIVE SIZING */}
+                    <div className="flex flex-col lg:flex-row items-center justify-center w-full max-w-7xl gap-6 lg:gap-10 xl:gap-14">
+                        {/* LEFT SVG - mobile 上方 + 往下挪一点 */}
                         <motion.div
-                            className="flex-shrink-0 mr-2 sm:mr-4 md:mr-6 xl:mr-10 2xl:mr-12"
+                            className="flex-shrink-0 flex justify-center lg:justify-end w-full lg:w-auto mb-2 lg:mb-0 lg:mr-4 xl:mr-8 2xl:mr-10 mt-2 lg:mt-0"
                             initial={{ opacity: 0, x: -50, scale: 0.8 }}
                             animate={{
                                 opacity: 1,
                                 x: 0,
-                                scale: [1, 1.2, 1.5, 2.0][typeof window !== 'undefined' ? (window.innerWidth < 640 ? 0 : window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3) : 2],
+                                scale: 1,
                                 y: [0, -10, 0]
                             }}
                             transition={{
@@ -110,7 +121,7 @@ export default function HeroSection() {
                                 y: {
                                     duration: 4,
                                     repeat: Infinity,
-                                    ease: "easeInOut"
+                                    ease: 'easeInOut'
                                 }
                             }}
                         >
@@ -119,7 +130,7 @@ export default function HeroSection() {
                                 alt="Cat decoration"
                                 width={250}
                                 height={250}
-                                className="w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-48 lg:h-48 xl:w-56 xl:h-56 2xl:w-64 2xl:h-64 opacity-80 sm:opacity-90"
+                                className="w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-44 lg:h-44 xl:w-52 xl:h-52 2xl:w-60 2xl:h-60 opacity-80 sm:opacity-90"
                                 priority
                             />
                         </motion.div>
@@ -128,8 +139,8 @@ export default function HeroSection() {
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, ease: "easeOut" }}
-                            className="flex-1 max-w-4xl px-2 sm:px-4 lg:px-8"
+                            transition={{ duration: 0.8, ease: 'easeOut' }}
+                            className="flex-1 max-w-4xl px-2 sm:px-4 lg:px-6 text-center"
                         >
                             {/* Animated Badge */}
                             <motion.div
@@ -145,11 +156,13 @@ export default function HeroSection() {
                                 >
                                     <motion.div
                                         animate={{ rotate: 360 }}
-                                        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                                        transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
                                     >
                                         <CheckCircle className="w-3 h-3 md:w-4 md:h-4 text-primary-700" />
                                     </motion.div>
-                                    <span className="text-xs md:text-sm font-medium text-neutral-800">Licensed & Insured Since 2019</span>
+                                    <span className="text-xs md:text-sm font-medium text-neutral-800">
+                                        Licensed & Insured Since 2019
+                                    </span>
                                 </motion.div>
                             </motion.div>
 
@@ -158,11 +171,9 @@ export default function HeroSection() {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.3 }}
-                                className="text-center"
                             >
-                                {/* Title Container with proper height */}
+                                {/* Title Container with fixed height */}
                                 <div className="mb-8 md:mb-10">
-                                    {/* Animated Title with fixed height container */}
                                     <div className="h-[70px] md:h-[90px] lg:h-[110px] xl:h-[130px] flex items-center justify-center mb-4">
                                         <AnimatePresence mode="wait">
                                             <motion.h1
@@ -171,15 +182,16 @@ export default function HeroSection() {
                                                 initial={{ opacity: 0, y: 50, rotateX: -90 }}
                                                 animate={{ opacity: 1, y: 0, rotateX: 0 }}
                                                 exit={{ opacity: 0, y: -50, rotateX: 90 }}
-                                                transition={{ duration: 0.6, ease: "easeOut" }}
-                                                style={{ transformStyle: "preserve-3d" }}
+                                                transition={{ duration: 0.6, ease: 'easeOut' }}
+                                                style={{ transformStyle: 'preserve-3d' }}
                                             >
-                                                <span className="inline-block">{titles[textIndex]}</span>
+                                                <span className="inline-block">
+                                                    {titles[textIndex]}
+                                                </span>
                                             </motion.h1>
                                         </AnimatePresence>
                                     </div>
 
-                                    {/* Subtitle with proper spacing */}
                                     <motion.div
                                         className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-normal text-neutral-600"
                                         initial={{ opacity: 0 }}
@@ -197,8 +209,8 @@ export default function HeroSection() {
                                     animate={{ opacity: 1 }}
                                     transition={{ delay: 0.6 }}
                                 >
-                                    Personalized home boarding for your beloved pets.
-                                    Currently caring for{' '}
+                                    Personalized home boarding for your beloved pets. Currently
+                                    caring for{' '}
                                     <motion.span
                                         className="font-semibold text-neutral-900 border-b-2 border-primary-700 inline-block"
                                         whileHover={{ scale: 1.1 }}
@@ -225,11 +237,11 @@ export default function HeroSection() {
                                         <motion.div
                                             className="absolute inset-0 bg-primary-700 rounded-lg blur-lg opacity-20"
                                             animate={{
-                                                opacity: [0.2, 0.3, 0.2],
+                                                opacity: [0.2, 0.3, 0.2]
                                             }}
                                             transition={{
                                                 duration: 2,
-                                                repeat: Infinity,
+                                                repeat: Infinity
                                             }}
                                         />
                                         <Link
@@ -264,14 +276,14 @@ export default function HeroSection() {
                             </motion.div>
                         </motion.div>
 
-                        {/* RIGHT SVG - RESPONSIVE SIZING */}
+                        {/* RIGHT SVG - mobile 下方，和桌面端一样在右侧 */}
                         <motion.div
-                            className="flex-shrink-0 ml-2 sm:ml-4 md:ml-6 xl:ml-10 2xl:ml-12"
+                            className="flex-shrink-0 flex justify-center lg:justify-start w-full lg:w-auto mt-2 lg:mt-0 lg:ml-4 xl:ml-8 2xl:ml-10"
                             initial={{ opacity: 0, x: 50, scale: 0.8 }}
                             animate={{
                                 opacity: 1,
                                 x: 0,
-                                scale: [0.9, 1.1, 1.4, 1.8][typeof window !== 'undefined' ? (window.innerWidth < 640 ? 0 : window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3) : 2],
+                                scale: 1,
                                 y: [0, 10, 0]
                             }}
                             transition={{
@@ -280,7 +292,7 @@ export default function HeroSection() {
                                 y: {
                                     duration: 4,
                                     repeat: Infinity,
-                                    ease: "easeInOut",
+                                    ease: 'easeInOut',
                                     delay: 2
                                 }
                             }}
@@ -290,15 +302,14 @@ export default function HeroSection() {
                                 alt="Dog decoration"
                                 width={250}
                                 height={250}
-                                className="w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-48 lg:h-48 xl:w-56 xl:h-56 2xl:w-64 2xl:h-64 opacity-80 sm:opacity-90"
+                                className="w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-44 lg:h-44 xl:w-52 xl:h-52 2xl:w-60 2xl:h-60 opacity-80 sm:opacity-90"
                                 priority
                             />
                         </motion.div>
-
                     </div>
                 </div>
 
-                {/* Stats Cards Section - rest remains the same */}
+                {/* Stats Cards Section */}
                 <motion.div
                     ref={ref}
                     initial={{ opacity: 0, y: 20 }}
@@ -310,7 +321,7 @@ export default function HeroSection() {
                         { value: 500, label: 'Happy Pets', suffix: '+', icon: Heart },
                         { value: 4.9, label: 'Star Rating', decimals: 1, icon: Star },
                         { value: 100, label: 'Safety Record', suffix: '%', icon: CheckCircle },
-                        { value: 50, label: 'Mile Radius', icon: Heart },
+                        { value: 50, label: 'Mile Radius', icon: Heart }
                     ].map((stat, index) => (
                         <motion.div
                             key={stat.label}
@@ -320,20 +331,20 @@ export default function HeroSection() {
                             whileHover={{
                                 y: -10,
                                 rotateY: 10,
-                                scale: 1.05,
+                                scale: 1.05
                             }}
                             className="text-center group cursor-pointer transform-gpu"
-                            style={{ transformStyle: "preserve-3d" }}
+                            style={{ transformStyle: 'preserve-3d' }}
                         >
                             <motion.div
                                 className="bg-white/90 backdrop-blur-md rounded-xl p-3 md:p-4 shadow-soft hover:shadow-soft-xl transition-all border border-neutral-100"
                                 whileHover={{
-                                    boxShadow: "0 20px 40px rgba(0,0,0,0.1)",
+                                    boxShadow: '0 20px 40px rgba(0,0,0,0.1)'
                                 }}
                             >
                                 <motion.div
                                     animate={{ rotate: [0, 360] }}
-                                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                                    transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
                                     className="w-6 h-6 md:w-8 md:h-8 mx-auto mb-2 text-primary-700"
                                 >
                                     <stat.icon className="w-full h-full" />
@@ -364,10 +375,22 @@ export default function HeroSection() {
                     className="mt-12 md:mt-20 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-4xl mx-auto px-4 md:px-0"
                 >
                     {[
-                        { title: '24/7 Supervision', desc: 'Round-the-clock care in a home environment', delay: 0 },
-                        { title: 'Daily Updates', desc: 'Photos and videos sent throughout the day', delay: 0.1 },
-                        { title: 'Personalized Care', desc: 'Tailored to each pet\'s unique needs', delay: 0.2 },
-                    ].map((feature, index) => (
+                        {
+                            title: '24/7 Supervision',
+                            desc: 'Round-the-clock care in a home environment',
+                            delay: 0
+                        },
+                        {
+                            title: 'Daily Updates',
+                            desc: 'Photos and videos sent throughout the day',
+                            delay: 0.1
+                        },
+                        {
+                            title: 'Personalized Care',
+                            desc: "Tailored to each pet's unique needs",
+                            delay: 0.2
+                        }
+                    ].map(feature => (
                         <motion.div
                             key={feature.title}
                             initial={{ opacity: 0, y: 10 }}
@@ -375,7 +398,7 @@ export default function HeroSection() {
                             transition={{ delay: 0.9 + feature.delay }}
                             whileHover={{
                                 y: -5,
-                                scale: 1.02,
+                                scale: 1.02
                             }}
                             className="glass-card p-4 md:p-6 rounded-xl cursor-pointer group"
                         >
@@ -386,7 +409,9 @@ export default function HeroSection() {
                             >
                                 <CheckCircle className="w-5 h-5 md:w-6 md:h-6 text-primary-700 group-hover:text-white transition-colors" />
                             </motion.div>
-                            <h3 className="font-semibold text-neutral-900 mb-2 text-sm md:text-base">{feature.title}</h3>
+                            <h3 className="font-semibold text-neutral-900 mb-2 text-sm md:text-base">
+                                {feature.title}
+                            </h3>
                             <p className="text-xs md:text-sm text-neutral-600">{feature.desc}</p>
                         </motion.div>
                     ))}
@@ -397,15 +422,17 @@ export default function HeroSection() {
             <motion.div
                 className="absolute bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
                 animate={{ y: [0, 10, 0] }}
-                transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-                onClick={() => document.getElementById('current-pets')?.scrollIntoView({ behavior: 'smooth' })}
+                transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
+                onClick={() =>
+                    document.getElementById('current-pets')?.scrollIntoView({ behavior: 'smooth' })
+                }
                 whileHover={{ scale: 1.1 }}
             >
                 <div className="w-6 h-10 border-2 border-neutral-400 rounded-full flex justify-center hover:border-primary-700 transition-colors">
                     <motion.div
                         className="w-1.5 h-3 bg-neutral-600 rounded-full mt-2"
                         animate={{ y: [0, 10, 0], opacity: [1, 0.5, 1] }}
-                        transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                        transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
                     />
                 </div>
             </motion.div>
