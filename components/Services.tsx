@@ -8,7 +8,6 @@ import {
     Camera,
     Car,
     Bath,
-    Clock,
     Pill,
     Play,
     Moon,
@@ -96,20 +95,6 @@ const services: Service[] = [
             'Teeth cleaning',
             'Bath (if needed)'
         ]
-    },
-    {
-        icon: Clock,
-        title: 'Extended Stay',
-        description: 'Special rates for long-term boarding with extra perks',
-        price: '10% off (7+ days) | 15% off (14+ days)',
-        features: [
-            'Discounted daily rates',
-            'Free grooming session',
-            'Extra playtime',
-            'Priority booking',
-            'Complimentary pick-up'
-        ],
-        popular: true
     },
     {
         icon: Pill,

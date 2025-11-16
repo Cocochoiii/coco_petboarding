@@ -105,14 +105,43 @@ export default function HeroSection() {
                 {/* Main Hero Content Container */}
                 <div className="flex items-center justify-center min-h-[70vh]">
                     <div className="flex flex-col lg:flex-row items-center justify-center w-full max-w-7xl gap-6 lg:gap-10 xl:gap-14">
-                        {/* LEFT SVG */}
+                        {/* ===== 左侧 SVG：Mobile 版本（lg 以下显示） ===== */}
                         <motion.div
-                            className="flex-shrink-0 flex justify-center lg:justify-end w-full lg:w-auto mb-2 lg:mb-0 lg:mr-4 xl:mr-8 2xl:mr-10 mt-2 lg:mt-0"
+                            className="flex-shrink-0 flex justify-center w-full mb-2 mt-2 lg:hidden"
+                            initial={{ opacity: 0, y: -10, scale: 0.9 }}
+                            animate={{
+                                opacity: 1,
+                                y: [0, -8, 0],
+                                scale: 1
+                            }}
+                            transition={{
+                                delay: 0.4,
+                                duration: 0.8,
+                                y: {
+                                    duration: 4,
+                                    repeat: Infinity,
+                                    ease: 'easeInOut'
+                                }
+                            }}
+                        >
+                            <Image
+                                src="/svgs/left-decoration.svg"
+                                alt="Cat decoration"
+                                width={180}
+                                height={180}
+                                className="w-24 h-24 sm:w-28 sm:h-28 opacity-80"
+                                priority
+                            />
+                        </motion.div>
+
+                        {/* ===== 左侧 SVG：Desktop 版本（lg 及以上显示） ===== */}
+                        <motion.div
+                            className="hidden lg:flex flex-shrink-0 justify-end lg:w-auto lg:mr-4 xl:mr-8 2xl:mr-10 lg:mt-0"
                             initial={{ opacity: 0, x: -50, scale: 0.8 }}
                             animate={{
                                 opacity: 1,
-                                x: 0,
-                                scale: 2.0,
+                                x: 30,
+                                scale: 2.2,
                                 y: [0, -10, 0]
                             }}
                             transition={{
@@ -130,8 +159,7 @@ export default function HeroSection() {
                                 alt="Cat decoration"
                                 width={250}
                                 height={250}
-                                // ⭐ 手机端保持不变，lg+ 开始明显加大
-                                className="w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-56 lg:h-56 xl:w-64 xl:h-64 2xl:w-72 2xl:h-72 opacity-80 sm:opacity-90"
+                                className="lg:w-40 lg:h-40 xl:w-48 xl:h-48 2xl:w-56 2xl:h-56 opacity-80"
                                 priority
                             />
                         </motion.div>
@@ -277,14 +305,44 @@ export default function HeroSection() {
                             </motion.div>
                         </motion.div>
 
-                        {/* RIGHT SVG */}
+                        {/* ===== 右侧 SVG：Mobile 版本（lg 以下显示） ===== */}
                         <motion.div
-                            className="flex-shrink-0 flex justify-center lg:justify-start w-full lg:w-auto mt-2 lg:mt-0 lg:ml-4 xl:ml-8 2xl:ml-10"
+                            className="flex-shrink-0 flex justify-center w-full mt-2 lg:hidden"
+                            initial={{ opacity: 0, y: 10, scale: 0.9 }}
+                            animate={{
+                                opacity: 1,
+                                y: [0, 10, 0],
+                                scale: 1
+                            }}
+                            transition={{
+                                delay: 0.5,
+                                duration: 0.8,
+                                y: {
+                                    duration: 4,
+                                    repeat: Infinity,
+                                    ease: 'easeInOut',
+                                    delay: 2
+                                }
+                            }}
+                        >
+                            <Image
+                                src="/svgs/right-decoration.svg"
+                                alt="Dog decoration"
+                                width={180}
+                                height={180}
+                                className="w-24 h-24 sm:w-28 sm:h-28 opacity-80"
+                                priority
+                            />
+                        </motion.div>
+
+                        {/* ===== 右侧 SVG：Desktop 版本（lg 及以上显示） ===== */}
+                        <motion.div
+                            className="hidden lg:flex flex-shrink-0 justify-start lg:w-auto lg:ml-4 xl:ml-8 2xl:ml-10 lg:mt-0"
                             initial={{ opacity: 0, x: 50, scale: 0.8 }}
                             animate={{
                                 opacity: 1,
                                 x: 0,
-                                scale: 2.0,
+                                scale: 2.2,
                                 y: [0, 10, 0]
                             }}
                             transition={{
@@ -303,8 +361,7 @@ export default function HeroSection() {
                                 alt="Dog decoration"
                                 width={250}
                                 height={250}
-                                // ⭐ 同样：小屏不变，大屏放大
-                                className="w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-56 lg:h-56 xl:w-64 xl:h-64 2xl:w-72 2xl:h-72 opacity-80 sm:opacity-90"
+                                className="lg:w-40 lg:h-40 xl:w-48 xl:h-48 2xl:w-56 2xl:h-56 opacity-80"
                                 priority
                             />
                         </motion.div>
