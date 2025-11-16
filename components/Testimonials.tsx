@@ -141,11 +141,11 @@ export default function Testimonials() {
                     {/* LEFT SVG - Desktop only */}
                     <motion.div
                         className="hidden lg:block absolute top-4 left-0 flex-shrink-0 mr-6 xl:mr-8"
-                        initial={{ opacity: 0, x: -50, scale: 0.8 }}
+                        initial={{ opacity: 0, x: -50, scale: 2.0 }}
                         whileInView={{
                             opacity: 1,
                             x: -10,
-                            scale: 1.6,
+                            scale: 2.0,
                             y: [0, 10, 0]
                         }}
                         viewport={{ once: true }}
@@ -171,11 +171,11 @@ export default function Testimonials() {
                     {/* RIGHT SVG - Desktop only */}
                     <motion.div
                         className="hidden lg:block absolute top-4 right-0 flex-shrink-0 ml-6 xl:ml-8"
-                        initial={{ opacity: 0, x: 50, scale: 0.8 }}
+                        initial={{ opacity: 0, x: 50, scale: 2.0 }}
                         whileInView={{
                             opacity: 1,
                             x: 10,
-                            scale: 1.6,
+                            scale: 2.0,
                             y: [0, -10, 0]
                         }}
                         viewport={{ once: true }}

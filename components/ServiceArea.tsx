@@ -287,8 +287,8 @@ export default function ServiceArea() {
                                     {/* Desktop: 大号 SVG 在 Service Hours 左侧 */}
                                     <motion.div
                                         className="hidden lg:block absolute bottom-3 -left-28"
-                                        initial={{ opacity: 0, x: -40, y: 20, scale: 1.2 }}
-                                        whileInView={{ opacity: 1, x: 0, y: 0, scale: 1.2 }}
+                                        initial={{ opacity: 0, x: -400, y: 50, scale: 3.0 }}
+                                        whileInView={{ opacity: 1, x: -400, y: 50, scale: 3.0 }}
                                         viewport={{ once: true }}
                                         transition={{ duration: 0.8 }}
                                     >

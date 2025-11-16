@@ -105,14 +105,14 @@ export default function HeroSection() {
                 {/* Main Hero Content Container */}
                 <div className="flex items-center justify-center min-h-[70vh]">
                     <div className="flex flex-col lg:flex-row items-center justify-center w-full max-w-7xl gap-6 lg:gap-10 xl:gap-14">
-                        {/* LEFT SVG - mobile 上方 + 往下挪一点 */}
+                        {/* LEFT SVG */}
                         <motion.div
                             className="flex-shrink-0 flex justify-center lg:justify-end w-full lg:w-auto mb-2 lg:mb-0 lg:mr-4 xl:mr-8 2xl:mr-10 mt-2 lg:mt-0"
                             initial={{ opacity: 0, x: -50, scale: 0.8 }}
                             animate={{
                                 opacity: 1,
                                 x: 0,
-                                scale: 1,
+                                scale: 2.0,
                                 y: [0, -10, 0]
                             }}
                             transition={{
@@ -130,7 +130,8 @@ export default function HeroSection() {
                                 alt="Cat decoration"
                                 width={250}
                                 height={250}
-                                className="w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-44 lg:h-44 xl:w-52 xl:h-52 2xl:w-60 2xl:h-60 opacity-80 sm:opacity-90"
+                                // ⭐ 手机端保持不变，lg+ 开始明显加大
+                                className="w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-56 lg:h-56 xl:w-64 xl:h-64 2xl:w-72 2xl:h-72 opacity-80 sm:opacity-90"
                                 priority
                             />
                         </motion.div>
@@ -276,14 +277,14 @@ export default function HeroSection() {
                             </motion.div>
                         </motion.div>
 
-                        {/* RIGHT SVG - mobile 下方，和桌面端一样在右侧 */}
+                        {/* RIGHT SVG */}
                         <motion.div
                             className="flex-shrink-0 flex justify-center lg:justify-start w-full lg:w-auto mt-2 lg:mt-0 lg:ml-4 xl:ml-8 2xl:ml-10"
                             initial={{ opacity: 0, x: 50, scale: 0.8 }}
                             animate={{
                                 opacity: 1,
                                 x: 0,
-                                scale: 1,
+                                scale: 2.0,
                                 y: [0, 10, 0]
                             }}
                             transition={{
@@ -302,7 +303,8 @@ export default function HeroSection() {
                                 alt="Dog decoration"
                                 width={250}
                                 height={250}
-                                className="w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-44 lg:h-44 xl:w-52 xl:h-52 2xl:w-60 2xl:h-60 opacity-80 sm:opacity-90"
+                                // ⭐ 同样：小屏不变，大屏放大
+                                className="w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-56 lg:h-56 xl:w-64 xl:h-64 2xl:w-72 2xl:h-72 opacity-80 sm:opacity-90"
                                 priority
                             />
                         </motion.div>
