@@ -107,7 +107,7 @@ export default function HeroSection() {
                     <div className="flex flex-col lg:flex-row items-center justify-center w-full max-w-7xl gap-6 lg:gap-10 xl:gap-14">
                         {/* ===== 左侧 SVG：Mobile 版本（lg 以下显示） ===== */}
                         <motion.div
-                            className="flex-shrink-0 flex justify-center w-full mb-2 mt-2 lg:hidden mt-50"
+                            className="flex-shrink-0 flex justify-center w-full mb-2 mt-10 lg:hidden mt-50"
                             initial={{ opacity: 0, y: -10, scale: 0.9 }}
                             animate={{
                                 opacity: 1,
