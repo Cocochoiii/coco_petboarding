@@ -8,7 +8,8 @@ import {
     ChevronLeft,
     ChevronRight,
     Info,
-    Star
+    Star,
+    ArrowRight
 } from 'lucide-react'
 import {
     format,
@@ -59,6 +60,14 @@ export default function BookingCalendar() {
         }
         setSelectedDate(date)
         setShowBookingForm(true)
+    }
+
+    const handleContinueBooking = () => {
+        // Scroll to contact section
+        const contactSection = document.getElementById('contact')
+        if (contactSection) {
+            contactSection.scrollIntoView({ behavior: 'smooth' })
+        }
     }
 
     const renderCalendarDays = () => {
@@ -173,7 +182,7 @@ export default function BookingCalendar() {
     }
 
     return (
-        <section className="py-20 bg-gradient-to-b from-white to-neutral-50">
+        <section id="booking" className="py-20 bg-gradient-to-b from-white to-neutral-50">
             <div className="container mx-auto px-4">
                 {/* Title + SVG */}
                 <motion.div
@@ -416,22 +425,13 @@ export default function BookingCalendar() {
                                             </div>
 
                                             <motion.button
-                                                onClick={() =>
-                                                    toast.success(
-                                                        'Booking form would open here!',
-                                                        {
-                                                            style: {
-                                                                background: '#111827',
-                                                                color: '#fff'
-                                                            }
-                                                        }
-                                                    )
-                                                }
-                                                className="w-full btn-primary py-3 rounded-xl font-semibold text-sm sm:text-base"
+                                                onClick={handleContinueBooking}
+                                                className="w-full btn-primary py-3 rounded-xl font-semibold text-sm sm:text-base flex items-center justify-center gap-2"
                                                 whileHover={{ scale: 1.02 }}
                                                 whileTap={{ scale: 0.98 }}
                                             >
                                                 Continue Booking
+                                                <ArrowRight className="w-4 h-4" />
                                             </motion.button>
                                         </div>
                                     </motion.div>
@@ -500,6 +500,8 @@ export default function BookingCalendar() {
                                     </motion.button>
                                 </div>
                             </motion.div>
+
+
                         </div>
                     </div>
                 </div>

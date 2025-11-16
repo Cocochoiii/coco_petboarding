@@ -158,18 +158,12 @@ export default function Services() {
                     viewport={{ once: true }}
                     className="mb-12 relative"
                 >
-                    {/* Mobile SVGs: 上方居中，小一号 */}
+                    {/* Mobile SVGs */}
                     <div className="flex items-center justify-center gap-6 mb-6 lg:hidden">
                         <motion.div
                             initial={{ opacity: 0, y: -10, scale: 0.8 }}
-                            whileInView={{
-                                opacity: 1,
-                                y: 0,
-                                scale: 1,
-                            }}
-                            transition={{
-                                duration: 0.6,
-                            }}
+                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                            transition={{ duration: 0.6 }}
                         >
                             <Image
                                 src="/svgs/services-decoration2.svg"
@@ -181,15 +175,8 @@ export default function Services() {
                         </motion.div>
                         <motion.div
                             initial={{ opacity: 0, y: -10, scale: 0.8 }}
-                            whileInView={{
-                                opacity: 1,
-                                y: 0,
-                                scale: 1,
-                            }}
-                            transition={{
-                                duration: 0.6,
-                                delay: 0.1,
-                            }}
+                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                            transition={{ duration: 0.6, delay: 0.1 }}
                         >
                             <Image
                                 src="/svgs/services-decoration.svg"
@@ -201,7 +188,7 @@ export default function Services() {
                         </motion.div>
                     </div>
 
-                    {/* LEFT SVG - Desktop only */}
+                    {/* Desktop SVGs */}
                     <motion.div
                         className="hidden lg:block absolute top-4 left-0"
                         initial={{ opacity: 0, x: -50, scale: 0.8 }}
@@ -209,16 +196,12 @@ export default function Services() {
                             opacity: 1,
                             x: -20,
                             scale: 1.6,
-                            y: [0, 10, 0],
+                            y: [0, 10, 0]
                         }}
                         viewport={{ once: true }}
                         transition={{
                             duration: 0.8,
-                            y: {
-                                duration: 4,
-                                repeat: Infinity,
-                                ease: 'easeInOut',
-                            },
+                            y: { duration: 4, repeat: Infinity, ease: 'easeInOut' }
                         }}
                     >
                         <Image
@@ -230,24 +213,19 @@ export default function Services() {
                         />
                     </motion.div>
 
-                    {/* RIGHT SVG - Desktop only */}
                     <motion.div
-                        className="hidden lg:block absolute top-4 right-0 xl:ml-8"
+                        className="hidden lg:block absolute top-4 right-0"
                         initial={{ opacity: 0, x: 50, scale: 0.8 }}
                         whileInView={{
                             opacity: 1,
                             x: 20,
                             scale: 1.6,
-                            y: [0, 10, 0],
+                            y: [0, 10, 0]
                         }}
                         viewport={{ once: true }}
                         transition={{
                             duration: 0.8,
-                            y: {
-                                duration: 4,
-                                repeat: Infinity,
-                                ease: 'easeInOut',
-                            },
+                            y: { duration: 4, repeat: Infinity, ease: 'easeInOut' }
                         }}
                     >
                         <Image
@@ -256,7 +234,6 @@ export default function Services() {
                             width={200}
                             height={200}
                             className="w-32 h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48 opacity-90"
-                            priority
                         />
                     </motion.div>
 
@@ -270,19 +247,18 @@ export default function Services() {
                         </h2>
                     </div>
 
-                    {/* Description */}
                     <p className="text-base sm:text-lg md:text-xl text-neutral-600 max-w-3xl mx-auto text-center">
                         Everything your pet needs for a comfortable, happy, and safe stay.
                         All services delivered with love and professional care.
                     </p>
                 </motion.div>
 
-                {/* ===== Category Pills ===== */}
+                {/* Category Pills */}
                 <div className="flex justify-center gap-3 sm:gap-4 mb-12 flex-wrap">
                     {[
                         { value: 'all', label: 'All Services' },
                         { value: 'essential', label: 'Essential' },
-                        { value: 'addon', label: 'Add-ons' },
+                        { value: 'addon', label: 'Add-ons' }
                     ].map(cat => (
                         <motion.button
                             key={cat.value}
@@ -309,7 +285,7 @@ export default function Services() {
                     ))}
                 </div>
 
-                {/* ===== Services Grid ===== */}
+                {/* Services Grid */}
                 <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
                     {filteredServices.map((service, index) => (
                         <motion.div
@@ -353,7 +329,6 @@ export default function Services() {
                                             : 'bg-neutral-100 text-neutral-700'
                                     }`}
                                     whileHover={{ rotate: [0, -10, 10, 0] }}
-                                    transition={{ duration: 0.5 }}
                                 >
                                     <service.icon className="w-6 h-6 sm:w-7 sm:h-7" />
                                 </motion.div>
@@ -398,7 +373,6 @@ export default function Services() {
                                                             ? { scale: 1 }
                                                             : { scale: 0.6 }
                                                     }
-                                                    transition={{ delay: idx * 0.03 }}
                                                 />
                                             </div>
                                             <span className="text-[11px] sm:text-sm text-neutral-700">
@@ -408,30 +382,13 @@ export default function Services() {
                                     ))}
                                 </ul>
 
-                                {/* Hover CTA */}
-                                <motion.div
-                                    initial={{ opacity: 0, height: 0 }}
-                                    animate={
-                                        hoveredService === index
-                                            ? { opacity: 1, height: 'auto' }
-                                            : { opacity: 0, height: 0 }
-                                    }
-                                    transition={{ duration: 0.25 }}
-                                    className="overflow-hidden"
-                                >
-                                    <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-neutral-200">
-                                        <button className="w-full bg-primary-700 text-white py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm font-semibold hover:bg-primary-800 transition-all flex items-center justify-center gap-2 group">
-                                            Learn More
-                                            <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 transition-transform group-hover:translate-x-1" />
-                                        </button>
-                                    </div>
-                                </motion.div>
+                                {/* ⭐ 已删除 Learn More 按钮 — 保持布局不变 */}
                             </motion.div>
                         </motion.div>
                     ))}
                 </div>
 
-                {/* ===== Bottom CTA ===== */}
+                {/* Bottom CTA */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -450,13 +407,16 @@ export default function Services() {
                                 <Sparkles className="w-7 h-7 sm:w-8 sm:h-8 text-primary-700" />
                             </motion.div>
                         </div>
+
                         <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-neutral-900">
                             All Services Include Our Quality Guarantee
                         </h3>
+
                         <p className="text-sm sm:text-base text-neutral-600 mb-5 sm:mb-6 max-w-2xl mx-auto">
                             Every service comes with our commitment to excellence, safety protocols,
                             and the loving care your pet deserves. Licensed, insured, and pet first aid certified.
                         </p>
+
                         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                             <motion.button
                                 className="btn-primary px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-semibold text-sm sm:text-base"
@@ -465,6 +425,7 @@ export default function Services() {
                             >
                                 Book Services Now
                             </motion.button>
+
                             <motion.button
                                 className="btn-secondary px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-semibold text-sm sm:text-base"
                                 whileHover={{ scale: 1.05 }}

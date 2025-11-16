@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import { Star, Quote, Heart, ThumbsUp, MessageCircle } from 'lucide-react'
+import { Star, Quote, Heart, ThumbsUp } from 'lucide-react'
 import { useState } from 'react'
 
 interface Testimonial {
@@ -108,7 +108,7 @@ export default function Testimonials() {
                     viewport={{ once: true }}
                     className="mb-12 relative"
                 >
-                    {/* Mobile SVGs: 上方居中，小一号 */}
+                    {/* Mobile SVGs */}
                     <div className="flex items-center justify-center gap-6 mb-6 lg:hidden">
                         <motion.div
                             initial={{ opacity: 0, y: -10, scale: 0.8 }}
@@ -266,7 +266,8 @@ export default function Testimonials() {
                 </div>
 
                 {/* ===== Testimonials Grid ===== */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {/* 👉 手机端也是 3 列：grid-cols-3 */}
+                <div className="grid grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
                     {filteredTestimonials.map((testimonial, index) => (
                         <motion.div
                             key={testimonial.id}
@@ -279,7 +280,7 @@ export default function Testimonials() {
                             className="relative"
                         >
                             <motion.div
-                                className={`bg-white p-5 sm:p-6 rounded-2xl border-2 transition-all duration-300 ${
+                                className={`bg-white p-2.5 sm:p-4 md:p-5 rounded-xl sm:rounded-2xl border-2 transition-all duration-300 ${
                                     hoveredCard === testimonial.id
                                         ? 'border-primary-700 shadow-soft-xl'
                                         : 'border-neutral-100 shadow-soft'
@@ -293,13 +294,13 @@ export default function Testimonials() {
                                         scale: hoveredCard === testimonial.id ? 1.1 : 1
                                     }}
                                     transition={{ duration: 0.3 }}
-                                    className="absolute top-4 right-4"
+                                    className="absolute top-2 right-2 sm:top-3 sm:right-3"
                                 >
-                                    <Quote className="h-7 w-7 text-neutral-200" />
+                                    <Quote className="h-5 w-5 sm:h-7 sm:w-7 text-neutral-200" />
                                 </motion.div>
 
                                 {/* Rating Stars */}
-                                <div className="flex gap-1 mb-4">
+                                <div className="flex gap-0.5 sm:gap-1 mb-2 sm:mb-4">
                                     {[...Array(testimonial.rating)].map((_, i) => (
                                         <motion.div
                                             key={i}
@@ -307,34 +308,34 @@ export default function Testimonials() {
                                             animate={{ opacity: 1, scale: 1 }}
                                             transition={{ delay: 0.08 * i, type: 'spring' }}
                                         >
-                                            <Star className="h-4 w-4 sm:h-5 sm:w-5 fill-primary-700 text-primary-700" />
+                                            <Star className="h-3 w-3 sm:h-4 sm:w-4 fill-primary-700 text-primary-700" />
                                         </motion.div>
                                     ))}
                                 </div>
 
                                 {/* Text */}
-                                <p className="text-sm sm:text-base text-neutral-700 mb-6 italic leading-relaxed">
+                                <p className="text-[10px] sm:text-sm md:text-base text-neutral-700 mb-3 sm:mb-6 italic leading-relaxed line-clamp-6 sm:line-clamp-none">
                                     &quot;{testimonial.text}&quot;
                                 </p>
 
                                 {/* Reviewer Info */}
-                                <div className="border-top border-neutral-100 pt-4">
-                                    <div className="flex items-center justify-between gap-3">
+                                <div className="border-t border-neutral-100 pt-2 sm:pt-4">
+                                    <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                                         <div>
-                                            <p className="font-semibold text-neutral-900 text-sm sm:text-base">
+                                            <p className="font-semibold text-neutral-900 text-[11px] sm:text-sm md:text-base">
                                                 {testimonial.name}
                                             </p>
-                                            <p className="text-xs sm:text-sm text-neutral-600 flex items-center gap-1">
+                                            <p className="text-[10px] sm:text-xs md:text-sm text-neutral-600 flex items-center gap-1">
                                                 {testimonial.petType === 'cat' ? '🐱' : '🐕'} {testimonial.pet}
                                             </p>
-                                            <p className="text-[10px] sm:text-xs text-neutral-500 mt-1">
+                                            <p className="text-[9px] sm:text-[10px] md:text-xs text-neutral-500 mt-0.5 sm:mt-1">
                                                 {testimonial.date}
                                             </p>
                                         </div>
                                         <div className="text-right">
                                             <motion.button
                                                 onClick={() => handleLike(testimonial.id)}
-                                                className={`flex items-center gap-1 text-xs sm:text-sm transition-colors ${
+                                                className={`flex items-center justify-end gap-1 text-[10px] sm:text-xs md:text-sm transition-colors ${
                                                     likedReviews.includes(testimonial.id)
                                                         ? 'text-primary-700'
                                                         : 'text-neutral-400 hover:text-primary-700'
@@ -343,7 +344,7 @@ export default function Testimonials() {
                                                 whileTap={{ scale: 0.9 }}
                                             >
                                                 <ThumbsUp
-                                                    className={`h-4 w-4 ${
+                                                    className={`h-3 w-3 sm:h-4 sm:w-4 ${
                                                         likedReviews.includes(testimonial.id)
                                                             ? 'fill-primary-700'
                                                             : ''
@@ -360,7 +361,7 @@ export default function Testimonials() {
 
                                 {/* Pet Type Badge */}
                                 <motion.div
-                                    className={`absolute -top-2 -left-2 w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shadow-soft-md ${
+                                    className={`absolute -top-2 -left-2 w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center shadow-soft-md ${
                                         testimonial.petType === 'cat'
                                             ? 'bg-gradient-to-br from-primary-100 to-primary-200 text-primary-700'
                                             : 'bg-gradient-to-br from-neutral-100 to-neutral-200 text-neutral-700'
@@ -368,7 +369,9 @@ export default function Testimonials() {
                                     animate={{ rotate: hoveredCard === testimonial.id ? 360 : 0 }}
                                     transition={{ duration: 0.5 }}
                                 >
-                                    {testimonial.petType === 'cat' ? '🐾' : '🦴'}
+                                    <span className="text-[12px] sm:text-sm">
+                                        {testimonial.petType === 'cat' ? '🐾' : '🦴'}
+                                    </span>
                                 </motion.div>
                             </motion.div>
                         </motion.div>
