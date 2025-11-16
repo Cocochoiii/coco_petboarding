@@ -13,9 +13,13 @@ import {
     Info,
     Star,
     User,
-    PawPrint
+    PawPrint,
+    Volume2,
+    VolumeX,
+    Music
 } from 'lucide-react'
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
+import { useMusic } from '@/contexts/MusicContext'
 
 export default function Navigation() {
     const [isOpen, setIsOpen] = useState(false)
@@ -23,10 +27,11 @@ export default function Navigation() {
     const [hoveredItem, setHoveredItem] = useState<string | null>(null)
     const [documentHeight, setDocumentHeight] = useState(1)
     const [isDarkNav, setIsDarkNav] = useState(false)
+    const [showVolumeSlider, setShowVolumeSlider] = useState(false)
 
+    const { isPlaying, volume, togglePlay, setVolume } = useMusic()
     const { scrollY } = useScroll()
 
-    // 顶部 -> 轻微白色背景，用于 Hero 区域
     const navBackground = useTransform(
         scrollY,
         [0, 100],
@@ -38,7 +43,6 @@ export default function Navigation() {
         ['0px 0px 0px rgba(0,0,0,0)', '0px 10px 30px rgba(0,0,0,0.1)']
     )
 
-    // Fix for document is not defined error
     const progressWidth = useTransform(scrollY, [0, documentHeight], ['0%', '100%'])
 
     useEffect(() => {
@@ -53,7 +57,6 @@ export default function Navigation() {
             const handleScroll = () => {
                 const y = window.scrollY
                 setScrolled(y > 20)
-                // 当下滑超过 ~300px，认为已经离开首屏，切换为深色导航（和 footer 风格一致）
                 setIsDarkNav(y > 300)
             }
 
@@ -83,6 +86,11 @@ export default function Navigation() {
         { href: '#contact', label: 'Contact', icon: Phone }
     ]
 
+    const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newVolume = parseFloat(e.target.value)
+        setVolume(newVolume)
+    }
+
     return (
         <>
             <motion.nav
@@ -90,7 +98,6 @@ export default function Navigation() {
                     isDarkNav ? 'bg-gradient-to-br from-neutral-900 to-neutral-800' : ''
                 }`}
                 style={{
-                    // 顶部时用浅色透明背景，下面交给深色渐变 class 处理
                     backgroundColor: isDarkNav ? 'transparent' : (navBackground as any),
                     boxShadow: navShadow as any
                 }}
@@ -100,7 +107,7 @@ export default function Navigation() {
             >
                 <div className="container mx-auto px-4">
                     <div className="flex justify-between items-center h-16 md:h-20">
-                        {/* Logo with Enhanced Animation */}
+                        {/* Logo */}
                         <Link
                             href="/"
                             className="flex items-center space-x-2 md:space-x-3 group"
@@ -164,7 +171,7 @@ export default function Navigation() {
                             </div>
                         </Link>
 
-                        {/* Desktop Menu with Advanced Interactions */}
+                        {/* Desktop Menu */}
                         <div className="hidden lg:flex items-center space-x-8">
                             {navItems.map((item, index) => (
                                 <motion.div
@@ -186,8 +193,7 @@ export default function Navigation() {
                                     >
                                         <motion.div
                                             animate={{
-                                                rotate:
-                                                    hoveredItem === item.label ? 360 : 0
+                                                rotate: hoveredItem === item.label ? 360 : 0
                                             }}
                                             transition={{ duration: 0.3 }}
                                         >
@@ -225,7 +231,7 @@ export default function Navigation() {
                                 </motion.div>
                             ))}
 
-                            {/* CTA Button with Pulse Effect - FIXED HREF */}
+                            {/* Client Portal Button */}
                             <motion.div
                                 initial={{ opacity: 0, scale: 0 }}
                                 animate={{ opacity: 1, scale: 1 }}
@@ -252,6 +258,81 @@ export default function Navigation() {
                                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                                 </Link>
                             </motion.div>
+
+                            {/* Music Button */}
+                            <div className="relative">
+                                <motion.button
+                                    onClick={togglePlay}
+                                    onMouseEnter={() => setShowVolumeSlider(true)}
+                                    onMouseLeave={() => setShowVolumeSlider(false)}
+                                    className={`relative p-2.5 rounded-lg transition-all ${
+                                        isPlaying
+                                            ? 'bg-primary-700 text-white'
+                                            : isDarkNav
+                                                ? 'bg-neutral-700 text-neutral-300'
+                                                : 'bg-neutral-200 text-neutral-600'
+                                    } hover:scale-110`}
+                                    whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 0.9 }}
+                                    initial={{ opacity: 0, scale: 0 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ delay: 0.7 }}
+                                >
+                                    {isPlaying ? (
+                                        <Volume2 className="w-4 h-4" />
+                                    ) : (
+                                        <VolumeX className="w-4 h-4" />
+                                    )}
+
+                                    {/* Animated music notes */}
+                                    {isPlaying && (
+                                        <motion.div
+                                            className="absolute -top-1 -right-1"
+                                            animate={{
+                                                y: [-5, -10, -5],
+                                                opacity: [0, 1, 0],
+                                            }}
+                                            transition={{
+                                                duration: 2,
+                                                repeat: Infinity,
+                                                ease: 'easeInOut',
+                                            }}
+                                        >
+                                            <span className="text-[10px]">🎵</span>
+                                        </motion.div>
+                                    )}
+                                </motion.button>
+
+                                {/* Volume slider */}
+                                <AnimatePresence>
+                                    {showVolumeSlider && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: 10 }}
+                                            className="absolute top-full mt-2 right-0 bg-white rounded-lg shadow-soft-xl p-3 border border-neutral-200"
+                                            onMouseEnter={() => setShowVolumeSlider(true)}
+                                            onMouseLeave={() => setShowVolumeSlider(false)}
+                                        >
+                                            <div className="flex items-center gap-2">
+                                                <Music className="w-4 h-4 text-neutral-600" />
+                                                <input
+                                                    type="range"
+                                                    min="0"
+                                                    max="1"
+                                                    step="0.1"
+                                                    value={volume}
+                                                    onChange={handleVolumeChange}
+                                                    className="w-20 accent-primary-700"
+                                                />
+                                                <span className="text-xs text-neutral-600 w-8">
+                                                    {Math.round(volume * 100)}%
+                                                </span>
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
                         </div>
 
                         {/* Mobile Menu Button */}
@@ -304,7 +385,7 @@ export default function Navigation() {
                     </div>
                 </div>
 
-                {/* Enhanced Mobile Menu */}
+                {/* Mobile Menu */}
                 <AnimatePresence>
                     {isOpen && (
                         <motion.div
@@ -361,6 +442,24 @@ export default function Navigation() {
                                         </Link>
                                     </motion.div>
                                 ))}
+
+                                {/* Music Control for Mobile */}
+                                <div className="px-4 py-3">
+                                    <div className="flex items-center justify-between bg-neutral-100 dark:bg-neutral-800 rounded-lg p-3">
+                                        <span className="text-sm font-medium">Background Music</span>
+                                        <button
+                                            onClick={togglePlay}
+                                            className={`p-2 rounded-lg ${
+                                                isPlaying
+                                                    ? 'bg-primary-700 text-white'
+                                                    : 'bg-neutral-300 text-neutral-600'
+                                            }`}
+                                        >
+                                            {isPlaying ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+                                        </button>
+                                    </div>
+                                </div>
+
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}

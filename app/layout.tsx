@@ -6,6 +6,7 @@ import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import ChatWidget from '@/components/ChatWidget'
 import PageTransition from '@/components/PageTransition'
+import { MusicProvider } from '@/contexts/MusicContext'
 
 const inter = Inter({
     subsets: ['latin'],
@@ -43,14 +44,16 @@ export default function RootLayout({
             <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         </head>
         <body className={`${inter.variable} ${poppins.variable} font-sans noise-texture overflow-x-hidden`}>
-        <PageTransition>
-            <Navigation />
-            <main className="min-h-screen overflow-x-hidden">
-                {children}
-            </main>
-            <Footer />
-            <ChatWidget />
-        </PageTransition>
+        <MusicProvider>
+            <PageTransition>
+                <Navigation />
+                <main className="min-h-screen overflow-x-hidden">
+                    {children}
+                </main>
+                <Footer />
+                <ChatWidget />
+            </PageTransition>
+        </MusicProvider>
 
         <Toaster
             position="bottom-right"
