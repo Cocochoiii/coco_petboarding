@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import {
     Home,
     Heart,
@@ -164,17 +165,86 @@ export default function Services() {
     return (
         <section id="services" className="py-20 bg-gradient-to-b from-white to-neutral-50">
             <div className="container mx-auto px-4">
+                {/* Title Section with centered text + left & right SVG */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
-                    className="text-center mb-12"
+                    className="mb-12 relative"
                 >
-                    <span className="text-primary-700 font-semibold text-sm uppercase tracking-wide">Our Services</span>
-                    <h2 className="text-4xl md:text-5xl font-bold mt-2 mb-4">
-                        Comprehensive <span className="text-gradient">Pet Care Services</span>
-                    </h2>
-                    <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
+                    {/* LEFT SVG - 只改 vertical 位置：top-4 */}
+                    <motion.div
+                        className="hidden lg:block absolute top-4 left-0"
+                        initial={{ opacity: 0, x: -50, scale: 0.8 }}
+                        animate={{ opacity: 1, x: 0, scale: 25 }}
+                        whileInView={{
+                            opacity: 1,
+                            x: -20,
+                            scale: 1.5,
+                            y: [0, 10, 0]
+                        }}
+                        viewport={{ once: true }}
+                        transition={{
+                            duration: 0.8,
+                            y: {
+                                duration: 4,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                            }
+                        }}
+                    >
+                        <Image
+                            src="/svgs/services-decoration2.svg"
+                            alt="Services decoration left"
+                            width={200}
+                            height={200}
+                            className="w-32 h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48 opacity-90"
+                        />
+                    </motion.div>
+
+                    {/* Centered Title (保持和之前一样居中） */}
+                    <div className="text-center mb-8">
+                        <span className="text-primary-700 font-semibold text-sm uppercase tracking-wide">
+                            Our Services
+                        </span>
+                        <h2 className="text-4xl md:text-5xl font-bold mt-2 mb-4">
+                            Comprehensive <span className="text-gradient">Pet Care Services</span>
+                        </h2>
+                    </div>
+
+                    {/* RIGHT SVG - 只改 vertical 位置：top-4 */}
+                    <motion.div
+                        className="hidden lg:block flex-shrink-0 xl:ml-8 absolute top-4 right-0"
+                        initial={{ opacity: 0, x: 50, scale: 0.8 }}
+                        animate={{ opacity: 1, x: 0, scale: 25 }}
+                        whileInView={{
+                            opacity: 1,
+                            x: 20,
+                            scale: 1.5,
+                            y: [0, 10, 0]
+                        }}
+                        viewport={{ once: true }}
+                        transition={{
+                            duration: 0.8,
+                            y: {
+                                duration: 4,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                            }
+                        }}
+                    >
+                        <Image
+                            src="/svgs/services-decoration.svg"
+                            alt="Services decoration"
+                            width={200}
+                            height={200}
+                            className="w-32 h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48 opacity-90"
+                            priority
+                        />
+                    </motion.div>
+
+                    {/* Description - Full Width Center */}
+                    <p className="text-xl text-neutral-600 max-w-3xl mx-auto text-center">
                         Everything your pet needs for a comfortable, happy, and safe stay.
                         All services delivered with love and professional care.
                     </p>
@@ -280,7 +350,7 @@ export default function Services() {
                                             animate={hoveredService === index ? { opacity: 1, x: 0 } : { opacity: 1, x: 0 }}
                                             transition={{ delay: idx * 0.05 }}
                                         >
-                                            <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 transition-all ${
+                                            <div className={`w-5 h-5 rounded-full flex items-center justifycenter flex-shrink-0 mt-0.5 transition-all ${
                                                 hoveredService === index
                                                     ? 'bg-primary-700'
                                                     : 'bg-neutral-200'

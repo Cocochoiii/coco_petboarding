@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Menu, X, Heart, ArrowRight, Home, Phone, Calendar, Info, Star } from 'lucide-react'
+import { Menu, X, Heart, ArrowRight, Home, Phone, Calendar, Info, Star, User } from 'lucide-react'
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 
 export default function Navigation() {
@@ -157,7 +157,7 @@ export default function Navigation() {
                                 </motion.div>
                             ))}
 
-                            {/* CTA Button with Pulse Effect */}
+                            {/* CTA Button with Pulse Effect - FIXED HREF */}
                             <motion.div
                                 initial={{ opacity: 0, scale: 0 }}
                                 animate={{ opacity: 1, scale: 1 }}
@@ -176,9 +176,10 @@ export default function Navigation() {
                                     }}
                                 />
                                 <Link
-                                    href="/login"
+                                    href="/client-portal"
                                     className="relative bg-primary-700 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg hover:bg-primary-800 transition-all font-medium shadow-soft hover:shadow-soft-xl flex items-center gap-2 group"
                                 >
+                                    <User className="w-4 h-4" />
                                     Client Portal
                                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                                 </Link>
@@ -261,10 +262,11 @@ export default function Navigation() {
                                     className="mt-4 px-4"
                                 >
                                     <Link
-                                        href="/login"
-                                        className="block bg-primary-700 text-white text-center py-3 md:py-4 rounded-lg hover:bg-primary-800 transition-all font-medium shadow-soft hover:shadow-soft-xl"
+                                        href="/client-portal"
+                                        className="block bg-primary-700 text-white text-center py-3 md:py-4 rounded-lg hover:bg-primary-800 transition-all font-medium shadow-soft hover:shadow-soft-xl flex items-center justify-center gap-2"
                                         onClick={() => setIsOpen(false)}
                                     >
+                                        <User className="w-5 h-5" />
                                         Client Portal
                                     </Link>
                                 </motion.div>

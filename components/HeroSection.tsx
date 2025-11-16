@@ -94,14 +94,14 @@ export default function HeroSection() {
                 <div className="flex items-center justify-center min-h-[70vh]">
                     <div className="flex items-center justify-center w-full max-w-7xl">
 
-                        {/* LEFT SVG - LARGER SIZE */}
+                        {/* LEFT SVG - RESPONSIVE SIZING */}
                         <motion.div
-                            className="hidden lg:block flex-shrink-0 mr-6 xl:mr-10 2xl:mr-12"
+                            className="flex-shrink-0 mr-2 sm:mr-4 md:mr-6 xl:mr-10 2xl:mr-12"
                             initial={{ opacity: 0, x: -50, scale: 0.8 }}
                             animate={{
                                 opacity: 1,
                                 x: 0,
-                                scale: 2.0,
+                                scale: [1, 1.2, 1.5, 2.0][typeof window !== 'undefined' ? (window.innerWidth < 640 ? 0 : window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3) : 2],
                                 y: [0, -10, 0]
                             }}
                             transition={{
@@ -119,7 +119,7 @@ export default function HeroSection() {
                                 alt="Cat decoration"
                                 width={250}
                                 height={250}
-                                className="w-40 h-40 lg:w-48 lg:h-48 xl:w-56 xl:h-56 2xl:w-64 2xl:h-64 opacity-90"
+                                className="w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-48 lg:h-48 xl:w-56 xl:h-56 2xl:w-64 2xl:h-64 opacity-80 sm:opacity-90"
                                 priority
                             />
                         </motion.div>
@@ -129,7 +129,7 @@ export default function HeroSection() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, ease: "easeOut" }}
-                            className="flex-1 max-w-4xl px-4 lg:px-8"
+                            className="flex-1 max-w-4xl px-2 sm:px-4 lg:px-8"
                         >
                             {/* Animated Badge */}
                             <motion.div
@@ -264,14 +264,14 @@ export default function HeroSection() {
                             </motion.div>
                         </motion.div>
 
-                        {/* RIGHT SVG - LARGER SIZE */}
+                        {/* RIGHT SVG - RESPONSIVE SIZING */}
                         <motion.div
-                            className="hidden lg:block flex-shrink-0 ml-6 xl:ml-10 2xl:ml-12"
+                            className="flex-shrink-0 ml-2 sm:ml-4 md:ml-6 xl:ml-10 2xl:ml-12"
                             initial={{ opacity: 0, x: 50, scale: 0.8 }}
                             animate={{
                                 opacity: 1,
                                 x: 0,
-                                scale: 1.8,
+                                scale: [0.9, 1.1, 1.4, 1.8][typeof window !== 'undefined' ? (window.innerWidth < 640 ? 0 : window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3) : 2],
                                 y: [0, 10, 0]
                             }}
                             transition={{
@@ -290,7 +290,7 @@ export default function HeroSection() {
                                 alt="Dog decoration"
                                 width={250}
                                 height={250}
-                                className="w-40 h-40 lg:w-48 lg:h-48 xl:w-56 xl:h-56 2xl:w-64 2xl:h-64 opacity-90"
+                                className="w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-48 lg:h-48 xl:w-56 xl:h-56 2xl:w-64 2xl:h-64 opacity-80 sm:opacity-90"
                                 priority
                             />
                         </motion.div>
@@ -298,7 +298,7 @@ export default function HeroSection() {
                     </div>
                 </div>
 
-                {/* Stats Cards Section */}
+                {/* Stats Cards Section - rest remains the same */}
                 <motion.div
                     ref={ref}
                     initial={{ opacity: 0, y: 20 }}

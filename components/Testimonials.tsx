@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import { Star, Quote, Heart, ThumbsUp, MessageCircle } from 'lucide-react'
 import { useState } from 'react'
 
@@ -99,17 +100,86 @@ export default function Testimonials() {
     return (
         <section id="testimonials" className="py-20 bg-gradient-to-b from-neutral-50 to-white">
             <div className="container mx-auto px-4">
+                {/* Title Section with centered text + left & right SVG */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
-                    className="text-center mb-12"
+                    className="mb-12 relative"
                 >
-                    <span className="text-primary-700 font-semibold text-sm uppercase tracking-wide">Testimonials</span>
-                    <h2 className="text-4xl md:text-5xl font-display font-bold mt-2 mb-4 text-neutral-900">
-                        What Pet Parents Say
-                    </h2>
-                    <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
+                    {/* LEFT SVG (只改 vertical 位置：top-4) */}
+                    <motion.div
+                        className="hidden lg:block flex-shrink-0 mr-6 xl:mr-8 absolute top-4 left-0"
+                        initial={{ opacity: 0, x: -50, scale: 0.8 }}
+                        animate={{ opacity: 1, x: 0, scale: 25 }}
+                        whileInView={{
+                            opacity: 1,
+                            x: 0,
+                            scale: 1.8,
+                            y: [0, 10, 0]
+                        }}
+                        viewport={{ once: true }}
+                        transition={{
+                            duration: 0.8,
+                            y: {
+                                duration: 4,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                            }
+                        }}
+                    >
+                        <Image
+                            src="/svgs/testimonials-decoration2.svg"
+                            alt="Testimonials decoration"
+                            width={200}
+                            height={200}
+                            className="w-32 h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48 opacity-90"
+                            priority
+                        />
+                    </motion.div>
+
+                    {/* CENTER TITLE（保持和以前一样） */}
+                    <div className="text-center mb-8">
+                        <span className="text-primary-700 font-semibold text-sm uppercase tracking-wide">
+                            Testimonials
+                        </span>
+                        <h2 className="text-4xl md:text-5xl font-display font-bold mt-2 mb-4 text-neutral-900">
+                            What Pet Parents Say
+                        </h2>
+                    </div>
+
+                    {/* RIGHT SVG - 只改 vertical 位置：top-4 */}
+                    <motion.div
+                        className="hidden lg:block flex-shrink-0 ml-6 xl:ml-8 absolute top-4 right-0"
+                        initial={{ opacity: 0, x: 50, scale: 0.8 }}
+                        animate={{ opacity: 1, x: 0, scale: 25 }}
+                        whileInView={{
+                            opacity: 1,
+                            x: 0,
+                            scale: 1.8,
+                            y: [0, -10, 0]
+                        }}
+                        viewport={{ once: true }}
+                        transition={{
+                            duration: 0.8,
+                            y: {
+                                duration: 4,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                            }
+                        }}
+                    >
+                        <Image
+                            src="/svgs/testimonials-decoration.svg"
+                            alt="Testimonials decoration right"
+                            width={200}
+                            height={200}
+                            className="w-32 h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48 opacity-90"
+                        />
+                    </motion.div>
+
+                    {/* Description - Full Width Center */}
+                    <p className="text-xl text-neutral-600 max-w-3xl mx-auto text-center">
                         Don't just take our word for it – hear from the families who trust us with their beloved pets
                     </p>
                 </motion.div>
@@ -235,10 +305,17 @@ export default function Testimonials() {
                                                 whileHover={{ scale: 1.1 }}
                                                 whileTap={{ scale: 0.9 }}
                                             >
-                                                <ThumbsUp className={`h-4 w-4 ${
-                                                    likedReviews.includes(testimonial.id) ? 'fill-primary-700' : ''
-                                                }`} />
-                                                <span>{testimonial.helpful + (likedReviews.includes(testimonial.id) ? 1 : 0)}</span>
+                                                <ThumbsUp
+                                                    className={`h-4 w-4 ${
+                                                        likedReviews.includes(testimonial.id)
+                                                            ? 'fill-primary-700'
+                                                            : ''
+                                                    }`}
+                                                />
+                                                <span>
+                                                    {testimonial.helpful +
+                                                        (likedReviews.includes(testimonial.id) ? 1 : 0)}
+                                                </span>
                                             </motion.button>
                                         </div>
                                     </div>
