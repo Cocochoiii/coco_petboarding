@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Phone, Mail, MapPin, Clock, Send, MessageSquare, Calendar, Info, ArrowRight, MessageCircle } from 'lucide-react'
 import toast from 'react-hot-toast'
+import Image from 'next/image'
 
 export default function Contact() {
     const [formData, setFormData] = useState({
@@ -57,17 +58,85 @@ export default function Contact() {
     return (
         <section id="contact" className="py-20 bg-gradient-to-br from-neutral-50 to-white">
             <div className="container mx-auto px-4">
+                {/* Title + 左右 SVG */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
-                    className="text-center mb-12"
+                    className="mb-12 relative"
                 >
-                    <span className="text-primary-700 font-semibold text-sm uppercase tracking-wide">Contact Us</span>
-                    <h2 className="text-4xl md:text-5xl font-bold mt-2 mb-4 text-neutral-900">
-                        Ready to Book Your <span className="text-gradient">Pet's Stay?</span>
-                    </h2>
-                    <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
+                    {/* LEFT SVG */}
+                    <motion.div
+                        className="hidden lg:block absolute top-[40%] -translate-y-1/2 left-0"
+                        initial={{ opacity: 0, x: -50, y: 100, scale: 0.8 }}
+                        whileInView={{
+                            opacity: 1,
+                            x: -20,
+                            scale: 2.5,
+                            y: [0, -40, 0]
+                        }}
+                        viewport={{ once: true }}
+                        transition={{
+                            duration: 0.8,
+                            y: {
+                                duration: 4,
+                                repeat: Infinity,
+                                ease: 'easeInOut',
+                            },
+                        }}
+                    >
+                        <Image
+                            src="/svgs/contact-decoration2.svg"
+                            alt="Contact decoration left"
+                            width={200}
+                            height={200}
+                            className="w-32 h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48 opacity-90"
+                        />
+                    </motion.div>
+
+
+                    {/* CENTER TITLE */}
+                    <div className="text-center mb-8">
+                        <span className="text-primary-700 font-semibold text-sm uppercase tracking-wide">
+                            Contact Us
+                        </span>
+                        <h2 className="text-4xl md:text-5xl font-bold mt-2 mb-4 text-neutral-900">
+                            Ready to Book Your <span className="text-gradient">Pet&apos;s Stay?</span>
+                        </h2>
+                    </div>
+
+                    {/* RIGHT SVG */}
+                    <motion.div
+                        className="hidden lg:block absolute top-[36%] -translate-y-1/2 right-0"
+                        initial={{ opacity: 0, x: 50, scale: 0.8 }}
+                        whileInView={{
+                            opacity: 1,
+                            x: 20,
+                            scale: 2.3,
+                            y: [0, -20, 0]
+                        }}
+                        viewport={{ once: true }}
+                        transition={{
+                            duration: 0.8,
+                            y: {
+                                duration: 4,
+                                repeat: Infinity,
+                                ease: 'easeInOut',
+                            },
+                        }}
+                    >
+                        <Image
+                            src="/svgs/contact-decoration.svg"
+                            alt="Contact decoration right"
+                            width={200}
+                            height={200}
+                            className="w-32 h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48 opacity-90"
+                        />
+                    </motion.div>
+
+
+                    {/* DESCRIPTION */}
+                    <p className="text-xl text-neutral-600 max-w-3xl mx-auto text-center">
                         Get in touch today to reserve your spot or ask any questions. We typically respond within 2 hours!
                     </p>
                 </motion.div>
@@ -288,7 +357,7 @@ export default function Contact() {
                                     </div>
                                 </motion.a>
 
-                                {/* WeChat Contact - Updated with cream-pink colors */}
+                                {/* WeChat Contact */}
                                 <motion.div
                                     className="flex items-center gap-3 group cursor-pointer"
                                     whileHover={{ x: 5 }}

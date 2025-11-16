@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { Heart } from 'lucide-react'
+import { PawPrint } from 'lucide-react';
 import { useEffect, useState } from 'react'
 
 export default function LoadingScreen() {
@@ -35,7 +35,7 @@ export default function LoadingScreen() {
                         }}
                         className="inline-block mb-4"
                     >
-                        <Heart className="w-16 h-16 text-primary-700" />
+                        <PawPrint className="w-16 h-16 text-primary-700" />
                     </motion.div>
 
                     <motion.h1

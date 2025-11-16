@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Menu, X, Heart, ArrowRight, Home, Phone, Calendar, Info, Star, User } from 'lucide-react'
+import { Menu, X, Heart, ArrowRight, Home, Phone, Calendar, Info, Star, User, PawPrint} from 'lucide-react'
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 
 export default function Navigation() {
@@ -85,7 +85,7 @@ export default function Navigation() {
                                     animate={{ rotate: scrolled ? 360 : 0 }}
                                     transition={{ duration: 0.5 }}
                                 >
-                                    <Heart className="h-8 w-8 md:h-10 md:w-10 text-primary-700 group-hover:text-primary-800 transition-colors" />
+                                    <PawPrint className="h-8 w-8 md:h-10 md:w-10 text-primary-700 group-hover:text-primary-800 transition-colors" />
                                 </motion.div>
                                 <motion.div
                                     className="absolute inset-0"
@@ -98,7 +98,7 @@ export default function Navigation() {
                                         repeat: Infinity,
                                     }}
                                 >
-                                    <Heart className="h-8 w-8 md:h-10 md:w-10 text-primary-700 opacity-30" />
+                                    <PawPrint className="h-8 w-8 md:h-10 md:w-10 text-primary-700 opacity-30" />
                                 </motion.div>
                             </motion.div>
                             <div className="hidden sm:block">

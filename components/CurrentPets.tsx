@@ -2,7 +2,19 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Cat, Dog, Heart, Star, Calendar, Home, Sparkles, X, ChevronLeft, ChevronRight, Camera } from 'lucide-react'
+import {
+    Cat,
+    Dog,
+    Heart,
+    Star,
+    Calendar,
+    Home,
+    Sparkles,
+    X,
+    ChevronLeft,
+    ChevronRight,
+    Camera
+} from 'lucide-react'
 import { currentPets } from '@/data/pets'
 import Image from 'next/image'
 
@@ -35,36 +47,102 @@ export default function CurrentPets() {
     return (
         <section id="current-pets" className="py-20 bg-gradient-to-b from-white to-neutral-50">
             <div className="container mx-auto px-4">
+                {/* ========= Title + Left/Right SVG ========= */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
-                    className="text-center mb-12"
+                    className="mb-12 relative"
                 >
-                    <h2 className="text-5xl font-display font-bold mb-4 text-neutral-900">
-                        Our Current <span className="text-gradient">Furry Residents</span>
-                    </h2>
-                    <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
-                        Meet the adorable pets currently enjoying their stay at Coco's Paradise.
-                        Each one receives personalized care and endless love!
-                    </p>
+                    {/* LEFT SVG */}
+                    <motion.div
+                        className="hidden lg:block absolute top-4 left-0"
+                        initial={{ opacity: 0, x: -50, scale: 0.8 }}
+                        animate={{ opacity: 1, x: 0, scale: 1 }}
+                        whileInView={{
+                            opacity: 1,
+                            x: -10,
+                            scale: 1.8,
+                            y: [0, -20, 0],
+                        }}
+                        viewport={{ once: true }}
+                        transition={{
+                            duration: 0.8,
+                            y: {
+                                duration: 4,
+                                repeat: Infinity,
+                                ease: 'easeInOut',
+                            },
+                        }}
+                    >
+                        <Image
+                            src="/svgs/current-pets-left.svg"
+                            alt="Current pets decoration left"
+                            width={200}
+                            height={200}
+                            className="w-32 h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48 opacity-90"
+                            priority
+                        />
+                    </motion.div>
 
-                    {/* Stats with Enhanced Design */}
-                    <div className="flex justify-center gap-8 mt-8">
-                        <motion.div
-                            className="flex items-center gap-2 bg-white border-2 border-primary-700 px-6 py-3 rounded-full shadow-soft-md"
-                            whileHover={{ scale: 1.05, shadow: "0 10px 30px rgba(0,0,0,0.1)" }}
-                        >
-                            <Cat className="w-6 h-6 text-primary-700" />
-                            <span className="font-bold text-neutral-900">{cats.length} Cats</span>
-                        </motion.div>
-                        <motion.div
-                            className="flex items-center gap-2 bg-white border-2 border-neutral-700 px-6 py-3 rounded-full shadow-soft-md"
-                            whileHover={{ scale: 1.05, shadow: "0 10px 30px rgba(0,0,0,0.1)" }}
-                        >
-                            <Dog className="w-6 h-6 text-neutral-700" />
-                            <span className="font-bold text-neutral-900">{dogs.length} Dogs</span>
-                        </motion.div>
+                    {/* RIGHT SVG */}
+                    <motion.div
+                        className="hidden lg:block absolute top-4 right-0"
+                        initial={{ opacity: 0, x: 50, scale: 0.8 }}
+                        animate={{ opacity: 1, x: 0, scale: 1 }}
+                        whileInView={{
+                            opacity: 1,
+                            x: 10,
+                            scale: 1.8,
+                            y: [0, -20, 0],
+                        }}
+                        viewport={{ once: true }}
+                        transition={{
+                            duration: 0.8,
+                            y: {
+                                duration: 4,
+                                repeat: Infinity,
+                                ease: 'easeInOut',
+                            },
+                        }}
+                    >
+                        <Image
+                            src="/svgs/current-pets-right.svg"
+                            alt="Current pets decoration right"
+                            width={200}
+                            height={200}
+                            className="w-32 h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48 opacity-90"
+                            priority
+                        />
+                    </motion.div>
+
+                    {/* 原来的标题 + 文案 + stats，整体保持不变，只是包在同一个 text-center 里 */}
+                    <div className="text-center">
+                        <h2 className="text-5xl font-display font-bold mb-4 text-neutral-900">
+                            Our Current <span className="text-gradient">Furry Residents</span>
+                        </h2>
+                        <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
+                            Meet the adorable pets currently enjoying their stay at Coco&apos;s Paradise.
+                            Each one receives personalized care and endless love!
+                        </p>
+
+                        {/* Stats with Enhanced Design */}
+                        <div className="flex justify-center gap-8 mt-8">
+                            <motion.div
+                                className="flex items-center gap-2 bg-white border-2 border-primary-700 px-6 py-3 rounded-full shadow-soft-md"
+                                whileHover={{ scale: 1.05, shadow: '0 10px 30px rgba(0,0,0,0.1)' }}
+                            >
+                                <Cat className="w-6 h-6 text-primary-700" />
+                                <span className="font-bold text-neutral-900">{cats.length} Cats</span>
+                            </motion.div>
+                            <motion.div
+                                className="flex items-center gap-2 bg-white border-2 border-neutral-700 px-6 py-3 rounded-full shadow-soft-md"
+                                whileHover={{ scale: 1.05, shadow: '0 10px 30px rgba(0,0,0,0.1)' }}
+                            >
+                                <Dog className="w-6 h-6 text-neutral-700" />
+                                <span className="font-bold text-neutral-900">{dogs.length} Dogs</span>
+                            </motion.div>
+                        </div>
                     </div>
                 </motion.div>
 
@@ -129,7 +207,7 @@ export default function CurrentPets() {
                                             className="absolute top-3 left-3 z-10 bg-neutral-900 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1"
                                             initial={{ scale: 0, rotate: -180 }}
                                             animate={{ scale: 1, rotate: 0 }}
-                                            transition={{ type: "spring" }}
+                                            transition={{ type: 'spring' }}
                                         >
                                             <Home className="w-3 h-3" />
                                             Resident
@@ -138,7 +216,6 @@ export default function CurrentPets() {
 
                                     {/* Image Container with Placeholder */}
                                     <div className="aspect-square bg-gradient-to-br from-neutral-50 to-neutral-100 relative overflow-hidden">
-                                        {/* Placeholder Image - Replace src with actual images */}
                                         <div className="absolute inset-0">
                                             {pet.image && pet.image !== '' ? (
                                                 <Image
@@ -149,7 +226,6 @@ export default function CurrentPets() {
                                                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                                                 />
                                             ) : (
-                                                // Placeholder with gradient background and icon
                                                 <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary-50 to-neutral-100">
                                                     {pet.type === 'cat' ? (
                                                         <Cat className="w-24 h-24 text-primary-200" />
@@ -258,7 +334,6 @@ export default function CurrentPets() {
                                     <div className="relative w-full h-full">
                                         {selectedPet.images && selectedPet.images.length > 0 ? (
                                             <>
-                                                {/* Main Image */}
                                                 <div className="absolute inset-0">
                                                     <Image
                                                         src={selectedPet.images[currentImageIndex]}
@@ -268,7 +343,6 @@ export default function CurrentPets() {
                                                     />
                                                 </div>
 
-                                                {/* Navigation Buttons */}
                                                 <button
                                                     onClick={prevImage}
                                                     className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm rounded-full p-2 shadow-soft-lg hover:bg-white transition-all"
@@ -282,7 +356,6 @@ export default function CurrentPets() {
                                                     <ChevronRight className="w-6 h-6 text-neutral-700" />
                                                 </button>
 
-                                                {/* Image Indicators */}
                                                 <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
                                                     {[0, 1, 2].map((index) => (
                                                         <button
@@ -298,7 +371,6 @@ export default function CurrentPets() {
                                                 </div>
                                             </>
                                         ) : (
-                                            // Placeholder Gallery
                                             <div className="absolute inset-0 flex items-center justify-center">
                                                 <div className="text-center">
                                                     {selectedPet.type === 'cat' ? (
@@ -410,10 +482,11 @@ export default function CurrentPets() {
                                     <div className="flex items-center gap-2 text-neutral-500">
                                         <Calendar className="w-4 h-4" />
                                         <span className="text-sm">
-                                            Member since {new Date(selectedPet.joinedDate).toLocaleDateString('en-US', {
-                                            month: 'long',
-                                            year: 'numeric'
-                                        })}
+                                            Member since{' '}
+                                            {new Date(selectedPet.joinedDate).toLocaleDateString('en-US', {
+                                                month: 'long',
+                                                year: 'numeric',
+                                            })}
                                         </span>
                                     </div>
                                 </div>

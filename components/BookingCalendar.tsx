@@ -2,9 +2,30 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Calendar, Clock, ChevronLeft, ChevronRight, Check, X, Info, Star } from 'lucide-react'
-import { format, addMonths, subMonths, getDaysInMonth, startOfMonth, getDay, addDays, isSameDay, isAfter, isBefore } from 'date-fns'
+import {
+    Calendar,
+    Clock,
+    ChevronLeft,
+    ChevronRight,
+    Check,
+    X,
+    Info,
+    Star
+} from 'lucide-react'
+import {
+    format,
+    addMonths,
+    subMonths,
+    getDaysInMonth,
+    startOfMonth,
+    getDay,
+    addDays,
+    isSameDay,
+    isAfter,
+    isBefore
+} from 'date-fns'
 import toast from 'react-hot-toast'
+import Image from 'next/image' // ⭐ 新增：为了插入 SVG
 
 interface BookingSlot {
     date: Date
@@ -36,7 +57,7 @@ export default function BookingCalendar() {
             toast.error('Cannot book past dates', {
                 style: {
                     background: '#1F2937',
-                    color: '#fff',
+                    color: '#fff'
                 }
             })
             return
@@ -55,7 +76,11 @@ export default function BookingCalendar() {
 
         // Calendar days
         for (let day = 1; day <= daysInMonth; day++) {
-            const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day)
+            const date = new Date(
+                currentMonth.getFullYear(),
+                currentMonth.getMonth(),
+                day
+            )
             const availability = getAvailability(date)
             const isPast = isBefore(date, today)
             const isToday = isSameDay(date, today)
@@ -73,10 +98,22 @@ export default function BookingCalendar() {
                     className={`
                         relative p-3 rounded-xl transition-all duration-300
                         ${isPast ? 'bg-neutral-50 text-neutral-300 cursor-not-allowed' : ''}
-                        ${availability.available === 0 && !isPast ? 'bg-neutral-100 text-neutral-400 cursor-not-allowed border-2 border-neutral-200' : ''}
-                        ${availability.available > 0 && !isPast ? 'bg-white hover:shadow-soft-lg cursor-pointer border-2 border-transparent hover:border-primary-700' : ''}
+                        ${
+                        availability.available === 0 && !isPast
+                            ? 'bg-neutral-100 text-neutral-400 cursor-not-allowed border-2 border-neutral-200'
+                            : ''
+                    }
+                        ${
+                        availability.available > 0 && !isPast
+                            ? 'bg-white hover:shadow-soft-lg cursor-pointer border-2 border-transparent hover:border-primary-700'
+                            : ''
+                    }
                         ${isToday ? 'ring-2 ring-primary-700' : ''}
-                        ${isSelected ? 'bg-primary-700 text-white border-2 border-primary-800' : ''}
+                        ${
+                        isSelected
+                            ? 'bg-primary-700 text-white border-2 border-primary-800'
+                            : ''
+                    }
                     `}
                 >
                     <div className="text-center">
@@ -89,13 +126,27 @@ export default function BookingCalendar() {
                                 transition={{ delay: 0.1 }}
                             >
                                 {availability.available === 0 ? (
-                                    <span className="text-xs text-neutral-600 font-medium">Full</span>
+                                    <span className="text-xs text-neutral-600 font-medium">
+                                        Full
+                                    </span>
                                 ) : availability.available <= 2 ? (
-                                    <span className={`text-xs font-medium ${isSelected ? 'text-white' : 'text-neutral-700'}`}>
+                                    <span
+                                        className={`text-xs font-medium ${
+                                            isSelected
+                                                ? 'text-white'
+                                                : 'text-neutral-700'
+                                        }`}
+                                    >
                                         {availability.available} spots
                                     </span>
                                 ) : (
-                                    <span className={`text-xs font-medium ${isSelected ? 'text-white' : 'text-primary-700'}`}>
+                                    <span
+                                        className={`text-xs font-medium ${
+                                            isSelected
+                                                ? 'text-white'
+                                                : 'text-primary-700'
+                                        }`}
+                                    >
                                         Available
                                     </span>
                                 )}
@@ -111,11 +162,15 @@ export default function BookingCalendar() {
                                     key={i}
                                     className={`w-1.5 h-1.5 rounded-full ${
                                         i < availability.available
-                                            ? (isSelected ? 'bg-white' : 'bg-primary-700')
+                                            ? isSelected
+                                                ? 'bg-white'
+                                                : 'bg-primary-700'
                                             : 'bg-neutral-300'
                                     }`}
                                     initial={{ scale: 0 }}
-                                    animate={{ scale: hoveredDate === day ? 1.2 : 1 }}
+                                    animate={{
+                                        scale: hoveredDate === day ? 1.2 : 1
+                                    }}
                                     transition={{ delay: i * 0.02 }}
                                 />
                             ))}
@@ -131,18 +186,84 @@ export default function BookingCalendar() {
     return (
         <section className="py-20 bg-gradient-to-b from-white to-neutral-50">
             <div className="container mx-auto px-4">
+                {/* ⭐ Title + 左右 SVG */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
-                    className="text-center mb-12"
+                    className="mb-12 relative"
                 >
-                    <h2 className="text-5xl font-display font-bold mb-4 text-neutral-900">
-                        Book Your Pet's <span className="text-gradient">Dream Stay</span>
-                    </h2>
-                    <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
-                        Check availability and reserve your spot. Limited spaces ensure personalized care for every pet.
-                    </p>
+                    {/* LEFT SVG */}
+                    <motion.div
+                        className="hidden lg:block absolute top-1/2 -translate-y-1/2 left-0"
+                        initial={{ opacity: 0, x: -50, scale: 0.8 }}
+                        animate={{ opacity: 1, x: 0, scale: 1 }}
+                        whileInView={{
+                            opacity: 1,
+                            x: -20,
+                            scale: 2.5,
+                            y: [0, 10, 0]
+                        }}
+                        viewport={{ once: true }}
+                        transition={{
+                            duration: 0.8,
+                            y: {
+                                duration: 4,
+                                repeat: Infinity,
+                                ease: 'easeInOut'
+                            }
+                        }}
+                    >
+                        <Image
+                            src="/svgs/booking-decoration2.svg"
+                            alt="Booking decoration left"
+                            width={200}
+                            height={200}
+                            className="w-32 h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48 opacity-90"
+                        />
+                    </motion.div>
+
+                    {/* CENTER TITLE + SUBTITLE */}
+                    <div className="text-center">
+                        <h2 className="text-5xl font-display font-bold mb-4 text-neutral-900">
+                            Book Your Pet&apos;s{' '}
+                            <span className="text-gradient">Dream Stay</span>
+                        </h2>
+                        <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
+                            Check availability and reserve your spot. Limited spaces
+                            ensure personalized care for every pet.
+                        </p>
+                    </div>
+
+                    {/* RIGHT SVG */}
+                    <motion.div
+                        className="hidden lg:block absolute top-1/2 -translate-y-1/2 right-0"
+                        initial={{ opacity: 0, x: 50, scale: 0.8 }}
+                        animate={{ opacity: 1, x: 0, scale: 1 }}
+                        whileInView={{
+                            opacity: 1,
+                            x: 20,
+                            scale: 2.0,
+                            y: [0, -10, 0]
+                        }}
+                        viewport={{ once: true }}
+                        transition={{
+                            duration: 0.8,
+                            y: {
+                                duration: 4,
+                                repeat: Infinity,
+                                ease: 'easeInOut'
+                            }
+                        }}
+                    >
+                        <Image
+                            src="/svgs/booking-decoration.svg"
+                            alt="Booking decoration right"
+                            width={200}
+                            height={200}
+                            className="w-32 h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48 opacity-90"
+                        />
+                    </motion.div>
                 </motion.div>
 
                 <div className="max-w-6xl mx-auto">
@@ -155,9 +276,13 @@ export default function BookingCalendar() {
                                 animate={{ opacity: 1, y: 0 }}
                             >
                                 {/* Calendar Header */}
-                                <div className="flex items-center justify-between mb-6">
+                                <div className="flex items中心 justify-between mb-6">
                                     <motion.button
-                                        onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}
+                                        onClick={() =>
+                                            setCurrentMonth(
+                                                subMonths(currentMonth, 1)
+                                            )
+                                        }
                                         className="p-2 hover:bg-neutral-100 rounded-lg transition-colors"
                                         whileHover={{ scale: 1.1 }}
                                         whileTap={{ scale: 0.9 }}
@@ -168,7 +293,11 @@ export default function BookingCalendar() {
                                         {format(currentMonth, 'MMMM yyyy')}
                                     </h3>
                                     <motion.button
-                                        onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}
+                                        onClick={() =>
+                                            setCurrentMonth(
+                                                addMonths(currentMonth, 1)
+                                            )
+                                        }
                                         className="p-2 hover:bg-neutral-100 rounded-lg transition-colors"
                                         whileHover={{ scale: 1.1 }}
                                         whileTap={{ scale: 0.9 }}
@@ -179,11 +308,16 @@ export default function BookingCalendar() {
 
                                 {/* Weekday Headers */}
                                 <div className="grid grid-cols-7 gap-2 mb-2">
-                                    {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                                        <div key={day} className="text-center text-sm font-semibold text-neutral-600 py-2">
-                                            {day}
-                                        </div>
-                                    ))}
+                                    {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(
+                                        day => (
+                                            <div
+                                                key={day}
+                                                className="text-center text-sm font-semibold text-neutral-600 py-2"
+                                            >
+                                                {day}
+                                            </div>
+                                        )
+                                    )}
                                 </div>
 
                                 {/* Calendar Grid */}
@@ -195,19 +329,27 @@ export default function BookingCalendar() {
                                 <div className="flex flex-wrap items-center gap-4 mt-6 pt-6 border-t border-neutral-200">
                                     <div className="flex items-center gap-2">
                                         <div className="w-4 h-4 bg-primary-700 rounded-full" />
-                                        <span className="text-sm text-neutral-600">Available</span>
+                                        <span className="text-sm text-neutral-600">
+                                            Available
+                                        </span>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <div className="w-4 h-4 bg-neutral-700 rounded-full" />
-                                        <span className="text-sm text-neutral-600">Limited</span>
+                                        <span className="text-sm text-neutral-600">
+                                            Limited
+                                        </span>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <div className="w-4 h-4 bg-neutral-400 rounded-full" />
-                                        <span className="text-sm text-neutral-600">Full</span>
+                                        <span className="text-sm text-neutral-600">
+                                            Full
+                                        </span>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <div className="w-4 h-4 bg-neutral-200 rounded-full" />
-                                        <span className="text-sm text-neutral-600">Unavailable</span>
+                                        <span className="text-sm text-neutral-600">
+                                            Unavailable
+                                        </span>
                                     </div>
                                 </div>
                             </motion.div>
@@ -231,9 +373,14 @@ export default function BookingCalendar() {
                                         animate={{ opacity: 1, y: 0 }}
                                     >
                                         <div className="mb-4 p-4 bg-primary-50 rounded-xl border-2 border-primary-100">
-                                            <p className="text-sm text-neutral-600 mb-1">Selected Date:</p>
+                                            <p className="text-sm text-neutral-600 mb-1">
+                                                Selected Date:
+                                            </p>
                                             <p className="font-bold text-lg text-neutral-900">
-                                                {format(selectedDate, 'MMMM d, yyyy')}
+                                                {format(
+                                                    selectedDate,
+                                                    'MMMM d, yyyy'
+                                                )}
                                             </p>
                                         </div>
 
@@ -244,11 +391,20 @@ export default function BookingCalendar() {
                                                 </label>
                                                 <div className="grid grid-cols-2 gap-2">
                                                     <motion.button
-                                                        onClick={() => setSelectedPetType('cat')}
-                                                        whileHover={{ scale: 1.02 }}
-                                                        whileTap={{ scale: 0.98 }}
+                                                        onClick={() =>
+                                                            setSelectedPetType(
+                                                                'cat'
+                                                            )
+                                                        }
+                                                        whileHover={{
+                                                            scale: 1.02
+                                                        }}
+                                                        whileTap={{
+                                                            scale: 0.98
+                                                        }}
                                                         className={`p-3 rounded-lg border-2 transition-all ${
-                                                            selectedPetType === 'cat'
+                                                            selectedPetType ===
+                                                            'cat'
                                                                 ? 'border-primary-700 bg-primary-50'
                                                                 : 'border-neutral-200 hover:border-neutral-400'
                                                         }`}
@@ -256,11 +412,20 @@ export default function BookingCalendar() {
                                                         🐱 Cat
                                                     </motion.button>
                                                     <motion.button
-                                                        onClick={() => setSelectedPetType('dog')}
-                                                        whileHover={{ scale: 1.02 }}
-                                                        whileTap={{ scale: 0.98 }}
+                                                        onClick={() =>
+                                                            setSelectedPetType(
+                                                                'dog'
+                                                            )
+                                                        }
+                                                        whileHover={{
+                                                            scale: 1.02
+                                                        }}
+                                                        whileTap={{
+                                                            scale: 0.98
+                                                        }}
                                                         className={`p-3 rounded-lg border-2 transition-all ${
-                                                            selectedPetType === 'dog'
+                                                            selectedPetType ===
+                                                            'dog'
                                                                 ? 'border-primary-700 bg-primary-50'
                                                                 : 'border-neutral-200 hover:border-neutral-400'
                                                         }`}
@@ -271,12 +436,18 @@ export default function BookingCalendar() {
                                             </div>
 
                                             <motion.button
-                                                onClick={() => toast.success('Booking form would open here!', {
-                                                    style: {
-                                                        background: '#111827',
-                                                        color: '#fff',
-                                                    }
-                                                })}
+                                                onClick={() =>
+                                                    toast.success(
+                                                        'Booking form would open here!',
+                                                        {
+                                                            style: {
+                                                                background:
+                                                                    '#111827',
+                                                                color: '#fff'
+                                                            }
+                                                        }
+                                                    )
+                                                }
                                                 className="w-full btn-primary py-3 rounded-xl font-semibold"
                                                 whileHover={{ scale: 1.02 }}
                                                 whileTap={{ scale: 0.98 }}
@@ -288,8 +459,13 @@ export default function BookingCalendar() {
                                 ) : (
                                     <div className="text-center py-8 text-neutral-500">
                                         <motion.div
-                                            animate={{ scale: [1, 1.1, 1] }}
-                                            transition={{ duration: 2, repeat: Infinity }}
+                                            animate={{
+                                                scale: [1, 1.1, 1]
+                                            }}
+                                            transition={{
+                                                duration: 2,
+                                                repeat: Infinity
+                                            }}
                                         >
                                             <Calendar className="w-12 h-12 mx-auto mb-3 text-neutral-300" />
                                         </motion.div>
@@ -302,13 +478,18 @@ export default function BookingCalendar() {
                                     <div className="flex gap-3">
                                         <Info className="w-5 h-5 text-primary-700 flex-shrink-0 mt-0.5" />
                                         <div>
-                                            <p className="text-sm text-primary-900 font-medium mb-1">Booking Policy</p>
+                                            <p className="text-sm text-primary-900 font-medium mb-1">
+                                                Booking Policy
+                                            </p>
                                             <p className="text-xs text-neutral-700">
-                                                • Book at least 24 hours in advance
+                                                • Book at least 24 hours in
+                                                advance
                                                 <br />
-                                                • Free cancellation up to 48 hours before
+                                                • Free cancellation up to 48
+                                                hours before
                                                 <br />
-                                                • Meet & greet required for first-time guests
+                                                • Meet &amp; greet required for
+                                                first-time guests
                                             </p>
                                         </div>
                                     </div>
@@ -327,8 +508,13 @@ export default function BookingCalendar() {
                                 <div className="relative z-10">
                                     <h4 className="text-white font-bold text-lg mb-2 flex items-center gap-2">
                                         <motion.div
-                                            animate={{ rotate: [0, 10, -10, 0] }}
-                                            transition={{ duration: 2, repeat: Infinity }}
+                                            animate={{
+                                                rotate: [0, 10, -10, 0]
+                                            }}
+                                            transition={{
+                                                duration: 2,
+                                                repeat: Infinity
+                                            }}
                                         >
                                             <Star className="w-5 h-5 fill-white" />
                                         </motion.div>

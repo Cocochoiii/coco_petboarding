@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { MapPin, Navigation, Car, Home, Clock, DollarSign, CheckCircle } from 'lucide-react'
 import { useState } from 'react'
+import Image from 'next/image' // ★ 新增：为了插入 SVG
 
 export default function ServiceArea() {
     const [hoveredArea, setHoveredArea] = useState<string | null>(null)
@@ -32,6 +33,7 @@ export default function ServiceArea() {
     return (
         <section id="service-area" className="py-20 bg-gradient-to-b from-neutral-50 to-white">
             <div className="container mx-auto px-4">
+                {/* 原来的 Title，保持不变 */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
@@ -83,14 +85,8 @@ export default function ServiceArea() {
 
                             {/* Animated Center Point */}
                             <motion.div
-                                animate={{
-                                    scale: [1, 1.2, 1],
-                                }}
-                                transition={{
-                                    duration: 2,
-                                    repeat: Infinity,
-                                    ease: "easeInOut"
-                                }}
+                                animate={{ scale: [1, 1.2, 1] }}
+                                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                                 className="absolute z-10"
                             >
                                 <div className="w-6 h-6 bg-primary-700 rounded-full shadow-soft-lg" />
@@ -133,7 +129,7 @@ export default function ServiceArea() {
                                 <div className="flex items-center gap-2">
                                     <Home className="h-5 w-5 text-primary-700" />
                                     <div>
-                                        <p className="font-bold text-sm text-neutral-900">Coco's Pet Paradise</p>
+                                        <p className="font-bold text-sm text-neutral-900">Coco&apos;s Pet Paradise</p>
                                         <p className="text-xs text-neutral-600">Wellesley Hills, MA</p>
                                     </div>
                                 </div>
@@ -254,29 +250,49 @@ export default function ServiceArea() {
                                     </ul>
                                 </motion.div>
 
-                                <motion.div
-                                    className="bg-neutral-50 p-4 rounded-xl border-2 border-neutral-200 hover:border-neutral-400 transition-all cursor-pointer"
-                                    whileHover={{ scale: 1.02 }}
-                                >
-                                    <h4 className="font-semibold mb-2 text-neutral-900 flex items-center gap-2">
-                                        <Clock className="w-4 h-4 text-neutral-700" />
-                                        Service Hours
-                                    </h4>
-                                    <ul className="text-sm text-neutral-700 space-y-1">
-                                        <li className="flex items-center gap-2">
-                                            <CheckCircle className="w-3 h-3 text-neutral-600" />
-                                            Drop-off: 7:00 AM - 9:00 AM
-                                        </li>
-                                        <li className="flex items-center gap-2">
-                                            <CheckCircle className="w-3 h-3 text-neutral-600" />
-                                            Pick-up: 4:00 PM - 7:00 PM
-                                        </li>
-                                        <li className="flex items-center gap-2">
-                                            <CheckCircle className="w-3 h-3 text-neutral-600" />
-                                            Flexible timing available on request
-                                        </li>
-                                    </ul>
-                                </motion.div>
+                                {/* ★ 在 Service Hours 左侧插入一个 SVG，正好占住 Map 下方的空白 */}
+                                <div className="relative">
+                                    {/* 只在大屏显示，放大一点填充空白区域 */}
+                                    <motion.div
+                                        className="hidden lg:block absolute bottom-4 -left-32"
+                                        initial={{ opacity: 0, x: -350, y: 50, scale: 3.0 }}
+                                        whileInView={{ opacity: 1, x: -350, y: 50, scale: 3.0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.8 }}
+                                    >
+                                        <Image
+                                            src="/svgs/service-area-hours.svg"
+                                            alt="Service hours decoration"
+                                            width={180}
+                                            height={180}
+                                            className="w-40 h-40 opacity-95"
+                                        />
+                                    </motion.div>
+
+                                    <motion.div
+                                        className="bg-neutral-50 p-4 rounded-xl border-2 border-neutral-200 hover:border-neutral-400 transition-all cursor-pointer"
+                                        whileHover={{ scale: 1.02 }}
+                                    >
+                                        <h4 className="font-semibold mb-2 text-neutral-900 flex items-center gap-2">
+                                            <Clock className="w-4 h-4 text-neutral-700" />
+                                            Service Hours
+                                        </h4>
+                                        <ul className="text-sm text-neutral-700 space-y-1">
+                                            <li className="flex items-center gap-2">
+                                                <CheckCircle className="w-3 h-3 text-neutral-600" />
+                                                Drop-off: 7:00 AM - 9:00 AM
+                                            </li>
+                                            <li className="flex items-center gap-2">
+                                                <CheckCircle className="w-3 h-3 text-neutral-600" />
+                                                Pick-up: 4:00 PM - 7:00 PM
+                                            </li>
+                                            <li className="flex items-center gap-2">
+                                                <CheckCircle className="w-3 h-3 text-neutral-600" />
+                                                Flexible timing available on request
+                                            </li>
+                                        </ul>
+                                    </motion.div>
+                                </div>
 
                                 <motion.div
                                     className="bg-gradient-to-br from-primary-700 to-primary-800 p-4 rounded-xl text-white relative overflow-hidden"
@@ -303,16 +319,19 @@ export default function ServiceArea() {
                 .custom-scrollbar::-webkit-scrollbar {
                     width: 8px;
                 }
+
                 .custom-scrollbar::-webkit-scrollbar-track {
                     background: #f3f4f6;
                     border-radius: 4px;
                 }
+
                 .custom-scrollbar::-webkit-scrollbar-thumb {
                     background: #9ca3af;
                     border-radius: 4px;
                 }
+
                 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-                    background: #0f766e;
+                    background: #d4a5a5;
                 }
             `}</style>
         </section>
