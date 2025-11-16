@@ -52,7 +52,7 @@ export default function ServiceArea() {
                                 alt="Service area decoration"
                                 width={120}
                                 height={120}
-                                className="w-500 h-500 opacity-90"
+                                className="w-500 h-500 opacity-90 scale-150"
                             />
                         </motion.div>
                     </div>

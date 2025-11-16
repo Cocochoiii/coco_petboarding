@@ -107,7 +107,7 @@ export default function HeroSection() {
                     <div className="flex flex-col lg:flex-row items-center justify-center w-full max-w-7xl gap-6 lg:gap-10 xl:gap-14">
                         {/* ===== 左侧 SVG：Mobile 版本（lg 以下显示） ===== */}
                         <motion.div
-                            className="flex-shrink-0 flex justify-center w-full mb-2 mt-2 lg:hidden"
+                            className="flex-shrink-0 flex justify-center w-full mb-2 mt-2 lg:hidden mt-50"
                             initial={{ opacity: 0, y: -10, scale: 0.9 }}
                             animate={{
                                 opacity: 1,
@@ -129,7 +129,7 @@ export default function HeroSection() {
                                 alt="Cat decoration"
                                 width={180}
                                 height={180}
-                                className="w-24 h-24 sm:w-28 sm:h-28 opacity-80"
+                                className="w-24 h-24 sm:w-28 sm:h-28 opacity-80 scale-150"
                                 priority
                             />
                         </motion.div>

@@ -192,20 +192,20 @@ export default function BookingCalendar() {
                     className="mb-12 relative"
                 >
                     {/* 🌟 Mobile SVG：上方并排显示，lg 以上隐藏 */}
-                    <div className="flex items-center justify-center gap-4 mb-4 lg:hidden">
+                    <div className="flex items-center justify-center gap-14 mb-4 lg:hidden">
                         <Image
                             src="/svgs/booking-decoration2.svg"
                             alt="Booking decoration left"
                             width={100}
                             height={100}
-                            className="w-100 h-100 opacity-90"
+                            className="w-100 h-100 opacity-90 scale-150"
                         />
                         <Image
                             src="/svgs/booking-decoration.svg"
                             alt="Booking decoration right"
                             width={100}
                             height={100}
-                            className="w-100 h-100 opacity-90"
+                            className="w-100 h-100 opacity-90 scale-150"
                         />
                     </div>
 

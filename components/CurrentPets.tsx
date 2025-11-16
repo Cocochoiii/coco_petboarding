@@ -55,13 +55,13 @@ export default function CurrentPets() {
                     className="mb-12 relative"
                 >
                     {/* 🌟 Mobile SVG：标题上方的小图，桌面端隐藏 */}
-                    <div className="flex items-center justify-center gap-4 mb-4 lg:hidden">
+                    <div className="flex items-center justify-center gap-12 mb-4 lg:hidden">
                         <Image
                             src="/svgs/current-pets-left.svg"
                             alt="Current pets decoration left"
                             width={72}
                             height={72}
-                            className="w-100 h-100 opacity-90"
+                            className="w-100 h-100 opacity-90 scale-150"
                             priority
                         />
                         <Image
@@ -69,7 +69,7 @@ export default function CurrentPets() {
                             alt="Current pets decoration right"
                             width={72}
                             height={72}
-                            className="w-100 h-100 opacity-90"
+                            className="w-100 h-100 opacity-90 scale-150"
                             priority
                         />
                     </div>

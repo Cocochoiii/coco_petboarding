@@ -109,7 +109,7 @@ export default function Testimonials() {
                     className="mb-12 relative"
                 >
                     {/* Mobile SVGs */}
-                    <div className="flex items-center justify-center gap-6 mb-6 lg:hidden">
+                    <div className="flex items-center justify-center gap-14 mb-6 lg:hidden">
                         <motion.div
                             initial={{ opacity: 0, y: -10, scale: 0.8 }}
                             whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -120,7 +120,7 @@ export default function Testimonials() {
                                 alt="Testimonials decoration left"
                                 width={120}
                                 height={120}
-                                className="w-20 h-20 opacity-90"
+                                className="w-20 h-20 opacity-90 scale-150"
                             />
                         </motion.div>
                         <motion.div
@@ -133,7 +133,7 @@ export default function Testimonials() {
                                 alt="Testimonials decoration right"
                                 width={120}
                                 height={120}
-                                className="w-20 h-20 opacity-90"
+                                className="w-20 h-20 opacity-90 scale-150"
                             />
                         </motion.div>
                     </div>

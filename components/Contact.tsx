@@ -79,20 +79,20 @@ export default function Contact() {
                     className="mb-12 relative"
                 >
                     {/* 🌟 Mobile SVG：标题上方的小图，桌面端隐藏 */}
-                    <div className="flex items-center justify-center gap-4 mb-4 lg:hidden">
+                    <div className="flex items-center justify-center gap-14 mb-4 lg:hidden">
                         <Image
                             src="/svgs/contact-decoration2.svg"
                             alt="Contact decoration left"
                             width={80}
                             height={80}
-                            className="w-100 h-100 opacity-90"
+                            className="w-100 h-100 opacity-90 scale-150"
                         />
                         <Image
                             src="/svgs/contact-decoration.svg"
                             alt="Contact decoration right"
                             width={80}
                             height={80}
-                            className="w-100 h-100 opacity-90"
+                            className="w-100 h-100 opacity-90 scale-150"
                         />
                     </div>
 
