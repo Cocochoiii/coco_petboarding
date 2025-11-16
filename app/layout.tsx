@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter, Poppins } from 'next/font/google'
 import './globals.css'
 import { Toaster } from 'react-hot-toast'
@@ -22,7 +22,12 @@ export const metadata: Metadata = {
     title: "Coco's Pet Paradise - Luxury Home Pet Boarding in Boston",
     description: 'Premium home-style pet boarding in Wellesley Hills. 24/7 care for 13 cats and 8 dogs. Serving Greater Boston within 50 miles.',
     keywords: 'pet boarding, dog boarding, cat boarding, Boston, Wellesley Hills, luxury pet care',
-    viewport: 'width=device-width, initial-scale=1, maximum-scale=5',
+}
+
+export const viewport: Viewport = {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
     themeColor: '#EEE1DB',
 }
 
@@ -34,8 +39,6 @@ export default function RootLayout({
     return (
         <html lang="en" className="smooth-scroll">
         <head>
-            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-            <meta name="theme-color" content="#EEE1DB" />
             <meta name="apple-mobile-web-app-capable" content="yes" />
             <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         </head>
