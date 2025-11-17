@@ -33,7 +33,7 @@ const services: Service[] = [
         icon: Home,
         title: 'Home Boarding',
         description: 'Your pet stays in our cozy home environment with 24/7 supervision and care',
-        price: 'From $45/day (cats) | $55/day (dogs)',
+        price: 'Cat: $15/day | Dog: $30-40/day',
         features: [
             'Comfortable home environment',
             '24/7 supervision',
@@ -285,8 +285,124 @@ export default function Services() {
                     ))}
                 </div>
 
-                {/* Services Grid */}
-                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+
+
+                {/* Services Grid - Mobile Horizontal Scroll */}
+                <div className="sm:hidden overflow-x-auto scrollbar-hide -mx-4 px-4">
+                    <div className="flex gap-4 pb-4" style={{ width: 'max-content' }}>
+                        {filteredServices.map((service, index) => (
+                            <motion.div
+                                key={service.title}
+                                initial={{ opacity: 0, x: 20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: index * 0.08 }}
+                                onMouseEnter={() => setHoveredService(index)}
+                                onMouseLeave={() => setHoveredService(null)}
+                                className="relative group flex-shrink-0"
+                                style={{ width: '280px' }}
+                            >
+                                {/* Popular Badge */}
+                                {service.popular && (
+                                    <motion.div
+                                        className="absolute -top-3 -right-3 z-10"
+                                        initial={{ scale: 0, rotate: -180 }}
+                                        animate={{ scale: 1, rotate: 0 }}
+                                        transition={{ delay: 0.4 + index * 0.05, type: 'spring' }}
+                                    >
+                                        <div className="bg-neutral-900 text-white text-xs font-bold px-2.5 py-1.5 rounded-full flex items-center gap-1 shadow-soft-lg">
+                                            <Star className="w-3 h-3 fill-white" />
+                                            Popular
+                                        </div>
+                                    </motion.div>
+                                )}
+
+                                <motion.div
+                                    className={`bg-white rounded-2xl shadow-soft p-5 h-full transition-all duration-500 border-2 ${
+                                        hoveredService === index
+                                            ? 'border-primary-700 shadow-soft-xl'
+                                            : 'border-transparent'
+                                    }`}
+                                    whileTap={{ scale: 0.98 }}
+                                >
+                                    {/* Icon */}
+                                    <motion.div
+                                        className={`w-14 h-14 rounded-xl flex items-center justify-center mb-4 transition-all duration-500 ${
+                                            hoveredService === index
+                                                ? 'bg-primary-700 text-white shadow-soft-lg'
+                                                : 'bg-neutral-100 text-neutral-700'
+                                        }`}
+                                    >
+                                        <service.icon className="w-7 h-7" />
+                                    </motion.div>
+
+                                    {/* Title & Desc */}
+                                    <h3 className="text-lg font-bold mb-2 text-neutral-900">
+                                        {service.title}
+                                    </h3>
+                                    <p className="text-sm text-neutral-600 mb-4">
+                                        {service.description}
+                                    </p>
+
+                                    {/* Price */}
+                                    {service.price !== 'Included with boarding' && (
+                                        <div className="mb-4 p-3 bg-gradient-to-r from-primary-50 to-neutral-50 rounded-lg border border-primary-100">
+                                            <p className="text-sm text-primary-700 font-semibold">
+                                                {service.price}
+                                            </p>
+                                        </div>
+                                    )}
+
+                                    {/* Features */}
+                                    <ul className="space-y-2">
+                                        {service.features.map((feature, idx) => (
+                                            <motion.li
+                                                key={idx}
+                                                className="flex items-start gap-2"
+                                                initial={{ opacity: 0, x: -10 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ delay: idx * 0.03 }}
+                                            >
+                                                <div
+                                                    className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-[2px] transition-all ${
+                                                        hoveredService === index
+                                                            ? 'bg-primary-700'
+                                                            : 'bg-neutral-200'
+                                                    }`}
+                                                >
+                                                    <motion.div
+                                                        className="w-2 h-2 bg-white rounded-full"
+                                                        initial={{ scale: 0 }}
+                                                        animate={
+                                                            hoveredService === index
+                                                                ? { scale: 1 }
+                                                                : { scale: 0.6 }
+                                                        }
+                                                    />
+                                                </div>
+                                                <span className="text-sm text-neutral-700">
+                                                    {feature}
+                                                </span>
+                                            </motion.li>
+                                        ))}
+                                    </ul>
+                                </motion.div>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    {/* Scroll indicator */}
+                    <div className="flex justify-center mt-2">
+                        <div className="flex gap-1">
+                            <div className="w-6 h-0.5 bg-primary-300 rounded-full"></div>
+                            <div className="w-2 h-0.5 bg-neutral-300 rounded-full"></div>
+                            <div className="w-2 h-0.5 bg-neutral-300 rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Desktop/Tablet Grid */}
+                <div className="hidden sm:grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
                     {filteredServices.map((service, index) => (
                         <motion.div
                             key={service.title}
@@ -306,7 +422,7 @@ export default function Services() {
                                     animate={{ scale: 1, rotate: 0 }}
                                     transition={{ delay: 0.4 + index * 0.05, type: 'spring' }}
                                 >
-                                    <div className="bg-neutral-900 text-white text-[10px] sm:text-xs font-bold px-2.5 py-1.5 rounded-full flex items-center gap-1 shadow-soft-lg">
+                                    <div className="bg-neutral-900 text-white text-xs font-bold px-2.5 py-1.5 rounded-full flex items-center gap-1 shadow-soft-lg">
                                         <Star className="w-3 h-3 fill-white" />
                                         Popular
                                     </div>
@@ -314,7 +430,7 @@ export default function Services() {
                             )}
 
                             <motion.div
-                                className={`bg-white rounded-2xl shadow-soft p-4 sm:p-6 h-full transition-all duration-500 border-2 ${
+                                className={`bg-white rounded-2xl shadow-soft p-6 h-full transition-all duration-500 border-2 ${
                                     hoveredService === index
                                         ? 'border-primary-700 shadow-soft-xl'
                                         : 'border-transparent'
@@ -323,33 +439,35 @@ export default function Services() {
                             >
                                 {/* Icon */}
                                 <motion.div
-                                    className={`w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center mb-3 sm:mb-4 transition-all duration-500 ${
+                                    className={`w-14 h-14 rounded-xl flex items-center justify-center mb-4 transition-all duration-500 ${
                                         hoveredService === index
                                             ? 'bg-primary-700 text-white shadow-soft-lg'
                                             : 'bg-neutral-100 text-neutral-700'
                                     }`}
                                     whileHover={{ rotate: [0, -10, 10, 0] }}
                                 >
-                                    <service.icon className="w-6 h-6 sm:w-7 sm:h-7" />
+                                    <service.icon className="w-7 h-7" />
                                 </motion.div>
 
                                 {/* Title & Desc */}
-                                <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2 text-neutral-900">
+                                <h3 className="text-xl font-bold mb-2 text-neutral-900">
                                     {service.title}
                                 </h3>
-                                <p className="text-xs sm:text-sm text-neutral-600 mb-3 sm:mb-4">
+                                <p className="text-sm text-neutral-600 mb-4">
                                     {service.description}
                                 </p>
 
                                 {/* Price */}
-                                <div className="mb-3 sm:mb-4 p-2.5 sm:p-3 bg-gradient-to-r from-primary-50 to-neutral-50 rounded-lg border border-primary-100">
-                                    <p className="text-[11px] sm:text-sm text-primary-700 font-semibold">
-                                        {service.price}
-                                    </p>
-                                </div>
+                                {service.price !== 'Included with boarding' && (
+                                    <div className="mb-4 p-3 bg-gradient-to-r from-primary-50 to-neutral-50 rounded-lg border border-primary-100">
+                                        <p className="text-sm text-primary-700 font-semibold">
+                                            {service.price}
+                                        </p>
+                                    </div>
+                                )}
 
                                 {/* Features */}
-                                <ul className="space-y-1.5 sm:space-y-2">
+                                <ul className="space-y-2">
                                     {service.features.map((feature, idx) => (
                                         <motion.li
                                             key={idx}
@@ -359,14 +477,14 @@ export default function Services() {
                                             transition={{ delay: idx * 0.03 }}
                                         >
                                             <div
-                                                className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-[2px] transition-all ${
+                                                className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-[2px] transition-all ${
                                                     hoveredService === index
                                                         ? 'bg-primary-700'
                                                         : 'bg-neutral-200'
                                                 }`}
                                             >
                                                 <motion.div
-                                                    className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rounded-full"
+                                                    className="w-2 h-2 bg-white rounded-full"
                                                     initial={{ scale: 0 }}
                                                     animate={
                                                         hoveredService === index
@@ -375,14 +493,12 @@ export default function Services() {
                                                     }
                                                 />
                                             </div>
-                                            <span className="text-[11px] sm:text-sm text-neutral-700">
+                                            <span className="text-sm text-neutral-700">
                                                 {feature}
                                             </span>
                                         </motion.li>
                                     ))}
                                 </ul>
-
-                                {/* ⭐ 已删除 Learn More 按钮 — 保持布局不变 */}
                             </motion.div>
                         </motion.div>
                     ))}

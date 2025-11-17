@@ -214,12 +214,12 @@ export default function Testimonials() {
                 </motion.div>
 
                 {/* ===== Filter Buttons ===== */}
-                <div className="flex justify-center gap-3 sm:gap-4 mb-12 flex-wrap">
+                <div className="flex justify-center gap-2 sm:gap-4 mb-12">
                     <motion.button
                         onClick={() => setSelectedFilter('all')}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-full font-medium transition-all duration-300 relative overflow-hidden text-sm sm:text-base ${
+                        className={`px-3 sm:px-6 py-2 sm:py-3 rounded-full font-medium transition-all duration-300 relative overflow-hidden text-xs sm:text-base whitespace-nowrap ${
                             selectedFilter === 'all'
                                 ? 'bg-neutral-900 text-white shadow-soft-lg'
                                 : 'bg-white text-neutral-700 border-2 border-neutral-200 shadow-soft hover:shadow-soft-md hover:border-neutral-400'
@@ -242,7 +242,7 @@ export default function Testimonials() {
                         onClick={() => setSelectedFilter('cat')}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-full font-medium transition-all duration-300 flex items-center gap-2 text-sm sm:text-base ${
+                        className={`px-3 sm:px-6 py-2 sm:py-3 rounded-full font-medium transition-all duration-300 flex items-center gap-1 sm:gap-2 text-xs sm:text-base whitespace-nowrap ${
                             selectedFilter === 'cat'
                                 ? 'bg-neutral-900 text-white shadow-soft-lg'
                                 : 'bg-white text-neutral-700 border-2 border-neutral-200 shadow-soft hover:shadow-soft-md hover:border-neutral-400'
@@ -255,7 +255,7 @@ export default function Testimonials() {
                         onClick={() => setSelectedFilter('dog')}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-full font-medium transition-all duration-300 flex items-center gap-2 text-sm sm:text-base ${
+                        className={`px-3 sm:px-6 py-2 sm:py-3 rounded-full font-medium transition-all duration-300 flex items-center gap-1 sm:gap-2 text-xs sm:text-base whitespace-nowrap ${
                             selectedFilter === 'dog'
                                 ? 'bg-neutral-900 text-white shadow-soft-lg'
                                 : 'bg-white text-neutral-700 border-2 border-neutral-200 shadow-soft hover:shadow-soft-md hover:border-neutral-400'
@@ -265,9 +265,116 @@ export default function Testimonials() {
                     </motion.button>
                 </div>
 
-                {/* ===== Testimonials Grid ===== */}
-                {/* 👉 手机端也是 3 列：grid-cols-3 */}
-                <div className="grid grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
+                {/* ===== Mobile Horizontal Scroll Testimonials ===== */}
+                <div className="sm:hidden overflow-x-auto scrollbar-hide -mx-4 px-4">
+                    <div className="flex gap-4 pb-4 pt-3" style={{ width: 'max-content' }}>
+                        {filteredTestimonials.map((testimonial, index) => (
+                            <motion.div
+                                key={testimonial.id}
+                                initial={{ opacity: 0, x: 20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: index * 0.1 }}
+                                className="relative flex-shrink-0"
+                                style={{ width: '300px' }}
+                            >
+                                <motion.div
+                                    className={`bg-white p-4 rounded-xl border-2 transition-all duration-300 h-full relative ${
+                                        hoveredCard === testimonial.id
+                                            ? 'border-primary-700 shadow-soft-xl'
+                                            : 'border-neutral-100 shadow-soft'
+                                    }`}
+                                    whileTap={{ scale: 0.98 }}
+                                >
+                                    {/* Pet Type Badge - Inside card */}
+                                    <div className="absolute top-3 left-3 z-10">
+                                        <motion.div
+                                            className={`w-8 h-8 rounded-full flex items-center justify-center shadow-soft-md ${
+                                                testimonial.petType === 'cat'
+                                                    ? 'bg-gradient-to-br from-primary-100 to-primary-200'
+                                                    : 'bg-gradient-to-br from-neutral-100 to-neutral-200'
+                                            }`}
+                                        >
+                                            <span className="text-sm">
+                                                {testimonial.petType === 'cat' ? '🐾' : '🦴'}
+                                            </span>
+                                        </motion.div>
+                                    </div>
+
+                                    {/* Quote Icon */}
+                                    <div className="absolute top-3 right-3">
+                                        <Quote className="h-6 w-6 text-neutral-200" />
+                                    </div>
+
+                                    {/* Content */}
+                                    <div className="pt-10">
+                                        {/* Rating Stars */}
+                                        <div className="flex gap-1 mb-3">
+                                            {[...Array(testimonial.rating)].map((_, i) => (
+                                                <Star key={i} className="h-4 w-4 fill-primary-700 text-primary-700" />
+                                            ))}
+                                        </div>
+
+                                        {/* Text */}
+                                        <p className="text-sm text-neutral-700 mb-4 italic leading-relaxed line-clamp-5">
+                                            &quot;{testimonial.text}&quot;
+                                        </p>
+
+                                        {/* Reviewer Info */}
+                                        <div className="border-t border-neutral-100 pt-3">
+                                            <div className="flex items-center justify-between">
+                                                <div className="flex-1">
+                                                    <p className="font-semibold text-neutral-900 text-sm">
+                                                        {testimonial.name}
+                                                    </p>
+                                                    <p className="text-xs text-neutral-600 flex items-center gap-1 truncate">
+                                                        {testimonial.petType === 'cat' ? '🐱' : '🐕'} {testimonial.pet}
+                                                    </p>
+                                                    <p className="text-[10px] text-neutral-500 mt-1">
+                                                        {testimonial.date}
+                                                    </p>
+                                                </div>
+                                                <motion.button
+                                                    onClick={() => handleLike(testimonial.id)}
+                                                    className={`flex items-center gap-1 text-xs transition-colors ${
+                                                        likedReviews.includes(testimonial.id)
+                                                            ? 'text-primary-700'
+                                                            : 'text-neutral-400'
+                                                    }`}
+                                                    whileTap={{ scale: 0.9 }}
+                                                >
+                                                    <ThumbsUp
+                                                        className={`h-3 w-3 ${
+                                                            likedReviews.includes(testimonial.id)
+                                                                ? 'fill-primary-700'
+                                                                : ''
+                                                        }`}
+                                                    />
+                                                    <span>
+                                                        {testimonial.helpful +
+                                                            (likedReviews.includes(testimonial.id) ? 1 : 0)}
+                                                    </span>
+                                                </motion.button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    {/* Scroll indicator */}
+                    <div className="flex justify-center mt-2">
+                        <div className="flex gap-1">
+                            <div className="w-6 h-0.5 bg-primary-300 rounded-full"></div>
+                            <div className="w-2 h-0.5 bg-neutral-300 rounded-full"></div>
+                            <div className="w-2 h-0.5 bg-neutral-300 rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* ===== Desktop/Tablet Grid ===== */}
+                <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
                     {filteredTestimonials.map((testimonial, index) => (
                         <motion.div
                             key={testimonial.id}
@@ -280,7 +387,7 @@ export default function Testimonials() {
                             className="relative"
                         >
                             <motion.div
-                                className={`bg-white p-2.5 sm:p-4 md:p-5 rounded-xl sm:rounded-2xl border-2 transition-all duration-300 ${
+                                className={`bg-white p-5 rounded-2xl border-2 transition-all duration-300 ${
                                     hoveredCard === testimonial.id
                                         ? 'border-primary-700 shadow-soft-xl'
                                         : 'border-neutral-100 shadow-soft'
@@ -294,13 +401,13 @@ export default function Testimonials() {
                                         scale: hoveredCard === testimonial.id ? 1.1 : 1
                                     }}
                                     transition={{ duration: 0.3 }}
-                                    className="absolute top-2 right-2 sm:top-3 sm:right-3"
+                                    className="absolute top-3 right-3"
                                 >
-                                    <Quote className="h-5 w-5 sm:h-7 sm:w-7 text-neutral-200" />
+                                    <Quote className="h-7 w-7 text-neutral-200" />
                                 </motion.div>
 
                                 {/* Rating Stars */}
-                                <div className="flex gap-0.5 sm:gap-1 mb-2 sm:mb-4">
+                                <div className="flex gap-1 mb-4">
                                     {[...Array(testimonial.rating)].map((_, i) => (
                                         <motion.div
                                             key={i}
@@ -308,34 +415,34 @@ export default function Testimonials() {
                                             animate={{ opacity: 1, scale: 1 }}
                                             transition={{ delay: 0.08 * i, type: 'spring' }}
                                         >
-                                            <Star className="h-3 w-3 sm:h-4 sm:w-4 fill-primary-700 text-primary-700" />
+                                            <Star className="h-4 w-4 fill-primary-700 text-primary-700" />
                                         </motion.div>
                                     ))}
                                 </div>
 
                                 {/* Text */}
-                                <p className="text-[10px] sm:text-sm md:text-base text-neutral-700 mb-3 sm:mb-6 italic leading-relaxed line-clamp-6 sm:line-clamp-none">
+                                <p className="text-base text-neutral-700 mb-6 italic leading-relaxed">
                                     &quot;{testimonial.text}&quot;
                                 </p>
 
                                 {/* Reviewer Info */}
-                                <div className="border-t border-neutral-100 pt-2 sm:pt-4">
-                                    <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                                <div className="border-t border-neutral-100 pt-4">
+                                    <div className="flex items-center justify-between">
                                         <div>
-                                            <p className="font-semibold text-neutral-900 text-[11px] sm:text-sm md:text-base">
+                                            <p className="font-semibold text-neutral-900 text-base">
                                                 {testimonial.name}
                                             </p>
-                                            <p className="text-[10px] sm:text-xs md:text-sm text-neutral-600 flex items-center gap-1">
+                                            <p className="text-sm text-neutral-600 flex items-center gap-1">
                                                 {testimonial.petType === 'cat' ? '🐱' : '🐕'} {testimonial.pet}
                                             </p>
-                                            <p className="text-[9px] sm:text-[10px] md:text-xs text-neutral-500 mt-0.5 sm:mt-1">
+                                            <p className="text-xs text-neutral-500 mt-1">
                                                 {testimonial.date}
                                             </p>
                                         </div>
                                         <div className="text-right">
                                             <motion.button
                                                 onClick={() => handleLike(testimonial.id)}
-                                                className={`flex items-center justify-end gap-1 text-[10px] sm:text-xs md:text-sm transition-colors ${
+                                                className={`flex items-center justify-end gap-1 text-sm transition-colors ${
                                                     likedReviews.includes(testimonial.id)
                                                         ? 'text-primary-700'
                                                         : 'text-neutral-400 hover:text-primary-700'
@@ -344,7 +451,7 @@ export default function Testimonials() {
                                                 whileTap={{ scale: 0.9 }}
                                             >
                                                 <ThumbsUp
-                                                    className={`h-3 w-3 sm:h-4 sm:w-4 ${
+                                                    className={`h-4 w-4 ${
                                                         likedReviews.includes(testimonial.id)
                                                             ? 'fill-primary-700'
                                                             : ''
@@ -361,7 +468,7 @@ export default function Testimonials() {
 
                                 {/* Pet Type Badge */}
                                 <motion.div
-                                    className={`absolute -top-2 -left-2 w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center shadow-soft-md ${
+                                    className={`absolute -top-2 -left-2 w-9 h-9 rounded-full flex items-center justify-center shadow-soft-md ${
                                         testimonial.petType === 'cat'
                                             ? 'bg-gradient-to-br from-primary-100 to-primary-200 text-primary-700'
                                             : 'bg-gradient-to-br from-neutral-100 to-neutral-200 text-neutral-700'
@@ -369,7 +476,7 @@ export default function Testimonials() {
                                     animate={{ rotate: hoveredCard === testimonial.id ? 360 : 0 }}
                                     transition={{ duration: 0.5 }}
                                 >
-                                    <span className="text-[12px] sm:text-sm">
+                                    <span className="text-sm">
                                         {testimonial.petType === 'cat' ? '🐾' : '🦴'}
                                     </span>
                                 </motion.div>

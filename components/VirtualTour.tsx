@@ -244,7 +244,7 @@ const VirtualTour = () => {
                             opacity: 0.7,
                             x: -30,
                             y: [0, 10, 0],
-                            scale: 2.5
+                            scale: 2.2
 
                         }}
                         viewport={{ once: true }}
@@ -269,7 +269,7 @@ const VirtualTour = () => {
                             opacity: 0.7,
                             x: 30,
                             y: [0, -10, 0],
-                            scale: 2.5
+                            scale: 2.2
                         }}
                         viewport={{ once: true }}
                         transition={{

@@ -233,7 +233,7 @@ export default function HeroSection() {
 
                                 {/* Description Paragraph */}
                                 <motion.p
-                                    className="text-base md:text-lg lg:text-xl xl:text-2xl text-neutral-600 max-w-3xl mx-auto mb-8 md:mb-10"
+                                    className="text-base md:text-lg lg:text-xl xl:text-2xl text-neutral-600 max-w-3xl mx-auto mb-4 md:mb-6"
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ delay: 0.6 }}
@@ -256,6 +256,16 @@ export default function HeroSection() {
                                     with love and dedication.
                                 </motion.p>
 
+                                {/* Pricing Info */}
+                                <motion.div
+                                    className="text-base md:text-lg lg:text-xl text-primary-700 font-semibold max-w-3xl mx-auto mb-8 md:mb-10"
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ delay: 0.7, type: "spring" }}
+                                    whileHover={{ scale: 1.05 }}
+                                >
+                                    Cat: $15/day | Dog: $30-40/day
+                                </motion.div>
                                 {/* CTA Buttons */}
                                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                                     <motion.div

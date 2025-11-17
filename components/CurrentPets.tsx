@@ -267,7 +267,7 @@ export default function CurrentPets() {
                 {/* Pet Grid：手机 2 列，小平板 3 列，桌面 4 列 */}
                 <motion.div
                     layout
-                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6"
+                    className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6"
                 >
                     <AnimatePresence mode="popLayout">
                         {filteredPets.map((pet, index) => (
@@ -281,19 +281,20 @@ export default function CurrentPets() {
                                 className="relative group"
                             >
                                 <motion.div
-                                    className="bg-white rounded-2xl shadow-soft-md border-2 border-transparent overflow-hidden hover:border-primary-700 hover:shadow-soft-xl transition-all duration-300"
+                                    className="bg-white rounded-xl sm:rounded-2xl shadow-soft-md border-2 border-transparent overflow-hidden hover:border-primary-700 hover:shadow-soft-xl transition-all duration-300"
                                     whileHover={{ y: -5 }}
                                 >
                                     {/* Status Badge */}
                                     {pet.status === 'resident' && (
                                         <motion.div
-                                            className="absolute top-2 left-2 z-10 bg-neutral-900 text-white px-2.5 py-1 rounded-full text-[10px] sm:text-xs font-bold flex items-center gap-1"
+                                            className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 z-10 bg-neutral-900 text-white px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-xs font-bold flex items-center gap-0.5 sm:gap-1"
                                             initial={{ scale: 0, rotate: -180 }}
                                             animate={{ scale: 1, rotate: 0 }}
                                             transition={{ type: 'spring' }}
                                         >
-                                            <Home className="w-3 h-3" />
-                                            Resident
+                                            <Home className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+                                            <span className="hidden sm:inline">Resident</span>
+                                            <span className="sm:hidden">Home</span>
                                         </motion.div>
                                     )}
 
@@ -311,32 +312,32 @@ export default function CurrentPets() {
                                                     alt={pet.name}
                                                     fill
                                                     className="object-cover"
-                                                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                                                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                                                 />
                                             ) : (
                                                 <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary-50 to-neutral-100">
                                                     {pet.type === 'cat' ? (
-                                                        <Cat className="w-16 h-16 sm:w-20 sm:h-20 text-primary-200" />
+                                                        <Cat className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 text-primary-200" />
                                                     ) : (
-                                                        <Dog className="w-16 h-16 sm:w-20 sm:h-20 text-neutral-300" />
+                                                        <Dog className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 text-neutral-300" />
                                                     )}
                                                 </div>
                                             )}
                                         </div>
 
-                                        {/* Photo/Video Count Badges */}
-                                        <div className="absolute top-2 right-2 flex gap-1.5">
-                                            <div className="bg-black/60 text-white px-2 py-1 rounded-full text-[10px] sm:text-xs flex items-center gap-1">
-                                                <Camera className="w-3 h-3" />
+                                        {/* Photo/Video Count Badges - Smaller on mobile */}
+                                        <div className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 flex gap-1 sm:gap-1.5">
+                                            <div className="bg-black/60 text-white px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-full text-[9px] sm:text-xs flex items-center gap-0.5 sm:gap-1">
+                                                <Camera className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                                                 <span>3</span>
                                             </div>
                                             {petVideos[pet.id] && (
                                                 <motion.div
-                                                    className="bg-primary-700/90 text-white px-2 py-1 rounded-full text-[10px] sm:text-xs flex items-center gap-1"
+                                                    className="bg-primary-700/90 text-white px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-full text-[9px] sm:text-xs flex items-center gap-0.5 sm:gap-1"
                                                     animate={{ scale: [1, 1.1, 1] }}
                                                     transition={{ duration: 2, repeat: Infinity }}
                                                 >
-                                                    <Film className="w-3 h-3" />
+                                                    <Film className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                                                     <span>{petVideos[pet.id].length}</span>
                                                 </motion.div>
                                             )}
@@ -349,10 +350,10 @@ export default function CurrentPets() {
                                                     initial={{ opacity: 0 }}
                                                     animate={{ opacity: 1 }}
                                                     exit={{ opacity: 0 }}
-                                                    className="absolute inset-0 bg-gradient-to-t from-neutral-900/70 via-neutral-900/20 to-transparent flex items-end p-2 sm:p-4"
+                                                    className="absolute inset-0 bg-gradient-to-t from-neutral-900/70 via-neutral-900/20 to-transparent flex items-end p-2 sm:p-3 lg:p-4"
                                                 >
                                                     <div className="text-white">
-                                                        <p className="text-[11px] sm:text-sm font-medium flex items-center gap-2">
+                                                        <p className="text-[10px] sm:text-xs lg:text-sm font-medium flex items-center gap-1 sm:gap-2">
                                                             <Camera className="w-3 h-3 sm:w-4 sm:h-4" />
                                                             Click to see more
                                                         </p>
@@ -362,18 +363,18 @@ export default function CurrentPets() {
                                         </AnimatePresence>
                                     </div>
 
-                                    {/* Pet Info */}
-                                    <div className="p-3 sm:p-5">
-                                        <div className="flex items-start justify-between mb-2 sm:mb-3">
-                                            <div>
-                                                <h3 className="font-bold text-sm sm:text-lg text-neutral-900">
+                                    {/* Pet Info - Compact on mobile */}
+                                    <div className="p-2.5 sm:p-3 lg:p-5">
+                                        <div className="flex items-start justify-between mb-1.5 sm:mb-2 lg:mb-3">
+                                            <div className="flex-1 min-w-0">
+                                                <h3 className="font-bold text-xs sm:text-sm lg:text-lg text-neutral-900 truncate">
                                                     {pet.name}
                                                 </h3>
-                                                <p className="text-[11px] sm:text-sm text-neutral-500">
+                                                <p className="text-[10px] sm:text-xs lg:text-sm text-neutral-500 truncate">
                                                     {pet.breed}
                                                 </p>
                                                 {pet.age && (
-                                                    <p className="text-[10px] sm:text-xs text-neutral-400 mt-1">
+                                                    <p className="text-[9px] sm:text-[10px] lg:text-xs text-neutral-400 mt-0.5 sm:mt-1">
                                                         {pet.age}
                                                     </p>
                                                 )}
@@ -381,28 +382,29 @@ export default function CurrentPets() {
                                             <motion.div
                                                 animate={{ scale: hoveredPet === pet.id ? 1.2 : 1 }}
                                                 transition={{ duration: 0.3 }}
+                                                className="flex-shrink-0 ml-1"
                                             >
                                                 {pet.type === 'cat' ? (
-                                                    <Cat className="w-5 h-5 sm:w-6 sm:h-6 text-primary-700" />
+                                                    <Cat className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-primary-700" />
                                                 ) : (
-                                                    <Dog className="w-5 h-5 sm:w-6 sm:h-6 text-neutral-700" />
+                                                    <Dog className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-neutral-700" />
                                                 )}
                                             </motion.div>
                                         </div>
 
-                                        {/* Personality Tags */}
+                                        {/* Personality Tags - Show only 1 on mobile, 2 on larger */}
                                         <div className="flex flex-wrap gap-1">
-                                            {pet.personality.slice(0, 2).map((trait) => (
+                                            {pet.personality.slice(0, 1).map((trait) => (
                                                 <span
                                                     key={trait}
-                                                    className="text-[10px] sm:text-xs px-2 py-1 bg-neutral-100 text-neutral-600 rounded-full hover:bg-primary-100 hover:text-primary-700 transition-colors"
+                                                    className="text-[9px] sm:text-[10px] lg:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 bg-neutral-100 text-neutral-600 rounded-full hover:bg-primary-100 hover:text-primary-700 transition-colors truncate max-w-[80px] sm:max-w-none"
                                                 >
                                                     {trait}
                                                 </span>
                                             ))}
-                                            {pet.personality.length > 2 && (
-                                                <span className="text-[10px] sm:text-xs px-2 py-1 bg-primary-100 text-primary-700 rounded-full font-medium">
-                                                    +{pet.personality.length - 2}
+                                            {pet.personality.length > 1 && (
+                                                <span className="text-[9px] sm:text-[10px] lg:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 bg-primary-100 text-primary-700 rounded-full font-medium">
+                                                    +{pet.personality.length - 1}
                                                 </span>
                                             )}
                                         </div>
