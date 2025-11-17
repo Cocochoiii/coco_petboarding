@@ -151,6 +151,23 @@ const VirtualTour = () => {
         };
     }, [autoPlay, filteredRooms.length]);
 
+    // ESC key to close fullscreen
+    useEffect(() => {
+        const handleEscape = (e: KeyboardEvent) => {
+            if (e.key === 'Escape' && isFullscreen) {
+                setIsFullscreen(false);
+            }
+        };
+
+        if (isFullscreen) {
+            document.addEventListener('keydown', handleEscape);
+        }
+
+        return () => {
+            document.removeEventListener('keydown', handleEscape);
+        };
+    }, [isFullscreen]);
+
     const handleDragEnd = () => {
         const threshold = 50
         if (dragX.get() > threshold) {
@@ -225,9 +242,8 @@ const VirtualTour = () => {
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{
                             opacity: 0.7,
-                            x: -30,
-                            y: [0, 10, 0],
-                            scale: 2.5
+                            x: 0,
+                            y: [0, 10, 0]
                         }}
                         viewport={{ once: true }}
                         transition={{
@@ -249,9 +265,8 @@ const VirtualTour = () => {
                         initial={{ opacity: 0, x: 50 }}
                         whileInView={{
                             opacity: 0.7,
-                            x: 30,
-                            y: [0, -10, 0],
-                            scale: 2.5
+                            x: 0,
+                            y: [0, -10, 0]
                         }}
                         viewport={{ once: true }}
                         transition={{
@@ -596,7 +611,7 @@ const VirtualTour = () => {
                         </div>
 
                         <div className="text-center mt-6">
-                            <p className="text-neutral-600 mb-3"></p>
+                            <p className="text-neutral-600 mb-3">Click the front card or use arrows to browse</p>
                             <div className="flex justify-center gap-2">
                                 <button
                                     onClick={prevRoom}
@@ -639,42 +654,82 @@ const VirtualTour = () => {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
+                            transition={{ duration: 0.2 }}
                         >
-                            <button
+                            {/* Close Button - More Prominent */}
+                            <motion.button
                                 onClick={() => setIsFullscreen(false)}
-                                className="absolute top-6 right-6 text-white hover:text-primary-300 transition-colors p-2"
+                                className="absolute top-4 right-4 sm:top-6 sm:right-6 text-white hover:text-primary-300 transition-all p-3 bg-black/50 hover:bg-black/70 rounded-full group"
+                                initial={{ scale: 0, rotate: -180 }}
+                                animate={{ scale: 1, rotate: 0 }}
+                                exit={{ scale: 0, rotate: 180 }}
+                                transition={{ type: 'spring', stiffness: 200 }}
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                                aria-label="Close fullscreen"
                             >
-                                <X className="w-8 h-8" />
-                            </button>
+                                <X className="w-6 h-6 sm:w-8 sm:h-8 group-hover:rotate-90 transition-transform duration-300" />
+                            </motion.button>
 
+                            {/* ESC hint */}
+                            <motion.div
+                                className="absolute top-4 left-4 text-white/60 text-sm hidden sm:block"
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.3 }}
+                            >
+                                Press ESC to exit
+                            </motion.div>
+
+                            {/* Navigation Buttons */}
                             <button
                                 onClick={prevRoom}
-                                className="absolute left-6 text-white hover:text-primary-300 transition-all p-3"
+                                className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 text-white hover:text-primary-300 transition-all p-3 bg-black/30 hover:bg-black/50 rounded-full"
+                                aria-label="Previous room"
                             >
-                                <ChevronLeft className="w-10 h-10" />
+                                <ChevronLeft className="w-8 h-8 sm:w-10 sm:h-10" />
                             </button>
 
-                            <img
+                            {/* Main Image */}
+                            <motion.img
                                 src={filteredRooms[currentRoom]?.image}
                                 alt={filteredRooms[currentRoom]?.name}
-                                className="max-w-full max-h-full object-contain"
+                                className="max-w-[90%] max-h-[80%] object-contain rounded-lg"
+                                initial={{ scale: 0.8, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                transition={{ delay: 0.1 }}
+                                onClick={(e) => e.stopPropagation()}
                             />
 
                             <button
                                 onClick={nextRoom}
-                                className="absolute right-6 text-white hover:text-primary-300 transition-all p-3"
+                                className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 text-white hover:text-primary-300 transition-all p-3 bg-black/30 hover:bg-black/50 rounded-full"
+                                aria-label="Next room"
                             >
-                                <ChevronRight className="w-10 h-10" />
+                                <ChevronRight className="w-8 h-8 sm:w-10 sm:h-10" />
                             </button>
 
-                            <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 text-center">
-                                <h3 className="text-white text-2xl font-light mb-2">
+                            {/* Room Info */}
+                            <motion.div
+                                className="absolute bottom-8 sm:bottom-12 left-1/2 transform -translate-x-1/2 text-center bg-black/60 backdrop-blur-sm px-6 py-3 rounded-xl"
+                                initial={{ y: 50, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                transition={{ delay: 0.2 }}
+                            >
+                                <h3 className="text-white text-xl sm:text-2xl font-light mb-1">
                                     {filteredRooms[currentRoom]?.name}
                                 </h3>
-                                <p className="text-gray-300">
+                                <p className="text-gray-300 text-sm sm:text-base">
                                     {filteredRooms[currentRoom]?.description}
                                 </p>
-                            </div>
+                            </motion.div>
+
+                            {/* Click outside to close */}
+                            <div
+                                className="absolute inset-0 -z-10"
+                                onClick={() => setIsFullscreen(false)}
+                                aria-label="Click to close fullscreen"
+                            />
                         </motion.div>
                     )}
                 </AnimatePresence>

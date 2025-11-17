@@ -38,9 +38,25 @@ export default function BookingCalendar() {
     const [hoveredDate, setHoveredDate] = useState<number | null>(null)
 
     const getAvailability = (date: Date): BookingSlot => {
-        const random = date.getDate() % 3
-        if (random === 0) return { date, available: 0, total: 5 }
-        if (random === 1) return { date, available: 2, total: 5 }
+        const year = date.getFullYear()
+        const month = date.getMonth() // 0-indexed (0 = January, 10 = November, 11 = December)
+        const day = date.getDate()
+
+        // November 21 - December 9: All FULL
+        if ((month === 10 && day >= 21) || // November 21-30
+            (month === 11 && day <= 9)) {    // December 1-9
+            return { date, available: 0, total: 5 }
+        }
+
+        // December 10 - December 30: Full or random spots
+        if (month === 11 && day >= 10 && day <= 30) {
+            const random = day % 4
+            if (random === 0 || random === 1) return { date, available: 0, total: 5 } // Full
+            if (random === 2) return { date, available: 1, total: 5 } // 1 spot
+            return { date, available: 2, total: 5 } // 2 spots
+        }
+
+        // All other days: Available
         return { date, available: 4, total: 5 }
     }
 
