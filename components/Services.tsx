@@ -159,10 +159,10 @@ export default function Services() {
                     className="mb-10 md:mb-12 relative"
                 >
                     {/* Mobile SVGs */}
-                    <div className="flex items-center justify-center gap-6 mb-6 lg:hidden">
+                    <div className="flex items-center justify-center gap-14 mb-6 lg:hidden">
                         <motion.div
                             initial={{ opacity: 0, y: -10, scale: 0.8 }}
-                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                            whileInView={{ opacity: 1, y: 0, scale: 1.5 }}
                             transition={{ duration: 0.6 }}
                         >
                             <Image
@@ -175,7 +175,7 @@ export default function Services() {
                         </motion.div>
                         <motion.div
                             initial={{ opacity: 0, y: -10, scale: 0.8 }}
-                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                            whileInView={{ opacity: 1, y: 0, scale: 1.5 }}
                             transition={{ duration: 0.6, delay: 0.1 }}
                         >
                             <Image
