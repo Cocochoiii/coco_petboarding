@@ -194,7 +194,7 @@ export default function Services() {
                         initial={{ opacity: 0, x: -50, scale: 0.8 }}
                         whileInView={{
                             opacity: 1,
-                            x: -20,
+                            x: -30,
                             scale: 1.6,
                             y: [0, 10, 0]
                         }}
@@ -218,7 +218,7 @@ export default function Services() {
                         initial={{ opacity: 0, x: 50, scale: 0.8 }}
                         whileInView={{
                             opacity: 1,
-                            x: 20,
+                            x: 30,
                             scale: 1.6,
                             y: [0, 10, 0]
                         }}
