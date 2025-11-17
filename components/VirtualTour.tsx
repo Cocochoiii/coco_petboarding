@@ -210,7 +210,7 @@ const VirtualTour = () => {
                     <div className="flex items-center justify-center gap-14 mb-6 lg:hidden">
                         <motion.div
                             initial={{ opacity: 0, scale: 0.8 }}
-                            whileInView={{ opacity: 1, scale: 1.5 }}
+                            whileInView={{ opacity: 1, scale: 1.8 }}
                             transition={{ duration: 0.6 }}
                         >
                             <Image
@@ -223,7 +223,7 @@ const VirtualTour = () => {
                         </motion.div>
                         <motion.div
                             initial={{ opacity: 0, scale: 0.8 }}
-                            whileInView={{ opacity: 1, scale: 1.5 }}
+                            whileInView={{ opacity: 1, scale: 1.8 }}
                             transition={{ duration: 0.6, delay: 0.1 }}
                         >
                             <Image
