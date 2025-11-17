@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import HeroSection from '@/components/HeroSection'
+import VirtualTour from '@/components/VirtualTour'
 import CurrentPets from '@/components/CurrentPets'
 import Services from '@/components/Services'
 import BookingCalendar from '@/components/BookingCalendar'
@@ -85,15 +86,16 @@ export default function HomePage() {
                 </SectionTransition>
 
                 <SectionTransition>
-                    <BookingCalendar />
-                </SectionTransition>
-
-                <SectionTransition>
-                    <AboutSection />
-                </SectionTransition>
-
-                <SectionTransition>
                     <ServiceArea />
+                </SectionTransition>
+
+                {/* NEW: Virtual Tour Section - positioned after Hero, before Current Pets */}
+                <SectionTransition>
+                    <VirtualTour />
+                </SectionTransition>
+
+                <SectionTransition>
+                    <BookingCalendar />
                 </SectionTransition>
 
                 <SectionTransition>
@@ -102,6 +104,10 @@ export default function HomePage() {
 
                 <SectionTransition>
                     <Contact />
+                </SectionTransition>
+
+                <SectionTransition>
+                    <AboutSection />
                 </SectionTransition>
             </motion.div>
 
