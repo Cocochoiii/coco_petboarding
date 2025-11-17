@@ -274,11 +274,11 @@ export default function ServiceArea() {
                                         </li>
                                         <li className="flex items-center gap-2">
                                             <DollarSign className="w-3 h-3 text-primary-700" />
-                                            $20 for 10-25 miles
+                                            $10 for 10-25 miles
                                         </li>
                                         <li className="flex items-center gap-2">
                                             <DollarSign className="w-3 h-3 text-primary-700" />
-                                            $35 for 25-50 miles
+                                            $20 for 25-50 miles
                                         </li>
                                     </ul>
                                 </motion.div>
