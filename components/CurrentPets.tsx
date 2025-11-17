@@ -205,10 +205,10 @@ export default function CurrentPets() {
                     {/* 标题 + 文案 + stats */}
                     <div className="text-center">
                         <h2 className="text-3xl md:text-5xl font-display font-bold mb-4 text-neutral-900">
-                            Our Current <span className="text-gradient">Furry Residents</span>
+                            Our <span className="text-gradient"> Furry Friends Gallery</span>
                         </h2>
                         <p className="text-base md:text-xl text-neutral-600 max-w-3xl mx-auto">
-                            Meet the adorable pets currently enjoying their stay at Coco&apos;s Paradise.
+                            Meet the adorable pets who have enjoyed their stay at Coco&apos;s Paradise.
                             Each one receives personalized care and endless love!
                         </p>
 

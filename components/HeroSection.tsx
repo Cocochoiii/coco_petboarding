@@ -238,8 +238,8 @@ export default function HeroSection() {
                                     animate={{ opacity: 1 }}
                                     transition={{ delay: 0.6 }}
                                 >
-                                    Personalized home boarding for your beloved pets. Currently
-                                    caring for{' '}
+                                    Personalized home boarding for your beloved pets.
+                                    Lovingly welcomed for{' '}
                                     <motion.span
                                         className="font-semibold text-neutral-900 border-b-2 border-primary-700 inline-block"
                                         whileHover={{ scale: 1.1 }}
@@ -253,7 +253,6 @@ export default function HeroSection() {
                                     >
                                         8 dogs
                                     </motion.span>{' '}
-                                    with love and dedication.
                                 </motion.p>
 
                                 {/* Pricing Info */}
