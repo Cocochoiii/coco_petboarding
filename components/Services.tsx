@@ -12,10 +12,10 @@ import {
     Play,
     Moon,
     Shield,
-    Sparkles,
     Award,
     Star,
-    ArrowRight
+    ArrowRight,
+    Sparkles
 } from 'lucide-react'
 import { useState } from 'react'
 
@@ -149,14 +149,14 @@ export default function Services() {
                 : services.slice(6)
 
     return (
-        <section id="services" className="py-20 bg-gradient-to-b from-white to-neutral-50">
+        <section id="services" className="py-16 md:py-20 bg-gradient-to-b from-white to-neutral-50">
             <div className="container mx-auto px-4">
                 {/* ===== Title + SVG ===== */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
-                    className="mb-12 relative"
+                    className="mb-10 md:mb-12 relative"
                 >
                     {/* Mobile SVGs */}
                     <div className="flex items-center justify-center gap-6 mb-6 lg:hidden">
@@ -168,9 +168,9 @@ export default function Services() {
                             <Image
                                 src="/svgs/services-decoration2.svg"
                                 alt="Services decoration left"
-                                width={120}
-                                height={120}
-                                className="w-100 h-100 opacity-90"
+                                width={100}
+                                height={100}
+                                className="w-20 h-20 opacity-90"
                             />
                         </motion.div>
                         <motion.div
@@ -181,9 +181,9 @@ export default function Services() {
                             <Image
                                 src="/svgs/services-decoration.svg"
                                 alt="Services decoration right"
-                                width={120}
-                                height={120}
-                                className="w-100 h-100 opacity-90"
+                                width={100}
+                                height={100}
+                                className="w-20 h-20 opacity-90"
                             />
                         </motion.div>
                     </div>
@@ -238,23 +238,22 @@ export default function Services() {
                     </motion.div>
 
                     {/* Center Title */}
-                    <div className="text-center mb-8">
+                    <div className="text-center mb-6 md:mb-8">
                         <span className="text-primary-700 font-semibold text-sm uppercase tracking-wide">
                             Our Services
                         </span>
-                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mt-2 mb-4 text-neutral-900">
-                            Comprehensive <span className="text-gradient">Pet Care Services</span>
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mt-2 mb-3 md:mb-4 text-neutral-900">
+                            Comprehensive <span className="text-gradient">Pet Care</span>
                         </h2>
                     </div>
 
                     <p className="text-base sm:text-lg md:text-xl text-neutral-600 max-w-3xl mx-auto text-center">
-                        Everything your pet needs for a comfortable, happy, and safe stay.
-                        All services delivered with love and professional care.
+                        Everything your pet needs for a comfortable and happy stay.
                     </p>
                 </motion.div>
 
                 {/* Category Pills */}
-                <div className="flex justify-center gap-3 sm:gap-4 mb-12 flex-wrap">
+                <div className="flex justify-center gap-3 sm:gap-4 mb-8 md:mb-12 flex-wrap">
                     {[
                         { value: 'all', label: 'All Services' },
                         { value: 'essential', label: 'Essential' },
@@ -285,118 +284,128 @@ export default function Services() {
                     ))}
                 </div>
 
-
-
-                {/* Services Grid - Mobile Horizontal Scroll */}
-                <div className="sm:hidden overflow-x-auto scrollbar-hide -mx-4 px-4">
-                    <div className="flex gap-4 pb-4" style={{ width: 'max-content' }}>
-                        {filteredServices.map((service, index) => (
-                            <motion.div
-                                key={service.title}
-                                initial={{ opacity: 0, x: 20 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.08 }}
-                                onMouseEnter={() => setHoveredService(index)}
-                                onMouseLeave={() => setHoveredService(null)}
-                                className="relative group flex-shrink-0"
-                                style={{ width: '280px' }}
-                            >
-                                {/* Popular Badge */}
-                                {service.popular && (
-                                    <motion.div
-                                        className="absolute -top-3 -right-3 z-10"
-                                        initial={{ scale: 0, rotate: -180 }}
-                                        animate={{ scale: 1, rotate: 0 }}
-                                        transition={{ delay: 0.4 + index * 0.05, type: 'spring' }}
-                                    >
-                                        <div className="bg-neutral-900 text-white text-xs font-bold px-2.5 py-1.5 rounded-full flex items-center gap-1 shadow-soft-lg">
-                                            <Star className="w-3 h-3 fill-white" />
-                                            Popular
-                                        </div>
-                                    </motion.div>
-                                )}
-
+                {/* Services Grid - Mobile Horizontal Scroll with Fixed Popular Badge */}
+                <div className="sm:hidden">
+                    <div className="overflow-x-auto scrollbar-hide -mx-4 px-4">
+                        <div className="flex gap-4 pb-4" style={{ width: 'max-content' }}>
+                            {filteredServices.map((service, index) => (
                                 <motion.div
-                                    className={`bg-white rounded-2xl shadow-soft p-5 h-full transition-all duration-500 border-2 ${
-                                        hoveredService === index
-                                            ? 'border-primary-700 shadow-soft-xl'
-                                            : 'border-transparent'
-                                    }`}
-                                    whileTap={{ scale: 0.98 }}
+                                    key={service.title}
+                                    initial={{ opacity: 0, x: 20 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: index * 0.08 }}
+                                    onMouseEnter={() => setHoveredService(index)}
+                                    onMouseLeave={() => setHoveredService(null)}
+                                    className="relative group flex-shrink-0"
+                                    style={{ width: '280px' }}
                                 >
-                                    {/* Icon */}
                                     <motion.div
-                                        className={`w-14 h-14 rounded-xl flex items-center justify-center mb-4 transition-all duration-500 ${
+                                        className={`bg-white rounded-2xl shadow-soft p-5 h-full transition-all duration-500 border-2 ${
                                             hoveredService === index
-                                                ? 'bg-primary-700 text-white shadow-soft-lg'
-                                                : 'bg-neutral-100 text-neutral-700'
+                                                ? 'border-primary-700 shadow-soft-xl'
+                                                : 'border-transparent'
                                         }`}
+                                        whileTap={{ scale: 0.98 }}
                                     >
-                                        <service.icon className="w-7 h-7" />
-                                    </motion.div>
-
-                                    {/* Title & Desc */}
-                                    <h3 className="text-lg font-bold mb-2 text-neutral-900">
-                                        {service.title}
-                                    </h3>
-                                    <p className="text-sm text-neutral-600 mb-4">
-                                        {service.description}
-                                    </p>
-
-                                    {/* Price */}
-                                    {service.price !== 'Included with boarding' && (
-                                        <div className="mb-4 p-3 bg-gradient-to-r from-primary-50 to-neutral-50 rounded-lg border border-primary-100">
-                                            <p className="text-sm text-primary-700 font-semibold">
-                                                {service.price}
-                                            </p>
-                                        </div>
-                                    )}
-
-                                    {/* Features */}
-                                    <ul className="space-y-2">
-                                        {service.features.map((feature, idx) => (
-                                            <motion.li
-                                                key={idx}
-                                                className="flex items-start gap-2"
-                                                initial={{ opacity: 0, x: -10 }}
-                                                animate={{ opacity: 1, x: 0 }}
-                                                transition={{ delay: idx * 0.03 }}
-                                            >
-                                                <div
-                                                    className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-[2px] transition-all ${
-                                                        hoveredService === index
-                                                            ? 'bg-primary-700'
-                                                            : 'bg-neutral-200'
-                                                    }`}
+                                        {/* Popular Badge - Fixed positioning for mobile */}
+                                        {service.popular && (
+                                            <div className="flex justify-end mb-2">
+                                                <motion.div
+                                                    initial={{ scale: 0, rotate: -180 }}
+                                                    animate={{ scale: 1, rotate: 0 }}
+                                                    transition={{ delay: 0.4 + index * 0.05, type: 'spring' }}
+                                                    className="bg-neutral-900 text-white text-xs font-bold px-2.5 py-1.5 rounded-full flex items-center gap-1 shadow-soft-lg"
                                                 >
-                                                    <motion.div
-                                                        className="w-2 h-2 bg-white rounded-full"
-                                                        initial={{ scale: 0 }}
-                                                        animate={
+                                                    <Star className="w-3 h-3 fill-white" />
+                                                    Popular
+                                                </motion.div>
+                                            </div>
+                                        )}
+
+                                        {/* Icon */}
+                                        <motion.div
+                                            className={`w-14 h-14 rounded-xl flex items-center justify-center mb-4 transition-all duration-500 ${
+                                                hoveredService === index
+                                                    ? 'bg-primary-700 text-white shadow-soft-lg'
+                                                    : 'bg-neutral-100 text-neutral-700'
+                                            }`}
+                                        >
+                                            <service.icon className="w-7 h-7" />
+                                        </motion.div>
+
+                                        {/* Title & Desc */}
+                                        <h3 className="text-lg font-bold mb-2 text-neutral-900">
+                                            {service.title}
+                                        </h3>
+                                        <p className="text-sm text-neutral-600 mb-3">
+                                            {service.description}
+                                        </p>
+
+                                        {/* Price */}
+                                        {service.price !== 'Included with boarding' && (
+                                            <div className="mb-3 p-2.5 bg-gradient-to-r from-primary-50 to-neutral-50 rounded-lg border border-primary-100">
+                                                <p className="text-xs text-primary-700 font-semibold">
+                                                    {service.price}
+                                                </p>
+                                            </div>
+                                        )}
+
+                                        {/* Features - Compact for mobile */}
+                                        <ul className="space-y-1.5">
+                                            {service.features.slice(0, 3).map((feature, idx) => (
+                                                <motion.li
+                                                    key={idx}
+                                                    className="flex items-start gap-2"
+                                                    initial={{ opacity: 0, x: -10 }}
+                                                    animate={{ opacity: 1, x: 0 }}
+                                                    transition={{ delay: idx * 0.03 }}
+                                                >
+                                                    <div
+                                                        className={`w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 mt-[2px] transition-all ${
                                                             hoveredService === index
-                                                                ? { scale: 1 }
-                                                                : { scale: 0.6 }
-                                                        }
-                                                    />
-                                                </div>
-                                                <span className="text-sm text-neutral-700">
-                                                    {feature}
-                                                </span>
-                                            </motion.li>
-                                        ))}
-                                    </ul>
+                                                                ? 'bg-primary-700'
+                                                                : 'bg-neutral-200'
+                                                        }`}
+                                                    >
+                                                        <motion.div
+                                                            className="w-1.5 h-1.5 bg-white rounded-full"
+                                                            initial={{ scale: 0 }}
+                                                            animate={
+                                                                hoveredService === index
+                                                                    ? { scale: 1 }
+                                                                    : { scale: 0.6 }
+                                                            }
+                                                        />
+                                                    </div>
+                                                    <span className="text-xs text-neutral-700">
+                                                        {feature}
+                                                    </span>
+                                                </motion.li>
+                                            ))}
+                                            {service.features.length > 3 && (
+                                                <li className="text-xs text-primary-700 font-medium pl-6">
+                                                    +{service.features.length - 3} more features
+                                                </li>
+                                            )}
+                                        </ul>
+                                    </motion.div>
                                 </motion.div>
-                            </motion.div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
 
                     {/* Scroll indicator */}
                     <div className="flex justify-center mt-2">
                         <div className="flex gap-1">
-                            <div className="w-6 h-0.5 bg-primary-300 rounded-full"></div>
-                            <div className="w-2 h-0.5 bg-neutral-300 rounded-full"></div>
-                            <div className="w-2 h-0.5 bg-neutral-300 rounded-full"></div>
+                            {[0, 1, 2].map((_, i) => (
+                                <div
+                                    key={i}
+                                    className={`h-0.5 rounded-full transition-all ${
+                                        i === 0 ? 'w-6 bg-primary-300' : 'w-2 bg-neutral-300'
+                                    }`}
+                                />
+                            ))}
                         </div>
                     </div>
                 </div>
@@ -414,7 +423,7 @@ export default function Services() {
                             onMouseLeave={() => setHoveredService(null)}
                             className="relative group"
                         >
-                            {/* Popular Badge */}
+                            {/* Popular Badge - Desktop */}
                             {service.popular && (
                                 <motion.div
                                     className="absolute -top-3 -right-3 z-10"
@@ -504,52 +513,35 @@ export default function Services() {
                     ))}
                 </div>
 
-                {/* Bottom CTA */}
+                {/* Bottom CTA - Simplified for mobile */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="mt-16 text-center"
+                    className="mt-12 md:mt-16 text-center"
                 >
-                    <div className="bg-gradient-to-br from-neutral-50 to-primary-50/30 rounded-3xl p-6 sm:p-8 max-w-4xl mx-auto border border-neutral-200">
-                        <div className="flex items-center justify-center gap-3 mb-4">
-                            <motion.div whileHover={{ rotate: 360 }} transition={{ duration: 0.5 }}>
-                                <Shield className="w-7 h-7 sm:w-8 sm:h-8 text-primary-700" />
-                            </motion.div>
-                            <motion.div whileHover={{ rotate: -360 }} transition={{ duration: 0.5 }}>
-                                <Award className="w-7 h-7 sm:w-8 sm:h-8 text-neutral-700" />
-                            </motion.div>
-                            <motion.div whileHover={{ rotate: 360 }} transition={{ duration: 0.5 }}>
-                                <Sparkles className="w-7 h-7 sm:w-8 sm:h-8 text-primary-700" />
-                            </motion.div>
+                    <div className="bg-gradient-to-br from-neutral-50 to-primary-50/30 rounded-3xl p-5 sm:p-8 max-w-4xl mx-auto border border-neutral-200">
+                        <div className="flex items-center justify-center gap-3 mb-3 md:mb-4">
+                            <Shield className="w-6 h-6 sm:w-8 sm:h-8 text-primary-700" />
+                            <Award className="w-6 h-6 sm:w-8 sm:h-8 text-neutral-700" />
+                            <Sparkles className="w-6 h-6 sm:w-8 sm:h-8 text-primary-700" />
                         </div>
 
-                        <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-neutral-900">
-                            All Services Include Our Quality Guarantee
+                        <h3 className="text-lg sm:text-2xl font-bold mb-2 sm:mb-4 text-neutral-900">
+                            Quality Guarantee
                         </h3>
 
-                        <p className="text-sm sm:text-base text-neutral-600 mb-5 sm:mb-6 max-w-2xl mx-auto">
-                            Every service comes with our commitment to excellence, safety protocols,
-                            and the loving care your pet deserves. Licensed, insured, and pet first aid certified.
+                        <p className="text-sm sm:text-base text-neutral-600 mb-4 sm:mb-6 max-w-2xl mx-auto">
+                            Licensed, insured, and pet first aid certified.
                         </p>
 
-                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-                            <motion.button
-                                className="btn-primary px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-semibold text-sm sm:text-base"
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                            >
-                                Book Services Now
-                            </motion.button>
-
-                            <motion.button
-                                className="btn-secondary px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-semibold text-sm sm:text-base"
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                            >
-                                Download Service Guide
-                            </motion.button>
-                        </div>
+                        <motion.button
+                            className="btn-primary px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-semibold text-sm sm:text-base"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            Book Now <ArrowRight className="inline w-4 h-4 ml-1" />
+                        </motion.button>
                     </div>
                 </motion.div>
             </div>
