@@ -207,10 +207,10 @@ const VirtualTour = () => {
                     viewport={{ once: true }}
                 >
                     {/* Mobile SVGs */}
-                    <div className="flex items-center justify-center gap-6 mb-6 lg:hidden">
+                    <div className="flex items-center justify-center gap-14 mb-6 lg:hidden">
                         <motion.div
                             initial={{ opacity: 0, scale: 0.8 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
+                            whileInView={{ opacity: 1, scale: 1.5 }}
                             transition={{ duration: 0.6 }}
                         >
                             <Image
@@ -223,7 +223,7 @@ const VirtualTour = () => {
                         </motion.div>
                         <motion.div
                             initial={{ opacity: 0, scale: 0.8 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
+                            whileInView={{ opacity: 1, scale: 1.5 }}
                             transition={{ duration: 0.6, delay: 0.1 }}
                         >
                             <Image
@@ -242,8 +242,10 @@ const VirtualTour = () => {
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{
                             opacity: 0.7,
-                            x: 0,
-                            y: [0, 10, 0]
+                            x: -30,
+                            y: [0, 10, 0],
+                            scale: 2.5
+
                         }}
                         viewport={{ once: true }}
                         transition={{
@@ -265,8 +267,9 @@ const VirtualTour = () => {
                         initial={{ opacity: 0, x: 50 }}
                         whileInView={{
                             opacity: 0.7,
-                            x: 0,
-                            y: [0, -10, 0]
+                            x: 30,
+                            y: [0, -10, 0],
+                            scale: 2.5
                         }}
                         viewport={{ once: true }}
                         transition={{
@@ -323,35 +326,45 @@ const VirtualTour = () => {
                 </div>
 
                 {/* Category Filter */}
-                <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10">
-                    {categories.map((cat, index) => {
-                        const Icon = cat.icon
-                        return (
-                            <motion.button
-                                key={cat.id}
-                                onClick={() => {
-                                    setSelectedCategory(cat.id)
-                                    setCurrentRoom(0)
-                                }}
-                                className={`group px-4 py-2 rounded-full flex items-center gap-2 transition-all ${
-                                    selectedCategory === cat.id
-                                        ? 'bg-primary-500 text-white shadow-soft-lg'
-                                        : 'bg-white hover:bg-primary-50 text-neutral-700 shadow-soft hover:shadow-soft-md border border-primary-200'
-                                }`}
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: index * 0.05 }}
-                                whileHover={{ y: -2 }}
-                                whileTap={{ scale: 0.95 }}
-                            >
-                                <Icon className="w-4 h-4" />
-                                <span className="text-sm font-medium">{cat.label}</span>
-                                <span className={`text-xs ${selectedCategory === cat.id ? 'text-white/80' : 'text-neutral-500'}`}>
-                                    ({cat.count})
-                                </span>
-                            </motion.button>
-                        )
-                    })}
+                <div className="mb-10 overflow-x-auto scrollbar-hide">
+                    <div className="flex justify-start sm:justify-center gap-2 px-4 sm:px-0 pb-2 min-w-max sm:min-w-0 sm:flex-wrap">
+                        {categories.map((cat, index) => {
+                            const Icon = cat.icon
+                            return (
+                                <motion.button
+                                    key={cat.id}
+                                    onClick={() => {
+                                        setSelectedCategory(cat.id)
+                                        setCurrentRoom(0)
+                                    }}
+                                    className={`group px-3 sm:px-4 py-1.5 sm:py-2 rounded-full flex items-center gap-1.5 sm:gap-2 transition-all flex-shrink-0 ${
+                                        selectedCategory === cat.id
+                                            ? 'bg-primary-500 text-white shadow-soft-lg'
+                                            : 'bg-white hover:bg-primary-50 text-neutral-700 shadow-soft hover:shadow-soft-md border border-primary-200'
+                                    }`}
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: index * 0.05 }}
+                                    whileHover={{ y: -2 }}
+                                    whileTap={{ scale: 0.95 }}
+                                >
+                                    <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                                    <span className="text-xs sm:text-sm font-medium whitespace-nowrap">{cat.label}</span>
+                                    <span className={`text-[10px] sm:text-xs ${selectedCategory === cat.id ? 'text-white/80' : 'text-neutral-500'}`}>
+                                        ({cat.count})
+                                    </span>
+                                </motion.button>
+                            )
+                        })}
+                    </div>
+                    {/* Scroll indicator for mobile */}
+                    <div className="sm:hidden flex justify-center mt-2">
+                        <div className="flex gap-1">
+                            <div className="w-6 h-0.5 bg-primary-300 rounded-full"></div>
+                            <div className="w-2 h-0.5 bg-neutral-300 rounded-full"></div>
+                            <div className="w-2 h-0.5 bg-neutral-300 rounded-full"></div>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Carousel View - More Refined */}

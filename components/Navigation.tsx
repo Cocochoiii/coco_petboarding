@@ -79,8 +79,8 @@ export default function Navigation() {
 
     const navItems = [
         { href: '/', label: 'Home', icon: Home },
-        { href: '#services', label: 'Services', icon: Star },
         { href: '#current-pets', label: 'Our Pets', icon: Heart },
+        { href: '#services', label: 'Services', icon: Star },
         { href: '#booking', label: 'Book Now', icon: Calendar },
         { href: '#about', label: 'About', icon: Info },
         { href: '#contact', label: 'Contact', icon: Phone }
