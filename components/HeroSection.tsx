@@ -263,7 +263,8 @@ export default function HeroSection() {
                                     transition={{ delay: 0.7, type: "spring" }}
                                     whileHover={{ scale: 1.05 }}
                                 >
-                                    Cat: $15/day | Dog: $30-40/day
+                                    <div>Cat: $25/night | Dog: $40-60/night</div>
+                                    <div>Dog Daycare: $25-30</div>
                                 </motion.div>
                                 {/* CTA Buttons */}
                                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
