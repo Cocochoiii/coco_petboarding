@@ -15,6 +15,12 @@ import {
 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import Image from 'next/image'
+import emailjs from '@emailjs/browser'
+
+// Your EmailJS credentials
+const EMAILJS_SERVICE_ID = 'service_zutxm39'
+const EMAILJS_TEMPLATE_ID = 'template_w1qhbij'
+const EMAILJS_PUBLIC_KEY = 'vKzLlTxX7f0V2PJoh'
 
 export default function Contact() {
     const [formData, setFormData] = useState({
@@ -31,31 +37,71 @@ export default function Contact() {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [focusedField, setFocusedField] = useState<string | null>(null)
 
+    // Initialize EmailJS (do this once when component mounts)
+    if (typeof window !== 'undefined') {
+        emailjs.init(EMAILJS_PUBLIC_KEY)
+    }
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setIsSubmitting(true)
 
-        await new Promise(resolve => setTimeout(resolve, 1500))
-
-        toast.success("Thank you for your inquiry! We'll get back to you within 2 hours.", {
-            duration: 5000,
-            style: {
-                background: '#111827',
-                color: '#fff'
+        try {
+            // Prepare template parameters
+            const templateParams = {
+                from_name: formData.name,
+                from_email: formData.email,
+                phone: formData.phone || 'Not provided',
+                pet_type: formData.petType,
+                pet_name: formData.petName || 'Not provided',
+                check_in: formData.startDate || 'Not specified',
+                check_out: formData.endDate || 'Not specified',
+                message: formData.message || 'No additional message',
+                reply_to: formData.email
             }
-        })
 
-        setFormData({
-            name: '',
-            email: '',
-            phone: '',
-            petType: 'dog',
-            petName: '',
-            startDate: '',
-            endDate: '',
-            message: ''
-        })
-        setIsSubmitting(false)
+            // Send email using EmailJS
+            const response = await emailjs.send(
+                EMAILJS_SERVICE_ID,
+                EMAILJS_TEMPLATE_ID,
+                templateParams
+            )
+
+            if (response.status === 200) {
+                toast.success("Thank you for your inquiry! We'll get back to you within 2 hours.", {
+                    duration: 5000,
+                    style: {
+                        background: '#111827',
+                        color: '#fff'
+                    }
+                })
+
+                // Reset form
+                setFormData({
+                    name: '',
+                    email: '',
+                    phone: '',
+                    petType: 'dog',
+                    petName: '',
+                    startDate: '',
+                    endDate: '',
+                    message: ''
+                })
+            } else {
+                throw new Error('Failed to send email')
+            }
+        } catch (error) {
+            console.error('Email send error:', error)
+            toast.error("Failed to send your inquiry. Please try again or call us directly at (781) 492-3134", {
+                duration: 5000,
+                style: {
+                    background: '#dc2626',
+                    color: '#fff'
+                }
+            })
+        } finally {
+            setIsSubmitting(false)
+        }
     }
 
     const handleChange = (
@@ -70,7 +116,7 @@ export default function Contact() {
     return (
         <section id="contact" className="py-14 md:py-20 bg-gradient-to-br from-neutral-50 to-white overflow-hidden">
             <div className="container mx-auto px-4 max-w-7xl">
-                {/* Title + SVG */}
+                {/* ===== Title + SVG ===== */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
@@ -447,7 +493,7 @@ export default function Contact() {
                                         <label className="block text-sm font-medium text-neutral-700 mb-2">
                                             Your Name *
                                         </label>
-                                        <motion.input
+                                        <input
                                             type="text"
                                             name="name"
                                             required
@@ -455,9 +501,6 @@ export default function Contact() {
                                             onChange={handleChange}
                                             onFocus={() => setFocusedField('name')}
                                             onBlur={() => setFocusedField(null)}
-                                            animate={{
-                                                scale: focusedField === 'name' ? 1.01 : 1
-                                            }}
                                             className="w-full px-4 py-3 border-2 border-neutral-200 rounded-lg focus:border-primary-700 focus:outline-none transition-all"
                                             placeholder="John Doe"
                                         />
@@ -467,7 +510,7 @@ export default function Contact() {
                                         <label className="block text-sm font-medium text-neutral-700 mb-2">
                                             Email Address *
                                         </label>
-                                        <motion.input
+                                        <input
                                             type="email"
                                             name="email"
                                             required
@@ -475,9 +518,6 @@ export default function Contact() {
                                             onChange={handleChange}
                                             onFocus={() => setFocusedField('email')}
                                             onBlur={() => setFocusedField(null)}
-                                            animate={{
-                                                scale: focusedField === 'email' ? 1.01 : 1
-                                            }}
                                             className="w-full px-4 py-3 border-2 border-neutral-200 rounded-lg focus:border-primary-700 focus:outline-none transition-all"
                                             placeholder="john@example.com"
                                         />
