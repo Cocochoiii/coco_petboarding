@@ -264,7 +264,7 @@ export default function HeroSection() {
                                     whileHover={{ scale: 1.05 }}
                                 >
                                     <div>Cat: $25/night | Dog: $40-60/night</div>
-                                    <div>Dog Daycare: $25-30</div>
+                                    <div>Dog Daycare: $25-30 (10 Hours)</div>
                                 </motion.div>
                                 {/* CTA Buttons */}
                                 <div className="flex flex-col sm:flex-row gap-4 justify-center">

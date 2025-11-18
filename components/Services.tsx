@@ -41,7 +41,7 @@ export default function Services() {
             description: 'Your pet stays in our cozy home environment with 24/7 supervision and care',
             price: (
                 <div>
-                    <div>Cat: $25/night | Dog: $40-60/night</div>
+                    <div>Cat: $25 | Dog: $40-60</div>
                     <div>Dog Daycare: $25-30</div>
                 </div>
             ),
