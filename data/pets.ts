@@ -347,7 +347,12 @@ export const currentPets: CurrentPet[] = [
         images: [
             '/pets/nova/nova-1.jpg',
             '/pets/nova/nova-2.jpg',
-            '/pets/nova/nova-3.jpg'
+            '/pets/nova/nova-3.jpg',
+            '/pets/nova/nova-4.jpg',
+            '/pets/nova/nova-5.jpg',
+            '/pets/nova/nova-6.jpg',
+            '/pets/nova/nova-7.jpg',
+
         ],
         joinedDate: '2024-09-18'
     },
