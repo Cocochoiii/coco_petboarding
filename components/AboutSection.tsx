@@ -196,11 +196,11 @@ export default function AboutSection() {
                         <p className="text-neutral-600 mb-8 text-base md:text-lg leading-relaxed text-center lg:text-left">
                             Have cared for{' '}
                             <span className="font-bold text-primary-700 border-b-2 border-primary-200">
-                                13 wonderful cats
+                                16 wonderful cats
                             </span>{' '}
                             and{' '}
                             <span className="font-bold text-primary-700 border-b-2 border-primary-200">
-                                8 amazing dogs
+                                15 amazing dogs
                             </span>
                             , we understand the unique personality and needs of each pet. Your pet&apos;s comfort,
                             safety, and happiness are our absolute top priorities.

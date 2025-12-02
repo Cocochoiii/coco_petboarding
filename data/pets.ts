@@ -228,7 +228,6 @@ export const currentPets: CurrentPet[] = [
         name: 'Oscar',
         type: 'dog',
         breed: 'Golden Retriever',
-        age: '4 months',
         status: 'boarding',
         personality: ['Puppy Energy', 'Friendly', 'Eager to Learn'],
         favoriteActivities: ['Fetch', 'Puppy play', 'Training treats'],
@@ -351,5 +350,53 @@ export const currentPets: CurrentPet[] = [
             '/pets/nova/nova-3.jpg'
         ],
         joinedDate: '2024-09-18'
+    },
+    {
+        id: 'dog-9',
+        name: 'Haha',
+        type: 'dog',
+        breed: 'Samoyed',
+        status: 'boarding',
+        personality: ['Cheerful', 'Friendly', 'Fluffy'],
+        favoriteActivities: ['Playing in snow', 'Smiling', 'Cuddles'],
+        image: '/pets/haha/haha-1.jpg',
+        images: [
+            '/pets/haha/haha-1.jpg',
+            '/pets/haha/haha-2.jpg',
+            '/pets/haha/haha-3.jpg'
+        ],
+        joinedDate: '2024-10-05'
+    },
+    {
+        id: 'dog-10',
+        name: 'Jiujiu',
+        type: 'dog',
+        breed: 'Samoyed',
+        status: 'boarding',
+        personality: ['Gentle', 'Playful', 'Sweet'],
+        favoriteActivities: ['Running', 'Being brushed', 'Treats'],
+        image: '/pets/jiujiu/jiujiu-1.jpg',
+        images: [
+            '/pets/jiujiu/jiujiu-1.jpg',
+            '/pets/jiujiu/jiujiu-2.jpg',
+            '/pets/jiujiu/jiujiu-3.jpg'
+        ],
+        joinedDate: '2024-10-10'
+    },
+    {
+        id: 'dog-11',
+        name: 'Toast',
+        type: 'dog',
+        breed: 'Standard Poodle',
+        status: 'boarding',
+        personality: ['Intelligent', 'Elegant', 'Active'],
+        favoriteActivities: ['Learning tricks', 'Swimming', 'Agility'],
+        image: '/pets/toast/toast-1.jpg',
+        images: [
+            '/pets/toast/toast-1.jpg',
+            '/pets/toast/toast-2.jpg',
+            '/pets/toast/toast-3.jpg'
+        ],
+        joinedDate: '2024-10-15'
     }
 ]

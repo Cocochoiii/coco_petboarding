@@ -65,7 +65,10 @@ export default function CurrentPets() {
         'dog-5': ['/videos/Tata.mp4'], // Tata
         'dog-6': ['/videos/Caicai.mp4'], // Caicai
         'dog-7': ['/videos/Mia_dog.mp4'], // Mia (dog)
-        'dog-8': ['/videos/Nova.mp4'] // Nova
+        'dog-8': ['/videos/Nova.mp4'], // Nova
+        'dog-9': ['/videos/Haha.mp4'], // Haha (Samoyed)
+        'dog-10': ['/videos/Jiujiu.mp4'], // Jiujiu (Samoyed)
+        'dog-11': ['/videos/Toast.mp4'] // Toast (Standard Poodle)
     }
 
     const handleVideoPlay = (petId: string) => {
@@ -1032,4 +1035,3 @@ export default function CurrentPets() {
         </section>
     )
 }
-
