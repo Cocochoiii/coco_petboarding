@@ -124,20 +124,20 @@ export default function Contact() {
                     className="mb-6 md:mb-12 relative"
                 >
                     {/* Mobile SVGs */}
-                    <div className="flex items-center justify-center gap-8 mb-3 lg:hidden">
+                    <div className="flex items-center justify-center gap-12 mb-3 lg:hidden">
                         <Image
                             src="/svgs/contact-decoration2.svg"
                             alt="Contact decoration left"
                             width={50}
                             height={50}
-                            className="w-20 h-20 opacity-80"
+                            className="w-20 h-20 opacity-80 scale-150"
                         />
                         <Image
                             src="/svgs/contact-decoration.svg"
                             alt="Contact decoration right"
                             width={50}
                             height={50}
-                            className="w-20 h-20 opacity-80"
+                            className="w-20 h-20 opacity-80 scale-150"
                         />
                     </div>
 
