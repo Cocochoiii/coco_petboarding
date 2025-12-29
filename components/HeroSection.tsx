@@ -244,7 +244,7 @@ export default function HeroSection() {
                                         className="font-semibold text-neutral-900 border-b-2 border-primary-700 inline-block"
                                         whileHover={{ scale: 1.1 }}
                                     >
-                                        14 cats
+                                        15 cats
                                     </motion.span>{' '}
                                     and{' '}
                                     <motion.span
