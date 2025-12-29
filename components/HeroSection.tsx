@@ -244,14 +244,14 @@ export default function HeroSection() {
                                         className="font-semibold text-neutral-900 border-b-2 border-primary-700 inline-block"
                                         whileHover={{ scale: 1.1 }}
                                     >
-                                        16 cats
+                                        14 cats
                                     </motion.span>{' '}
                                     and{' '}
                                     <motion.span
                                         className="font-semibold text-neutral-900 border-b-2 border-primary-700 inline-block"
                                         whileHover={{ scale: 1.1 }}
                                     >
-                                        15 dogs
+                                        16 dogs
                                     </motion.span>{' '}
                                 </motion.p>
 

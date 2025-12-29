@@ -222,6 +222,22 @@ export const currentPets: CurrentPet[] = [
         ],
         joinedDate: '2024-10-01'
     },
+    {
+        id: 'cat-14',
+        name: 'Mituan',
+        type: 'cat',
+        breed: 'British Shorthair Lilac Golden',
+        status: 'boarding',
+        personality: ['Gentle', 'Elegant', 'Affectionate'],
+        favoriteActivities: ['Lounging', 'Gentle play', 'Being admired'],
+        image: '/pets/mituan/mituan-1.jpg',
+        images: [
+            '/pets/mituan/mituan-1.jpg',
+            '/pets/mituan/mituan-2.jpg',
+            '/pets/mituan/mituan-3.jpg'
+        ],
+        joinedDate: '2024-11-15'
+    },
     // Dogs
     {
         id: 'dog-1',
@@ -403,5 +419,85 @@ export const currentPets: CurrentPet[] = [
             '/pets/toast/toast-3.jpg'
         ],
         joinedDate: '2024-10-15'
+    },
+    {
+        id: 'dog-12',
+        name: 'Honey',
+        type: 'dog',
+        breed: 'Labrador Retriever',
+        status: 'boarding',
+        personality: ['Loyal', 'Outgoing', 'Gentle'],
+        favoriteActivities: ['Fetching', 'Swimming', 'Snuggling'],
+        image: '/pets/honey/honey-1.jpg',
+        images: [
+            '/pets/honey/honey-1.jpg',
+            '/pets/honey/honey-2.jpg',
+            '/pets/honey/honey-3.jpg'
+        ],
+        joinedDate: '2024-10-20'
+    },
+    {
+        id: 'dog-13',
+        name: 'Nina',
+        type: 'dog',
+        breed: 'Siberian Husky',
+        status: 'boarding',
+        personality: ['Adventurous', 'Vocal', 'Friendly'],
+        favoriteActivities: ['Running', 'Howling', 'Playing in snow'],
+        image: '/pets/nina/nina-1.jpg',
+        images: [
+            '/pets/nina/nina-1.jpg',
+            '/pets/nina/nina-2.jpg',
+            '/pets/nina/nina-3.jpg'
+        ],
+        joinedDate: '2024-10-25'
+    },
+    {
+        id: 'dog-14',
+        name: 'Marble',
+        type: 'dog',
+        breed: 'Whippet',
+        status: 'boarding',
+        personality: ['Graceful', 'Calm', 'Affectionate'],
+        favoriteActivities: ['Sprinting', 'Cuddling', 'Sunbathing'],
+        image: '/pets/marble/marble-1.jpg',
+        images: [
+            '/pets/marble/marble-1.jpg',
+            '/pets/marble/marble-2.jpg',
+            '/pets/marble/marble-3.jpg'
+        ],
+        joinedDate: '2024-11-01'
+    },
+    {
+        id: 'dog-15',
+        name: 'Bobo',
+        type: 'dog',
+        breed: 'Long-haired Miniature Dachshund',
+        status: 'boarding',
+        personality: ['Curious', 'Brave', 'Playful'],
+        favoriteActivities: ['Digging', 'Exploring', 'Lap time'],
+        image: '/pets/bobo/bobo-1.jpg',
+        images: [
+            '/pets/bobo/bobo-1.jpg',
+            '/pets/bobo/bobo-2.jpg',
+            '/pets/bobo/bobo-3.jpg'
+        ],
+        joinedDate: '2024-11-05'
+    },
+    {
+        id: 'dog-16',
+        name: 'Huhu',
+        type: 'dog',
+        breed: 'Golden Retriever',
+        status: 'boarding',
+        personality: ['Friendly', 'Devoted', 'Playful'],
+        favoriteActivities: ['Fetch', 'Swimming', 'Making friends'],
+        image: '/pets/huhu/huhu-1.jpg',
+        images: [
+            '/pets/huhu/huhu-1.jpg',
+            '/pets/huhu/huhu-2.jpg',
+            '/pets/huhu/huhu-3.jpg'
+        ],
+        joinedDate: '2024-11-10'
     }
 ]

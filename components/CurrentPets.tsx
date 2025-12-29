@@ -57,6 +57,7 @@ export default function CurrentPets() {
         'cat-11': ['/videos/Yaya.mp4'], // Yaya
         'cat-12': ['/videos/Ergou.mp4'], // Er Gou
         'cat-13': ['/videos/chouchou.mp4'], // Chouchou
+        'cat-14': ['/videos/Mituan.mp4'], // Mituan (British Shorthair Lilac Golden)
         // Dogs
         'dog-1': ['/videos/Oscar.mp4'], // Oscar
         'dog-2': ['/videos/Loki.mp4'], // Loki
@@ -68,7 +69,12 @@ export default function CurrentPets() {
         'dog-8': ['/videos/Nova.mp4'], // Nova
         'dog-9': ['/videos/Haha.mp4'], // Haha (Samoyed)
         'dog-10': ['/videos/Jiujiu.mp4'], // Jiujiu (Samoyed)
-        'dog-11': ['/videos/Toast.mp4'] // Toast (Standard Poodle)
+        'dog-11': ['/videos/Toast.mp4'], // Toast (Standard Poodle)
+        'dog-12': ['/videos/Honey.mp4'], // Honey (Labrador Retriever)
+        'dog-13': ['/videos/Nina.mp4'], // Nina (Siberian Husky)
+        'dog-14': ['/videos/Marble.mp4'], // Marble (Whippet)
+        'dog-15': ['/videos/Bobo.mp4'], // Bobo (Long-haired Miniature Dachshund)
+        'dog-16': ['/videos/Huhu.mp4'] // Huhu (Golden Retriever)
     }
 
     const handleVideoPlay = (petId: string) => {
