@@ -142,7 +142,7 @@ export default function Footer() {
                                 whileHover={{ x: 5 }}
                             >
                                 <Phone className="h-4 w-4 text-primary-500" />
-                                <span>(781) 492-3134</span>
+                                <span>(617) 762-8179</span>
                             </motion.li>
                             <motion.li
                                 className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer"

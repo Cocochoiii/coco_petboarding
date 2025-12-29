@@ -92,7 +92,7 @@ export default function Contact() {
             }
         } catch (error) {
             console.error('Email send error:', error)
-            toast.error("Failed to send your inquiry. Please try again or call us directly at (781) 492-3134", {
+            toast.error("Failed to send your inquiry. Please try again or call us directly at (617) 762-8179", {
                 duration: 5000,
                 style: {
                     background: '#dc2626',
@@ -273,7 +273,7 @@ export default function Contact() {
                                                 value={formData.phone}
                                                 onChange={handleChange}
                                                 className="w-full px-3 py-2 border-2 border-neutral-200 rounded-lg focus:border-primary-700 focus:outline-none transition-all text-sm"
-                                                placeholder="(781) 492-3134"
+                                                placeholder="(617) 762-8179"
                                             />
                                         </div>
 
@@ -396,13 +396,13 @@ export default function Contact() {
                             <div className="bg-white rounded-2xl shadow-soft-xl border border-neutral-100 p-3.5 flex-shrink-0 snap-center" style={{ width: '220px' }}>
                                 <h4 className="text-sm font-bold mb-2.5 text-neutral-900">Quick Contact</h4>
                                 <div className="space-y-2">
-                                    <a href="tel:781-492-3134" className="flex items-center gap-2">
+                                    <a href="tel:617-762-8179" className="flex items-center gap-2">
                                         <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0">
                                             <Phone className="w-3.5 h-3.5 text-primary-700" />
                                         </div>
                                         <div>
                                             <p className="text-[10px] font-medium text-neutral-900">Phone</p>
-                                            <p className="text-[10px] text-neutral-600">(781) 492-3134</p>
+                                            <p className="text-[10px] text-neutral-600">(617) 762-8179</p>
                                         </div>
                                     </a>
 
@@ -535,7 +535,7 @@ export default function Contact() {
                                             value={formData.phone}
                                             onChange={handleChange}
                                             className="w-full px-4 py-3 border-2 border-neutral-200 rounded-lg focus:border-primary-700 focus:outline-none transition-all"
-                                            placeholder="(781) 492-3134"
+                                            placeholder="(617) 762-8179"
                                         />
                                     </div>
 
@@ -656,7 +656,7 @@ export default function Contact() {
                             <h3 className="text-xl font-bold mb-6 text-neutral-900">Quick Contact</h3>
                             <div className="space-y-4">
                                 <motion.a
-                                    href="tel:781-492-3134"
+                                    href="tel:617-762-8179"
                                     className="flex items-center gap-3 group cursor-pointer"
                                     whileHover={{ x: 5 }}
                                 >
@@ -666,7 +666,7 @@ export default function Contact() {
                                     <div>
                                         <p className="font-medium text-neutral-900">Phone</p>
                                         <p className="text-neutral-600">
-                                            (781) 492-3134
+                                            (617) 762-8179
                                         </p>
                                     </div>
                                 </motion.a>
