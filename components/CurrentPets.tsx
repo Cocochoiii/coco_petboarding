@@ -57,7 +57,8 @@ export default function CurrentPets() {
         'cat-11': ['/videos/Yaya.mp4'], // Yaya
         'cat-12': ['/videos/Ergou.mp4'], // Er Gou
         'cat-13': ['/videos/chouchou.mp4'], // Chouchou
-        'cat-14': ['/videos/Mituan.mp4'], // Mituan (British Shorthair Lilac Golden)
+        'cat-14': ['/videos/Xiaojin.mp4'], // Xiaojin (Golden British Shorthair)
+        'cat-15': ['/videos/Mituan.mp4'], // Mituan (British Shorthair Lilac Golden)
         // Dogs
         'dog-1': ['/videos/Oscar.mp4'], // Oscar
         'dog-2': ['/videos/Loki.mp4'], // Loki

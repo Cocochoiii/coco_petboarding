@@ -224,19 +224,35 @@ export const currentPets: CurrentPet[] = [
     },
     {
         id: 'cat-14',
+        name: 'Xiaojin',
+        type: 'cat',
+        breed: 'Golden British Shorthair',
+        status: 'boarding',
+        personality: ['Charming', 'Gentle', 'Sociable'],
+        favoriteActivities: ['Lounging', 'Being admired', 'Treat time'],
+        image: '/pets/xiaojin/xiaojin-1.jpg',
+        images: [
+            '/pets/xiaojin/xiaojin-1.jpg',
+            '/pets/xiaojin/xiaojin-2.jpg',
+            '/pets/xiaojin/xiaojin-3.jpg'
+        ],
+        joinedDate: '2024-11-15'
+    },
+    {
+        id: 'cat-15',
         name: 'Mituan',
         type: 'cat',
         breed: 'British Shorthair Lilac Golden',
         status: 'boarding',
-        personality: ['Gentle', 'Elegant', 'Affectionate'],
-        favoriteActivities: ['Lounging', 'Gentle play', 'Being admired'],
+        personality: ['Sweet', 'Calm', 'Cuddly'],
+        favoriteActivities: ['Napping', 'Gentle play', 'Snuggling'],
         image: '/pets/mituan/mituan-1.jpg',
         images: [
             '/pets/mituan/mituan-1.jpg',
             '/pets/mituan/mituan-2.jpg',
             '/pets/mituan/mituan-3.jpg'
         ],
-        joinedDate: '2024-11-15'
+        joinedDate: '2024-11-20'
     },
     // Dogs
     {
