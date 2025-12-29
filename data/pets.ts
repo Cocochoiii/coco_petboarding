@@ -28,7 +28,7 @@ export const currentPets: CurrentPet[] = [
             '/pets/bibi/bibi-2.jpg',
             '/pets/bibi/bibi-3.jpg'
         ],
-        joinedDate: '2022-01-15'
+        joinedDate: '2023-08-10'
     },
     {
         id: 'cat-2',
@@ -44,7 +44,7 @@ export const currentPets: CurrentPet[] = [
             '/pets/dudu/dudu-2.jpg',
             '/pets/dudu/dudu-3.jpg'
         ],
-        joinedDate: '2022-03-20'
+        joinedDate: '2025-02-08'
     },
     {
         id: 'cat-3',
