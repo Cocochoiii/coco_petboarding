@@ -515,5 +515,21 @@ export const currentPets: CurrentPet[] = [
             '/pets/huhu/huhu-3.jpg'
         ],
         joinedDate: '2024-11-10'
+    },
+    {
+        id: 'dog-17',
+        name: 'Cooper',
+        type: 'dog',
+        breed: 'Golden Retriever',
+        status: 'boarding',
+        personality: ['Friendly', 'Intimated', 'lovely'],
+        favoriteActivities: ['Comforting people', 'Staying with people', 'Making friends'],
+        image: '/pets/cooper/cooper-1.jpg',
+        images: [
+            '/pets/cooper/cooper-1.jpg',
+            '/pets/cooper/cooper-2.jpg',
+            '/pets/cooper/cooper-3.jpg'
+        ],
+        joinedDate: '2024-11-30'
     }
 ]
