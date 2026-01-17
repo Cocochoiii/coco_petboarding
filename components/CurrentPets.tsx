@@ -75,7 +75,8 @@ export default function CurrentPets() {
         'dog-13': ['/videos/Nina.mp4'], // Nina (Siberian Husky)
         'dog-14': ['/videos/Marble.mp4'], // Marble (Whippet)
         'dog-15': ['/videos/Bobo.mp4'], // Bobo (Long-haired Miniature Dachshund)
-        'dog-16': ['/videos/Huhu.mp4'] // Huhu (Golden Retriever)
+        'dog-16': ['/videos/Huhu.mp4'], // Huhu (Golden Retriever)
+        'dog-17': ['/videos/Cooper.mp4'] // Huhu (Golden Retriever)
     }
 
     const handleVideoPlay = (petId: string) => {
